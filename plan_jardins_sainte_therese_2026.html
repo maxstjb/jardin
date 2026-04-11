@@ -1,0 +1,2282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jardin de Sainte-Thérèse · 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────── */
+    :root {
+      --cream: #F5EFE3;
+      --cream-light: #FAF6EF;
+      --cream-dark: #EDE5D4;
+      --green-deep: #2A5C45;
+      --green-mid: #3D8060;
+      --green-sage: #7BAE8E;
+      --green-light: #C3DDD0;
+      --gold: #C8943A;
+      --gold-light: #E8C07A;
+      --terra: #B84B2C;
+      --terra-light: #E07050;
+      --text-primary: #1E1A14;
+      --text-secondary: #5A5245;
+      --text-muted: #9A8E80;
+      --border: #D8CFC0;
+      --border-light: #EBE4D6;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(42, 28, 10, 0.08);
+      --shadow-md: 0 4px 20px rgba(42, 28, 10, 0.12);
+      --shadow-lg: 0 8px 40px rgba(42, 28, 10, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+
+    /* ─────────────────────────────
+       RESET & BASE
+    ───────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────
+       HERO HEADER
+    ───────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--green-deep);
+      padding: 3rem 1.5rem 2.5rem;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(125,185,148,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,148,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Decorative botanical SVG in header */
+    .hero-leaves {
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5 Q20 20 10 25 Q20 30 30 55 Q40 30 50 25 Q40 20 30 5Z' fill='%23ffffff'/%3E%3C/svg%3E");
+      background-size: 60px 60px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 700;
+      color: var(--cream-light);
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: rgba(245, 239, 227, 0.65);
+      font-weight: 300;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 0.72rem;
+      color: rgba(245, 239, 227, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─────────────────────────────
+       MAIN CONTENT
+    ───────────────────────────── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────
+       TAB BAR
+    ───────────────────────────── */
+    .tab-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 1.2rem 0.85rem;
+      background: var(--white);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      line-height: 1.3;
+      gap: 4px;
+    }
+
+    .tab-icon {
+      font-size: 1.5rem;
+      margin-bottom: 2px;
+    }
+
+    .tab-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .tab-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .tab:hover:not(.active) {
+      border-color: var(--green-sage);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tab.active {
+      background: var(--green-deep);
+      border-color: var(--green-deep);
+      color: var(--cream-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(42, 92, 69, 0.35);
+    }
+
+    .tab.active .tab-name { color: var(--cream-light); }
+    .tab.active .tab-desc { color: rgba(245, 239, 227, 0.55); }
+
+    /* ─────────────────────────────
+       BED VIEW
+    ───────────────────────────── */
+    .bed-view { display: none; }
+    .bed-view.active { display: block; }
+
+    /* Bed header */
+    .bed-header {
+      margin-bottom: 1.25rem;
+    }
+
+    .bed-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .bed-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Garden bed card */
+    .bed-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+
+    .bed-card-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .bed-card-label::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--green-mid);
+    }
+
+    .garden-bed { width: 100%; display: block; border-radius: 10px; }
+
+    /* Click hint */
+    .click-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      padding: 0 0.25rem;
+    }
+
+    .click-hint-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    /* ─────────────────────────────
+       LEGEND
+    ───────────────────────────── */
+    .legend-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .legend-title {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      background: var(--cream);
+      padding: 4px 10px 4px 6px;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────
+       INFO PANEL (Plant detail)
+    ───────────────────────────── */
+    .info-panel {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 56px;
+    }
+
+    .info-panel-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      min-height: 56px;
+    }
+
+    .info-panel-empty-icon {
+      font-size: 1.1rem;
+      opacity: 0.5;
+    }
+
+    /* ─────────────────────────────
+       PLANT CARD (info panel content)
+    ───────────────────────────── */
+    .plant-card {
+      animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .plant-card-hero {
+      padding: 1.25rem 1.25rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .plant-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .plant-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .plant-card-qty {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      display: inline;
+    }
+
+    .plant-card-meta {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .plant-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .plant-badge-priority {
+      background: #FFF3E0;
+      color: #B75A00;
+    }
+
+    .plant-badge-type {
+      background: var(--cream);
+      color: var(--text-secondary);
+    }
+
+    .plant-card-desc {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding: 1rem 1.25rem 0.75rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Timeline */
+    .plant-card-section {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .plant-card-section:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .plant-card-timeline {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 28px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-seg {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .timeline-seg.inactive {
+      background: var(--cream-dark);
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .timeline-legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-legend-dot {
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* Grid fields */
+    .plant-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .plant-field {
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      border: 1px solid var(--border-light);
+    }
+
+    .plant-field-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      font-weight: 600;
+    }
+
+    .plant-field-value {
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .plant-field-note {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .plant-field-full {
+      grid-column: 1 / -1;
+    }
+
+    /* Companion tags */
+    .companions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .companion-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .companion-tag.good {
+      background: #E8F5EE;
+      color: #1D6B45;
+      border: 1px solid #B8DFC9;
+    }
+
+    .companion-tag.bad {
+      background: #FDF0EE;
+      color: #942B20;
+      border: 1px solid #F2C5BE;
+    }
+
+    /* Conseils */
+    .conseils-box {
+      background: linear-gradient(135deg, #F0F7F4 0%, #EBF4EF 100%);
+      border: 1px solid #C8E0D4;
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* Close button for plant card */
+    .plant-card-close-bar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem 0.75rem 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .close-btn:hover {
+      background: var(--cream);
+      color: var(--text-primary);
+    }
+
+    /* ─────────────────────────────
+       SVG STYLES
+    ───────────────────────────── */
+    .plant-group {
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .plant-group:hover { opacity: 0.78; }
+
+    .section-label { font-size: 11px; fill: var(--text-muted); pointer-events: none; }
+    .compass { font-size: 11px; fill: #9A8E80; }
+
+    /* ─────────────────────────────
+       FOOTER
+    ───────────────────────────── */
+    .footer {
+      background: var(--green-deep);
+      color: rgba(245, 239, 227, 0.5);
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 1.5rem;
+      font-style: italic;
+    }
+
+    .footer strong {
+      color: var(--gold-light);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────
+       CALENDAR
+    ───────────────────────────── */
+    .calendar-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .calendar-progress-overall {
+      margin-top: 1rem;
+    }
+
+    .calendar-progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .calendar-progress-label strong {
+      font-size: 1.1rem;
+      color: var(--green-deep);
+    }
+
+    .calendar-progress-bar {
+      height: 10px;
+      border-radius: 5px;
+      background: var(--cream-dark);
+      overflow: hidden;
+    }
+
+    .calendar-progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, var(--green-mid), var(--green-sage));
+      transition: width 0.4s ease;
+    }
+
+    /* Month sections */
+    .calendar-month {
+      margin-bottom: 1.75rem;
+    }
+
+    .calendar-month-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: var(--cream);
+      padding: 0.75rem 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .calendar-month-header::before {
+      content: '';
+      position: absolute;
+      inset: -4px 0;
+      background: var(--cream);
+      z-index: -1;
+    }
+
+    .calendar-month-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--green-deep);
+      color: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .calendar-month-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .calendar-month-progress {
+      margin-left: auto;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .calendar-month-bar {
+      width: 60px;
+      height: 5px;
+      border-radius: 3px;
+      background: var(--cream-dark);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .calendar-month-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--green-mid);
+      transition: width 0.4s ease;
+    }
+
+    /* Week cards */
+    .calendar-week {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 0.75rem;
+      transition: opacity 0.3s;
+    }
+
+    .calendar-week.current-week {
+      border-color: var(--gold);
+      border-width: 2px;
+      box-shadow: 0 4px 20px rgba(200, 148, 58, 0.2);
+    }
+
+    .calendar-week-badge {
+      display: none;
+    }
+
+    .calendar-week.current-week .calendar-week-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .calendar-week.past-complete {
+      opacity: 0.5;
+    }
+
+    .calendar-week-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .calendar-week-dates {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .calendar-week-duration {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--cream);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+
+    .calendar-week-progress {
+      margin-left: auto;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .calendar-week-progress .done {
+      color: var(--green-mid);
+      font-weight: 600;
+    }
+
+    /* Task items */
+    .calendar-tasks {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calendar-task {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
+    }
+
+    .calendar-task:last-child {
+      border-bottom: none;
+    }
+
+    .calendar-task input[type="checkbox"] {
+      display: none;
+    }
+
+    .calendar-task-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.2s;
+      background: var(--white);
+    }
+
+    .calendar-task-check::after {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 10px;
+      border: solid var(--white);
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg) translateY(-1px);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .calendar-task.checked .calendar-task-check {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+    }
+
+    .calendar-task.checked .calendar-task-check::after {
+      opacity: 1;
+    }
+
+    .calendar-task.checked .calendar-task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .calendar-task-text {
+      flex: 1;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--text-primary);
+    }
+
+    .calendar-task-badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-semis { background: #E8F5EE; color: var(--green-deep); }
+    .badge-transplantation { background: #FDF0EE; color: var(--terra); }
+    .badge-recolte { background: #FFF8E8; color: #8B6914; }
+    .badge-engrais { background: #FFF3E0; color: #B75A00; }
+    .badge-preparation { background: var(--cream); color: var(--text-secondary); }
+    .badge-entretien { background: #F0F4F8; color: #4A5568; }
+
+    /* ─────────────────────────────
+       RESPONSIVE
+    ───────────────────────────── */
+    @media (max-width: 480px) {
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .hero-stats { gap: 1rem; }
+      .tab-bar { grid-template-columns: 1fr 1fr; }
+      .tab[data-bed="calendrier"] { grid-column: 1 / -1; }
+      .tab { padding: 0.75rem 0.8rem; }
+      .tab-icon { font-size: 1.3rem; }
+      .plant-card-grid { grid-template-columns: 1fr; }
+      .plant-card-hero { gap: 0.75rem; }
+      .plant-card-icon { width: 44px; height: 44px; font-size: 1.3rem; }
+      .calendar-week { padding: 0.85rem 1rem; }
+      .calendar-task-badge { font-size: 0.6rem; padding: 2px 6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO ──────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-leaves"></div>
+    <div class="hero-badge">🌱 Saison 2026 · Zone 5b</div>
+    <h1 class="hero-title">Jardin de<br>Sainte-Thérèse</h1>
+    <p class="hero-subtitle">Plan de culture · Printemps–Automne</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">2</span>
+        <span class="hero-stat-label">Bacs surélevés</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">18</span>
+        <span class="hero-stat-label">Variétés cultivées</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">Juin</span>
+        <span class="hero-stat-label">Transplantation</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN ──────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- TAB BAR -->
+    <div class="tab-bar">
+      <button class="tab active" data-bed="maison" onclick="showBed('maison')">
+        <span class="tab-icon">☀️</span>
+        <span class="tab-name">Bac maison</span>
+        <span class="tab-desc">8×3 pi · Plein soleil sud</span>
+      </button>
+      <button class="tab" data-bed="arriere" onclick="showBed('arriere')">
+        <span class="tab-icon">🌿</span>
+        <span class="tab-name">Bac arrière</span>
+        <span class="tab-desc">16×4 pi · 4 sections</span>
+      </button>
+      <button class="tab" data-bed="calendrier" onclick="showBed('calendrier')">
+        <span class="tab-icon">📅</span>
+        <span class="tab-name">Calendrier</span>
+        <span class="tab-desc">Mars–Sept. · Tâches hebdo</span>
+      </button>
+    </div>
+
+    <!-- ════════════════════════════════
+         BAC MAISON
+    ════════════════════════════════ -->
+    <div class="bed-view active" id="bed-maison">
+
+      <div class="bed-header">
+        <h2 class="bed-title">La zone « star » ⭐</h2>
+        <p class="bed-sub">Plein soleil sud · Hauteur 12 po · Cultures gourmandes en chaleur</p>
+      </div>
+
+      <div class="bed-card">
+        <div class="bed-card-label">Plan du bac — cliquez sur un plant</div>
+        <svg class="garden-bed" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background soil -->
+          <rect x="60" y="30" width="560" height="340" rx="10" fill="#7C5432" opacity="0.09" stroke="#A07050" stroke-width="1" stroke-dasharray="7 3"/>
+          <rect x="64" y="34" width="552" height="332" rx="8" fill="#8B6344" opacity="0.10"/>
+
+          <!-- Compass -->
+          <text class="compass" x="16" y="22" font-weight="600">N ↑</text>
+          <text class="compass" x="16" y="410">S ↓</text>
+          <text class="compass" x="618" y="410" text-anchor="end" font-size="9" fill="#C8943A">☀️ soleil</text>
+
+          <!-- Trellis zone -->
+          <rect x="500" y="34" width="116" height="332" rx="6" fill="#2A5C45" opacity="0.07" stroke="#2A5C45" stroke-width="0.8" stroke-dasharray="5 3"/>
+          <text x="558" y="54" text-anchor="middle" font-size="10" fill="#2A5C45" font-weight="700" letter-spacing="1">TREILLIS</text>
+
+          <!-- Row labels -->
+          <text x="52" y="96" text-anchor="end" font-size="10" fill="#9A8E80">Fond</text>
+          <text x="52" y="108" text-anchor="end" font-size="10" fill="#9A8E80">(nord)</text>
+          <text x="52" y="208" text-anchor="end" font-size="10" fill="#9A8E80">Milieu</text>
+          <text x="52" y="298" text-anchor="end" font-size="10" fill="#9A8E80">Avant</text>
+          <text x="52" y="310" text-anchor="end" font-size="10" fill="#9A8E80">(sud)</text>
+
+          <!-- Tomate Plourde ×3 -->
+          <g class="plant-group" onclick="showInfo('maison','plourde')">
+            <circle cx="120" cy="95" r="29" fill="#E24B4A" opacity="0.15" stroke="#E24B4A" stroke-width="1"/>
+            <circle cx="120" cy="95" r="13" fill="#E24B4A" opacity="0.55"/>
+            <text x="120" y="99" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">P</text>
+            <text x="120" y="116" text-anchor="middle" font-size="8" fill="#A32D2D">Plourde</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','plourde')">
+            <circle cx="210" cy="95" r="29" fill="#E24B4A" opacity="0.15" stroke="#E24B4A" stroke-width="1"/>
+            <circle cx="210" cy="95" r="13" fill="#E24B4A" opacity="0.55"/>
+            <text x="210" y="99" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">P</text>
+            <text x="210" y="116" text-anchor="middle" font-size="8" fill="#A32D2D">Plourde</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','plourde')">
+            <circle cx="300" cy="95" r="29" fill="#E24B4A" opacity="0.15" stroke="#E24B4A" stroke-width="1"/>
+            <circle cx="300" cy="95" r="13" fill="#E24B4A" opacity="0.55"/>
+            <text x="300" y="99" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">P</text>
+            <text x="300" y="116" text-anchor="middle" font-size="8" fill="#A32D2D">Plourde</text>
+          </g>
+          <!-- Tomate cerise ×2 -->
+          <g class="plant-group" onclick="showInfo('maison','cerises')">
+            <circle cx="390" cy="95" r="24" fill="#D4537E" opacity="0.18" stroke="#D4537E" stroke-width="1"/>
+            <circle cx="390" cy="95" r="11" fill="#D4537E" opacity="0.6"/>
+            <text x="390" y="99" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">C</text>
+            <text x="390" y="112" text-anchor="middle" font-size="8" fill="#72243E">Cerise</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','cerises')">
+            <circle cx="460" cy="95" r="24" fill="#D4537E" opacity="0.18" stroke="#D4537E" stroke-width="1"/>
+            <circle cx="460" cy="95" r="11" fill="#D4537E" opacity="0.6"/>
+            <text x="460" y="99" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">C</text>
+            <text x="460" y="112" text-anchor="middle" font-size="8" fill="#72243E">Cerise</text>
+          </g>
+          <!-- Basilic intercalé -->
+          <g class="plant-group" onclick="showInfo('maison','basilic')">
+            <circle cx="165" cy="78" r="8" fill="#639922" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="255" cy="78" r="8" fill="#639922" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="345" cy="78" r="8" fill="#639922" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="425" cy="78" r="8" fill="#639922" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <text x="165" y="66" text-anchor="middle" font-size="7" fill="#3B6D11">Basilic</text>
+          </g>
+
+          <!-- Melon d'eau (trellis) -->
+          <g class="plant-group" onclick="showInfo('maison','melon')">
+            <ellipse cx="558" cy="120" rx="30" ry="42" fill="#2A5C45" opacity="0.12" stroke="#2A5C45" stroke-width="0.8"/>
+            <circle cx="558" cy="100" r="11" fill="#1D9E75" opacity="0.6"/>
+            <circle cx="545" cy="132" r="8" fill="#5DCAA5" opacity="0.5"/>
+            <circle cx="570" cy="148" r="8" fill="#5DCAA5" opacity="0.5"/>
+            <text x="558" y="104" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">M</text>
+            <text x="558" y="165" text-anchor="middle" font-size="8" fill="#0F6E56">Melon</text>
+            <line x1="558" y1="160" x2="558" y2="290" stroke="#1D9E75" stroke-width="1" stroke-dasharray="4 3" opacity="0.35"/>
+            <circle cx="548" cy="222" r="12" fill="#5DCAA5" opacity="0.25" stroke="#1D9E75" stroke-width="0.5"/>
+            <circle cx="568" cy="265" r="12" fill="#5DCAA5" opacity="0.25" stroke="#1D9E75" stroke-width="0.5"/>
+          </g>
+
+          <!-- ROW 2: Poivrons + Brocoli -->
+          <g class="plant-group" onclick="showInfo('maison','poivrons')">
+            <rect x="92" y="178" width="46" height="46" rx="10" fill="#BA7517" opacity="0.18" stroke="#BA7517" stroke-width="0.8"/>
+            <circle cx="115" cy="201" r="11" fill="#EF9F27" opacity="0.6"/>
+            <text x="115" y="205" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">G</text>
+            <text x="115" y="218" text-anchor="middle" font-size="8" fill="#633806">Gourmet</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','poivrons')">
+            <rect x="162" y="178" width="46" height="46" rx="10" fill="#BA7517" opacity="0.18" stroke="#BA7517" stroke-width="0.8"/>
+            <circle cx="185" cy="201" r="11" fill="#EF9F27" opacity="0.6"/>
+            <text x="185" y="205" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">G</text>
+            <text x="185" y="218" text-anchor="middle" font-size="8" fill="#633806">Gourmet</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','king')">
+            <rect x="242" y="178" width="46" height="46" rx="10" fill="#D85A30" opacity="0.18" stroke="#D85A30" stroke-width="0.8"/>
+            <circle cx="265" cy="201" r="11" fill="#D85A30" opacity="0.6"/>
+            <text x="265" y="205" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">K</text>
+            <text x="265" y="218" text-anchor="middle" font-size="8" fill="#4A1B0C">King</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','king')">
+            <rect x="312" y="178" width="46" height="46" rx="10" fill="#D85A30" opacity="0.18" stroke="#D85A30" stroke-width="0.8"/>
+            <circle cx="335" cy="201" r="11" fill="#D85A30" opacity="0.6"/>
+            <text x="335" y="205" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">K</text>
+            <text x="335" y="218" text-anchor="middle" font-size="8" fill="#4A1B0C">King</text>
+          </g>
+          <!-- Brocoli -->
+          <g class="plant-group" onclick="showInfo('maison','brocoli')">
+            <circle cx="420" cy="201" r="22" fill="#639922" opacity="0.15" stroke="#3B6D11" stroke-width="0.8"/>
+            <circle cx="413" cy="195" r="7" fill="#97C459" opacity="0.7"/>
+            <circle cx="427" cy="195" r="7" fill="#97C459" opacity="0.7"/>
+            <circle cx="420" cy="210" r="7" fill="#97C459" opacity="0.7"/>
+            <text x="420" y="232" text-anchor="middle" font-size="8" fill="#27500A">Brocoli</text>
+          </g>
+
+          <!-- ROW 3: Carottes + Laitues -->
+          <g class="plant-group" onclick="showInfo('maison','carottes')">
+            <rect x="80" y="278" width="182" height="42" rx="7" fill="#D85A30" opacity="0.1" stroke="#D85A30" stroke-width="0.8"/>
+            <line x1="100" y1="286" x2="100" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="120" y1="286" x2="120" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="140" y1="286" x2="140" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="160" y1="286" x2="160" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="180" y1="286" x2="180" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="200" y1="286" x2="200" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="220" y1="286" x2="220" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <line x1="240" y1="286" x2="240" y2="312" stroke="#D85A30" stroke-width="2" opacity="0.45" stroke-linecap="round"/>
+            <text x="171" y="330" text-anchor="middle" font-size="9" fill="#993C1D">Carottes Chantenay</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('maison','laitues')">
+            <rect x="282" y="278" width="200" height="42" rx="7" fill="#639922" opacity="0.12" stroke="#639922" stroke-width="0.8"/>
+            <circle cx="307" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="337" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="367" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="397" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="427" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="457" cy="299" r="11" fill="#C0DD97" opacity="0.5" stroke="#639922" stroke-width="0.5"/>
+            <text x="382" y="330" text-anchor="middle" font-size="9" fill="#27500A">Laitues (successions)</text>
+          </g>
+
+          <!-- Soucis bordure -->
+          <g class="plant-group" onclick="showInfo('maison','soucis')">
+            <rect x="68" y="358" width="490" height="18" rx="4" fill="#EF9F27" opacity="0.08" stroke="#EF9F27" stroke-width="0.5"/>
+            <circle cx="80" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="100" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="120" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="140" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="160" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="180" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="200" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="220" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="240" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="260" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="280" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="300" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="320" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="340" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="360" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="380" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="400" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="420" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="440" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="460" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="480" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="500" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="520" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <circle cx="540" cy="367" r="5" fill="#EF9F27" opacity="0.7"/>
+            <text x="310" y="390" text-anchor="middle" font-size="8.5" fill="#854F0B">🌼 Soucis officinaux (bordure anti-pucerons)</text>
+          </g>
+        </svg>
+
+        <div class="click-hint">
+          <span class="click-hint-icon">👆</span>
+          Touchez un plant pour voir ses détails de culture
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend-card">
+        <div class="legend-title">Légende</div>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#E24B4A"></span>Tomate Plourde ×3</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#D4537E"></span>Tomate cerise ×2</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#EF9F27"></span>Poivron Gourmet ×2</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#D85A30"></span>Poivron King ×2 · Carottes</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#639922"></span>Basilic · Brocoli · Laitue</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#1D9E75"></span>Melon d'eau</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#FAC775"></span>Soucis officinaux</span>
+        </div>
+      </div>
+
+      <!-- Info panel -->
+      <div class="info-panel" id="info-maison">
+        <div class="info-panel-empty">
+          <span class="info-panel-empty-icon">🌱</span>
+          Touchez un plant pour voir les détails de culture
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         BAC ARRIÈRE
+    ════════════════════════════════ -->
+    <div class="bed-view" id="bed-arriere">
+
+      <div class="bed-header">
+        <h2 class="bed-title">La zone « résiliente » 🌿</h2>
+        <p class="bed-sub">16×4 pi · Divisé en 4 sections · Cultures tolérantes à l'ombre partielle</p>
+      </div>
+
+      <div class="bed-card">
+        <div class="bed-card-label">Plan du bac — cliquez sur un plant</div>
+        <svg class="garden-bed" viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
+
+          <!-- Background soil -->
+          <rect x="30" y="40" width="620" height="200" rx="10" fill="#7C5432" opacity="0.09" stroke="#A07050" stroke-width="1" stroke-dasharray="7 3"/>
+          <rect x="34" y="44" width="612" height="192" rx="8" fill="#8B6344" opacity="0.10"/>
+
+          <!-- Compass -->
+          <text class="compass" x="16" y="20" font-weight="600">N ↑</text>
+
+          <!-- Section dividers -->
+          <line x1="183" y1="44" x2="183" y2="236" stroke="#C8B89A" stroke-width="0.8" stroke-dasharray="5 4"/>
+          <line x1="336" y1="44" x2="336" y2="236" stroke="#C8B89A" stroke-width="0.8" stroke-dasharray="5 4"/>
+          <line x1="489" y1="44" x2="489" y2="236" stroke="#C8B89A" stroke-width="0.8" stroke-dasharray="5 4"/>
+
+          <!-- Section labels -->
+          <text x="108" y="58" text-anchor="middle" font-size="10" fill="#9A8E80" font-weight="600">Section A · 0-4 pi</text>
+          <text x="260" y="58" text-anchor="middle" font-size="10" fill="#9A8E80" font-weight="600">Section B · 4-8 pi</text>
+          <text x="412" y="58" text-anchor="middle" font-size="10" fill="#9A8E80" font-weight="600">Section C · 8-12 pi</text>
+          <text x="565" y="58" text-anchor="middle" font-size="10" fill="#9A8E80" font-weight="600">Section D · 12-16 pi</text>
+
+          <!-- SECTION A: Haricots + Radis -->
+          <g class="plant-group" onclick="showInfo('arriere','haricots')">
+            <rect x="44" y="68" width="130" height="120" rx="7" fill="#639922" opacity="0.09" stroke="#639922" stroke-width="0.5"/>
+            <line x1="55" y1="88" x2="163" y2="88" stroke="#639922" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="55" y1="118" x2="163" y2="118" stroke="#639922" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="55" y1="148" x2="163" y2="148" stroke="#639922" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <ellipse cx="70" cy="86" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="95" cy="90" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="125" cy="86" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="150" cy="89" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="80" cy="116" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="110" cy="120" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="140" cy="116" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="65" cy="146" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="100" cy="150" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <ellipse cx="135" cy="146" rx="6" ry="3" fill="#97C459" opacity="0.7"/>
+            <text x="109" y="174" text-anchor="middle" font-size="9" fill="#27500A" font-weight="600">Haricots nains</text>
+          </g>
+          <!-- Radis bordure -->
+          <g class="plant-group" onclick="showInfo('arriere','radis')">
+            <circle cx="55" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <circle cx="75" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <circle cx="95" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <circle cx="115" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <circle cx="135" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <circle cx="155" cy="210" r="6" fill="#E24B4A" opacity="0.35" stroke="#E24B4A" stroke-width="0.5"/>
+            <text x="109" y="228" text-anchor="middle" font-size="9" fill="#A32D2D">Radis (bordure)</text>
+          </g>
+
+          <!-- SECTION B: Mesclun + Betteraves -->
+          <g class="plant-group" onclick="showInfo('arriere','mesclun')">
+            <rect x="194" y="68" width="132" height="62" rx="7" fill="#C0DD97" opacity="0.2" stroke="#639922" stroke-width="0.5"/>
+            <circle cx="215" cy="88" r="7" fill="#C0DD97" opacity="0.6"/>
+            <circle cx="235" cy="93" r="6" fill="#97C459" opacity="0.6"/>
+            <circle cx="255" cy="87" r="7" fill="#C0DD97" opacity="0.6"/>
+            <circle cx="275" cy="92" r="6" fill="#97C459" opacity="0.6"/>
+            <circle cx="295" cy="88" r="7" fill="#C0DD97" opacity="0.6"/>
+            <circle cx="310" cy="93" r="6" fill="#97C459" opacity="0.6"/>
+            <text x="260" y="118" text-anchor="middle" font-size="9" fill="#27500A" font-weight="600">Mesclun + Laitue f. chêne</text>
+          </g>
+          <g class="plant-group" onclick="showInfo('arriere','betteraves')">
+            <rect x="194" y="140" width="132" height="52" rx="7" fill="#D4537E" opacity="0.1" stroke="#D4537E" stroke-width="0.5"/>
+            <circle cx="215" cy="165" r="9" fill="#D4537E" opacity="0.35"/>
+            <circle cx="240" cy="165" r="9" fill="#D4537E" opacity="0.35"/>
+            <circle cx="265" cy="165" r="9" fill="#D4537E" opacity="0.35"/>
+            <circle cx="290" cy="165" r="9" fill="#D4537E" opacity="0.35"/>
+            <circle cx="315" cy="165" r="9" fill="#D4537E" opacity="0.35"/>
+            <text x="260" y="200" text-anchor="middle" font-size="9" fill="#72243E" font-weight="600">Betteraves</text>
+          </g>
+
+          <!-- SECTION C: Maïs + Herbes -->
+          <g class="plant-group" onclick="showInfo('arriere','mais')">
+            <rect x="347" y="68" width="92" height="104" rx="7" fill="#BA7517" opacity="0.1" stroke="#BA7517" stroke-width="0.5"/>
+            <line x1="367" y1="80" x2="367" y2="110" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="392" y1="80" x2="392" y2="110" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="417" y1="80" x2="417" y2="110" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="367" y1="114" x2="367" y2="144" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="392" y1="114" x2="392" y2="144" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="417" y1="114" x2="417" y2="144" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="367" y1="148" x2="367" y2="166" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="392" y1="148" x2="392" y2="166" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <line x1="417" y1="148" x2="417" y2="166" stroke="#BA7517" stroke-width="3" opacity="0.55" stroke-linecap="round"/>
+            <text x="392" y="180" text-anchor="middle" font-size="9" fill="#633806" font-weight="600">Maïs 3×3</text>
+          </g>
+          <!-- Herbes -->
+          <g class="plant-group" onclick="showInfo('arriere','herbes')">
+            <circle cx="455" cy="100" r="15" fill="#639922" opacity="0.15" stroke="#639922" stroke-width="0.7"/>
+            <text x="455" y="104" text-anchor="middle" font-size="8" fill="#27500A" font-weight="600">Cor.</text>
+            <circle cx="455" cy="148" r="15" fill="#639922" opacity="0.15" stroke="#639922" stroke-width="0.7"/>
+            <text x="455" y="152" text-anchor="middle" font-size="8" fill="#27500A" font-weight="600">Aneth</text>
+            <text x="455" y="180" text-anchor="middle" font-size="8" fill="#3B6D11">Herbes</text>
+          </g>
+
+          <!-- SECTION D: Carottes + Tournesols -->
+          <g class="plant-group" onclick="showInfo('arriere','carottes2')">
+            <rect x="500" y="68" width="135" height="122" rx="7" fill="#D85A30" opacity="0.1" stroke="#D85A30" stroke-width="0.5"/>
+            <line x1="520" y1="80" x2="520" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="540" y1="80" x2="540" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="560" y1="80" x2="560" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="580" y1="80" x2="580" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="600" y1="80" x2="600" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <line x1="620" y1="80" x2="620" y2="178" stroke="#D85A30" stroke-width="2" opacity="0.35" stroke-linecap="round"/>
+            <text x="567" y="200" text-anchor="middle" font-size="9" fill="#993C1D" font-weight="600">Carottes (2e vague)</text>
+          </g>
+          <!-- Tournesols bordure nord -->
+          <g class="plant-group" onclick="showInfo('arriere','tournesols')">
+            <circle cx="510" cy="52" r="9" fill="#FAC775" opacity="0.8" stroke="#BA7517" stroke-width="0.7"/>
+            <circle cx="540" cy="52" r="9" fill="#FAC775" opacity="0.8" stroke="#BA7517" stroke-width="0.7"/>
+            <circle cx="570" cy="52" r="9" fill="#FAC775" opacity="0.8" stroke="#BA7517" stroke-width="0.7"/>
+            <circle cx="600" cy="52" r="9" fill="#FAC775" opacity="0.8" stroke="#BA7517" stroke-width="0.7"/>
+            <circle cx="630" cy="52" r="9" fill="#FAC775" opacity="0.8" stroke="#BA7517" stroke-width="0.7"/>
+            <text x="570" y="35" text-anchor="middle" font-size="9" fill="#854F0B">🌻 Tournesols (bordure nord)</text>
+          </g>
+
+          <!-- Soucis bordure sud -->
+          <g class="plant-group" onclick="showInfo('arriere','soucis')">
+            <rect x="38" y="242" width="610" height="16" rx="4" fill="#EF9F27" opacity="0.08" stroke="#EF9F27" stroke-width="0.5"/>
+            <circle cx="50" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="70" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="90" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="110" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="130" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="150" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="170" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="200" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="220" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="240" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="260" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="280" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="300" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="320" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="350" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="370" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="390" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="410" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="430" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="450" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="470" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="500" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="520" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="540" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="560" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="580" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="600" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="620" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <circle cx="640" cy="250" r="4" fill="#EF9F27" opacity="0.75"/>
+            <text x="340" y="270" text-anchor="middle" font-size="8.5" fill="#854F0B">🌼 Soucis officinaux (bordure sud)</text>
+          </g>
+        </svg>
+
+        <div class="click-hint">
+          <span class="click-hint-icon">👆</span>
+          Touchez une zone pour voir les détails de culture
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend-card">
+        <div class="legend-title">Légende</div>
+        <div class="legend">
+          <span class="legend-item"><span class="legend-dot" style="background:#97C459"></span>Haricots nains</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#E24B4A"></span>Radis géant</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#C0DD97"></span>Mesclun · Laitue</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#D4537E"></span>Betteraves</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#BA7517"></span>Maïs</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#639922"></span>Coriandre · Aneth</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#D85A30"></span>Carottes</span>
+          <span class="legend-item"><span class="legend-dot" style="background:#FAC775"></span>Tournesols · Soucis</span>
+        </div>
+      </div>
+
+      <!-- Info panel -->
+      <div class="info-panel" id="info-arriere">
+        <div class="info-panel-empty">
+          <span class="info-panel-empty-icon">🌱</span>
+          Touchez un plant pour voir les détails de culture
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         CALENDRIER
+    ════════════════════════════════ -->
+    <div class="bed-view" id="bed-calendrier"></div>
+
+  </main>
+
+  <footer class="footer">
+    <strong>Jardin de Sainte-Thérèse</strong> · Saison 2026 · Zone 5b · Québec
+  </footer>
+
+  <script>
+  /* ════════════════════
+     CALENDAR DATA
+  ════════════════════ */
+  const categoryLabels = {
+    semis: 'Semis', transplantation: 'Transplantation', recolte: 'Récolte',
+    engrais: 'Engrais', preparation: 'Préparation', entretien: 'Entretien'
+  };
+
+  const monthIcons = ['🌱','🌿','☀️','🌻','🍅','🌽','🍂'];
+
+  const calendarData = [
+    {
+      month: 'Mars', weeks: [
+        { id:'m03-w1', dateRange:'9–15 mars', startDate:'2026-03-09', endDate:'2026-03-15', duration:'30 min', tasks:[
+          { id:'m03-w1-0', text:'Inventorier les semences en stock', category:'preparation' },
+          { id:'m03-w1-1', text:'Préparer pots et terreau (humecter)', category:'preparation' }
+        ]},
+        { id:'m03-w2', dateRange:'16–22 mars', startDate:'2026-03-16', endDate:'2026-03-22', duration:'30 min', tasks:[
+          { id:'m03-w2-0', text:'Semis intérieurs : Poivron Gourmet', category:'semis' },
+          { id:'m03-w2-1', text:'Semis intérieurs : Poivron King of the North', category:'semis' },
+          { id:'m03-w2-2', text:'Installer sous lampes T5 + couvrir d\'un dôme', category:'semis' }
+        ]},
+        { id:'m03-w3', dateRange:'23–29 mars', startDate:'2026-03-23', endDate:'2026-03-29', duration:'15 min', tasks:[
+          { id:'m03-w3-0', text:'Vérifier germination des poivrons', category:'entretien' },
+          { id:'m03-w3-1', text:'Arroser par le dessous (soucoupe)', category:'entretien' }
+        ]},
+        { id:'m03-w4', dateRange:'30 mars – 5 avril', startDate:'2026-03-30', endDate:'2026-04-05', duration:'30 min', tasks:[
+          { id:'m03-w4-0', text:'Semis intérieurs : Tomates Plourde', category:'semis' },
+          { id:'m03-w4-1', text:'Semis intérieurs : Tomates cerises', category:'semis' },
+          { id:'m03-w4-2', text:'Ventilateur pour renforcer les tiges', category:'entretien' }
+        ]}
+      ]
+    },
+    {
+      month: 'Avril', weeks: [
+        { id:'m04-w1', dateRange:'6–12 avril', startDate:'2026-04-06', endDate:'2026-04-12', duration:'30 min', tasks:[
+          { id:'m04-w1-0', text:'Semis intérieurs : Brocoli De Cicco', category:'semis' },
+          { id:'m04-w1-1', text:'Garder compact, 18-22°C', category:'entretien' }
+        ]},
+        { id:'m04-w2', dateRange:'13–19 avril', startDate:'2026-04-13', endDate:'2026-04-19', duration:'45 min', tasks:[
+          { id:'m04-w2-0', text:'Semis intérieurs : Basilic Genovese + mélange', category:'semis' },
+          { id:'m04-w2-1', text:'Semis intérieurs : Melon d\'eau Sweet Siberian (pots de tourbe)', category:'semis' },
+          { id:'m04-w2-2', text:'Tourner les semis pour croissance uniforme', category:'entretien' }
+        ]},
+        { id:'m04-w3', dateRange:'20–26 avril', startDate:'2026-04-20', endDate:'2026-04-26', duration:'30 min', tasks:[
+          { id:'m04-w3-0', text:'Début acclimatation : sortir plants quand T° > 10°C', category:'entretien' },
+          { id:'m04-w3-1', text:'Quelques heures dehors, augmenter progressivement', category:'entretien' }
+        ]},
+        { id:'m04-w4', dateRange:'27 avril – 3 mai', startDate:'2026-04-27', endDate:'2026-05-03', duration:'2h', tasks:[
+          { id:'m04-w4-0', text:'Achats : compost, terre, paillis', category:'preparation' },
+          { id:'m04-w4-1', text:'Achats : cages à tomates, treillis, géotextile', category:'preparation' },
+          { id:'m04-w4-2', text:'Achats : planches 2×4, vis', category:'preparation' },
+          { id:'m04-w4-3', text:'Bac arrière : monter planches 2×4 + géotextile', category:'preparation' },
+          { id:'m04-w4-4', text:'Bac arrière : ajouter terre + compost + biochar', category:'preparation' },
+          { id:'m04-w4-5', text:'Bac maison : désherber', category:'preparation' },
+          { id:'m04-w4-6', text:'Engrais : fumier de poule 4-6-8 sur les 2 bacs (~100 g/m²)', category:'engrais' }
+        ]}
+      ]
+    },
+    {
+      month: 'Mai', weeks: [
+        { id:'m05-w1', dateRange:'4–10 mai', startDate:'2026-05-04', endDate:'2026-05-10', duration:'2h', tasks:[
+          { id:'m05-w1-0', text:'Semis direct : carottes (0,5 cm, rangs 20 cm)', category:'semis' },
+          { id:'m05-w1-1', text:'Semis direct : laitues (0,5 cm, 25-30 cm)', category:'semis' },
+          { id:'m05-w1-2', text:'Semis direct : mesclun', category:'semis' },
+          { id:'m05-w1-3', text:'Semis direct : radis (1 cm, 5 cm)', category:'semis' },
+          { id:'m05-w1-4', text:'Pois de senteur en plate-bande (tremper 12h avant)', category:'semis' },
+          { id:'m05-w1-5', text:'Poser paillis entre les rangs', category:'entretien' },
+          { id:'m05-w1-6', text:'Compost en surface si pas encore fait', category:'engrais' }
+        ]},
+        { id:'m05-w2', dateRange:'11–17 mai', startDate:'2026-05-11', endDate:'2026-05-17', duration:'1h30', tasks:[
+          { id:'m05-w2-0', text:'Semis direct : betteraves (2 cm, bac 16×4)', category:'semis' },
+          { id:'m05-w2-1', text:'Transplanter brocoli au bac 8×3', category:'transplantation' },
+          { id:'m05-w2-2', text:'Engrais démarrage 9-18-6 au fond du trou du brocoli', category:'engrais' }
+        ]},
+        { id:'m05-w3', dateRange:'18–24 mai', startDate:'2026-05-18', endDate:'2026-05-24', duration:'1h', tasks:[
+          { id:'m05-w3-0', text:'2e vague laitue/mesclun', category:'semis' },
+          { id:'m05-w3-1', text:'Installer les cages à tomates', category:'preparation' }
+        ]},
+        { id:'m05-w4', dateRange:'25–31 mai', startDate:'2026-05-25', endDate:'2026-05-31', duration:'2h', tasks:[
+          { id:'m05-w4-0', text:'Semis direct : coriandre (1 cm)', category:'semis' },
+          { id:'m05-w4-1', text:'Semis direct : aneth (0,5 cm)', category:'semis' },
+          { id:'m05-w4-2', text:'Semis direct : camomille + soucis', category:'semis' },
+          { id:'m05-w4-3', text:'Transplanter basilic dehors', category:'transplantation' },
+          { id:'m05-w4-4', text:'Installer treillis melon + support pois de senteur', category:'preparation' }
+        ]}
+      ]
+    },
+    {
+      month: 'Juin', weeks: [
+        { id:'m06-w1', dateRange:'1–7 juin', startDate:'2026-06-01', endDate:'2026-06-07', duration:'2h', tasks:[
+          { id:'m06-w1-0', text:'Transplanter tomates au bac 8×3', category:'transplantation' },
+          { id:'m06-w1-1', text:'Transplanter poivrons au bac 8×3', category:'transplantation' },
+          { id:'m06-w1-2', text:'Transplanter melon au bac 8×3', category:'transplantation' },
+          { id:'m06-w1-3', text:'Engrais démarrage 9-18-6 au fond de chaque trou', category:'engrais' },
+          { id:'m06-w1-4', text:'Semis direct : maïs bac 16×4 (bloc 3×3)', category:'semis' },
+          { id:'m06-w1-5', text:'Semis direct : haricots bac 16×4', category:'semis' },
+          { id:'m06-w1-6', text:'Pailler généreusement les 2 bacs', category:'entretien' }
+        ]},
+        { id:'m06-w2', dateRange:'8–14 juin', startDate:'2026-06-08', endDate:'2026-06-14', duration:'1h', tasks:[
+          { id:'m06-w2-0', text:'Arroser et observer la croissance', category:'entretien' },
+          { id:'m06-w2-1', text:'Guider le melon vers le treillis', category:'entretien' },
+          { id:'m06-w2-2', text:'Engrais bacs à fleurs : 1ère dose 15-30-15', category:'engrais' }
+        ]},
+        { id:'m06-w3', dateRange:'15–21 juin', startDate:'2026-06-15', endDate:'2026-06-21', duration:'1h', tasks:[
+          { id:'m06-w3-0', text:'3e vague laitue/mesclun', category:'semis' },
+          { id:'m06-w3-1', text:'2e vague coriandre', category:'semis' },
+          { id:'m06-w3-2', text:'Désherbage léger', category:'entretien' }
+        ]},
+        { id:'m06-w4', dateRange:'22–30 juin', startDate:'2026-06-22', endDate:'2026-06-30', duration:'1h', tasks:[
+          { id:'m06-w4-0', text:'Observer la croissance', category:'entretien' },
+          { id:'m06-w4-1', text:'Tailler les gourmands des tomates', category:'entretien' },
+          { id:'m06-w4-2', text:'Arroser régulièrement', category:'entretien' },
+          { id:'m06-w4-3', text:'Engrais bacs à fleurs : 2e dose 15-30-15', category:'engrais' }
+        ]}
+      ]
+    },
+    {
+      month: 'Juillet', weeks: [
+        { id:'m07-w1', dateRange:'1–6 juillet', startDate:'2026-07-01', endDate:'2026-07-06', duration:'1h', tasks:[
+          { id:'m07-w1-0', text:'2e semis carottes (section D, bac 16×4)', category:'semis' },
+          { id:'m07-w1-1', text:'Récolte premiers radis 🎉', category:'recolte' },
+          { id:'m07-w1-2', text:'Récolte premier mesclun 🎉', category:'recolte' }
+        ]},
+        { id:'m07-w2', dateRange:'7–13 juillet', startDate:'2026-07-07', endDate:'2026-07-13', duration:'1h', tasks:[
+          { id:'m07-w2-0', text:'3e vague coriandre', category:'semis' },
+          { id:'m07-w2-1', text:'Récolte laitues', category:'recolte' },
+          { id:'m07-w2-2', text:'Engrais bacs à fleurs : 3e dose 15-30-15', category:'engrais' },
+          { id:'m07-w2-3', text:'Optionnel : engrais 4-4-4 autour tomates/poivrons si croissance faible', category:'engrais' }
+        ]},
+        { id:'m07-w3', dateRange:'14–20 juillet', startDate:'2026-07-14', endDate:'2026-07-20', duration:'1h', tasks:[
+          { id:'m07-w3-0', text:'Récolte laitues, haricots, radis', category:'recolte' },
+          { id:'m07-w3-1', text:'Vérifier et ajuster tuteurs tomates', category:'entretien' }
+        ]},
+        { id:'m07-w4', dateRange:'21–31 juillet', startDate:'2026-07-21', endDate:'2026-07-31', duration:'1h', tasks:[
+          { id:'m07-w4-0', text:'4e vague mesclun (dernière)', category:'semis' },
+          { id:'m07-w4-1', text:'Récolte brocoli (jets latéraux)', category:'recolte' },
+          { id:'m07-w4-2', text:'Engrais bacs à fleurs : 4e dose 15-30-15', category:'engrais' }
+        ]}
+      ]
+    },
+    {
+      month: 'Août', weeks: [
+        { id:'m08-w1', dateRange:'1–10 août', startDate:'2026-08-01', endDate:'2026-08-10', duration:'1h', tasks:[
+          { id:'m08-w1-0', text:'Dernière vague laitue/mesclun', category:'semis' },
+          { id:'m08-w1-1', text:'Récolte haricots', category:'recolte' },
+          { id:'m08-w1-2', text:'Récolte carottes', category:'recolte' },
+          { id:'m08-w1-3', text:'Récolte tomates cerises', category:'recolte' },
+          { id:'m08-w1-4', text:'Engrais bacs à fleurs : 5e dose 15-30-15', category:'engrais' }
+        ]},
+        { id:'m08-w2', dateRange:'11–17 août', startDate:'2026-08-11', endDate:'2026-08-17', duration:'1h', tasks:[
+          { id:'m08-w2-0', text:'Récolte tomates Plourde', category:'recolte' },
+          { id:'m08-w2-1', text:'Récolte poivrons', category:'recolte' }
+        ]},
+        { id:'m08-w3', dateRange:'18–31 août', startDate:'2026-08-18', endDate:'2026-08-31', duration:'1h', tasks:[
+          { id:'m08-w3-0', text:'Profiter des récoltes!', category:'recolte' },
+          { id:'m08-w3-1', text:'Récolte maïs à maturité', category:'recolte' },
+          { id:'m08-w3-2', text:'Récolte melon d\'eau', category:'recolte' },
+          { id:'m08-w3-3', text:'Récolte betteraves', category:'recolte' }
+        ]}
+      ]
+    },
+    {
+      month: 'Septembre', weeks: [
+        { id:'m09-w1', dateRange:'1–14 septembre', startDate:'2026-09-01', endDate:'2026-09-14', duration:'1h30', tasks:[
+          { id:'m09-w1-0', text:'Dernières récoltes : tomates', category:'recolte' },
+          { id:'m09-w1-1', text:'Dernières récoltes : poivrons', category:'recolte' },
+          { id:'m09-w1-2', text:'Dernières récoltes : carottes', category:'recolte' },
+          { id:'m09-w1-3', text:'Dernières récoltes : maïs', category:'recolte' }
+        ]},
+        { id:'m09-w2', dateRange:'15–30 septembre', startDate:'2026-09-15', endDate:'2026-09-30', duration:'2h', tasks:[
+          { id:'m09-w2-0', text:'Retirer TOUS les débris végétaux (important vs teigne)', category:'preparation' },
+          { id:'m09-w2-1', text:'Compost en surface sur les bacs', category:'engrais' },
+          { id:'m09-w2-2', text:'Pailler pour l\'hiver', category:'entretien' }
+        ]}
+      ]
+    }
+  ];
+
+  /* ════════════════════
+     DATA
+  ════════════════════ */
+  const plantData = {
+    maison: {
+      plourde: {
+        icon: '🍅', color: '#E24B4A', name: 'Tomate Plourde', qty: '×3',
+        priority: 'Priorité 1', type: 'Légume-fruit',
+        desc: 'Variété québécoise à gros rendement. Cage obligatoire. Tailler les gourmands régulièrement pour maximiser la production.',
+        semis: 'Intérieur', dateSemis: 'Fin mars (sem. 30 mars)',
+        profondeur: '0,5 cm', espacement: '45-60 cm entre plants',
+        temperature: '22-25°C pour germination',
+        transplantation: 'Début juin (1-7 juin)',
+        recolte: 'Mi-août à septembre',
+        timeline: [
+          {m:'Mars',active:true,type:'semis'},{m:'Avr',active:true,type:'croissance'},
+          {m:'Mai',active:true,type:'acclimatation'},{m:'Juin',active:true,type:'transplant'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Basilic',good:true},{name:'Soucis',good:true},{name:'Bourrache',good:true},{name:'Pois',good:false}],
+        conseils: 'Ventilateur quelques heures/jour pour renforcer les tiges. Acclimatation 7-10 jours avant transplantation. Engrais 9-18-6 : 1 c. à soupe au fond du trou.',
+      },
+      cerises: {
+        icon: '🍒', color: '#D4537E', name: 'Tomates cerises mélange', qty: '×2',
+        priority: 'Priorité 1', type: 'Légume-fruit',
+        desc: 'Récolte abondante et continue tout l\'été. Sur cages. Idéal pour la consommation fraîche.',
+        semis: 'Intérieur', dateSemis: 'Fin mars (sem. 30 mars)',
+        profondeur: '0,5 cm', espacement: '45 cm entre plants',
+        temperature: '22-25°C pour germination',
+        transplantation: 'Début juin (1-7 juin)',
+        recolte: 'Mi-juillet à septembre',
+        timeline: [
+          {m:'Mars',active:true,type:'semis'},{m:'Avr',active:true,type:'croissance'},
+          {m:'Mai',active:true,type:'acclimatation'},{m:'Juin',active:true,type:'transplant'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Basilic',good:true},{name:'Soucis',good:true},{name:'Pois',good:false}],
+        conseils: 'Engrais 9-18-6 au trou de transplantation. Ventilateur pour semis intérieurs.',
+      },
+      basilic: {
+        icon: '🌿', color: '#639922', name: 'Basilic Genovese', qty: 'Intercalé',
+        priority: 'Priorité 1', type: 'Fines herbes',
+        desc: 'Compagnon idéal des tomates. Repousse les pucerons. Intercalé entre les plants de tomates pour maximiser l\'espace.',
+        semis: 'Intérieur', dateSemis: 'Mi-avril (sem. 13 avril)',
+        profondeur: '0,3 cm · Ne PAS couvrir',
+        espacement: '~30 cm entre plants',
+        temperature: '22-25°C pour germination',
+        transplantation: 'Fin mai (25-31 mai)',
+        recolte: 'Juin à septembre (continu)',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:true,type:'semis'},
+          {m:'Mai',active:true,type:'transplant'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Tomates',good:true}],
+        conseils: 'Ne PAS couvrir les semis — le basilic a besoin de lumière pour germer. Pincer les fleurs pour prolonger la production de feuilles.',
+      },
+      melon: {
+        icon: '🍉', color: '#1D9E75', name: 'Melon d\'eau Sweet Siberian', qty: '1-2 plants',
+        priority: 'Priorité 1', type: 'Légume-fruit',
+        desc: 'Variété nordique adaptée à la zone 5b. Grimpe sur treillis 6-7 pi à l\'extrémité du bac. Prévoir des filets de soutien pour les fruits.',
+        semis: 'Intérieur (pots tourbe)', dateSemis: 'Mi-avril (sem. 13 avril)',
+        profondeur: '2 cm', espacement: '90 cm entre plants',
+        temperature: '25-30°C pour germination',
+        transplantation: 'Début juin (1-7 juin)',
+        recolte: 'Fin août à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:true,type:'semis'},
+          {m:'Mai',active:true,type:'acclimatation'},{m:'Juin',active:true,type:'transplant'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [],
+        conseils: 'Utiliser des pots de tourbe — ne pas déranger les racines au repiquage. Plein soleil requis. Guider les tiges vers le treillis en juin. Installer des filets de soutien pour les fruits.',
+      },
+      poivrons: {
+        icon: '🫑', color: '#BA7517', name: 'Poivron Gourmet', qty: '×2',
+        priority: 'Priorité 1', type: 'Légume-fruit',
+        desc: 'Bon rendement en plein soleil. Nécessite chaleur constante pour une bonne production.',
+        semis: 'Intérieur', dateSemis: 'Mi-mars (sem. 16 mars)',
+        profondeur: '0,5 cm', espacement: '30-40 cm entre plants',
+        temperature: '25-28°C pour germination',
+        transplantation: 'Début juin (1-7 juin)',
+        recolte: 'Mi-août à septembre',
+        timeline: [
+          {m:'Mars',active:true,type:'semis'},{m:'Avr',active:true,type:'croissance'},
+          {m:'Mai',active:true,type:'acclimatation'},{m:'Juin',active:true,type:'transplant'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Soucis',good:true}],
+        conseils: 'Germination lente — patience! Engrais 9-18-6 : 1 c. à soupe au fond du trou à la transplantation. 14-16h de lumière/jour sous lampes T5.',
+      },
+      king: {
+        icon: '🌶️', color: '#D85A30', name: 'Poivron King of the North', qty: '×2',
+        priority: 'Priorité 1', type: 'Légume-fruit',
+        desc: 'Résistant au froid, idéal pour la zone 5b. Variété fiable même en saison courte.',
+        semis: 'Intérieur', dateSemis: 'Mi-mars (sem. 16 mars)',
+        profondeur: '0,5 cm', espacement: '30-40 cm entre plants',
+        temperature: '25-28°C pour germination',
+        transplantation: 'Début juin (1-7 juin)',
+        recolte: 'Mi-août à septembre',
+        timeline: [
+          {m:'Mars',active:true,type:'semis'},{m:'Avr',active:true,type:'croissance'},
+          {m:'Mai',active:true,type:'acclimatation'},{m:'Juin',active:true,type:'transplant'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Soucis',good:true}],
+        conseils: 'Mêmes conditions que le Gourmet. Résiste mieux aux nuits fraîches de début de saison.',
+      },
+      brocoli: {
+        icon: '🥦', color: '#639922', name: 'Brocoli De Cicco', qty: '1-2 plants',
+        priority: 'Priorité 1', type: 'Légume',
+        desc: 'Produit des jets latéraux après la tête principale = production continue pendant plusieurs semaines.',
+        semis: 'Intérieur', dateSemis: 'Début avril (sem. 6 avril)',
+        profondeur: '0,5 cm', espacement: '40-45 cm entre plants',
+        temperature: '18-22°C pour germination',
+        transplantation: 'Mi-mai (11-17 mai)',
+        recolte: 'Juillet (jets latéraux jusqu\'en août)',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:true,type:'semis'},
+          {m:'Mai',active:true,type:'transplant'},{m:'Juin',active:true,type:'croissance'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:false}
+        ],
+        companions: [{name:'Soucis',good:true}],
+        conseils: 'Croissance rapide, garder compact sous les lampes. BTK (en stock) contre les chenilles si nécessaire. Transplanter tôt car tolère le frais.',
+      },
+      carottes: {
+        icon: '🥕', color: '#D85A30', name: 'Carottes Chantenay', qty: 'Rangée',
+        priority: 'Priorité 1', type: 'Légume-racine',
+        desc: 'Bonne conservation. Variété courte adaptée aux bacs surélevés. 2 semis possibles dans la saison.',
+        semis: 'Direct', dateSemis: 'Début mai (4-10 mai)',
+        profondeur: '0,5 cm', espacement: '5-8 cm · rangs à 20 cm',
+        temperature: 'Sol > 8°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Juillet à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'croissance'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Aneth',good:true},{name:'Soucis',good:true}],
+        conseils: 'Arrosoir avec pommeau fin pour ne pas déplacer les graines. Éclaircir à 5 cm quand les plants ont 5 cm de haut. 2e semis possible début juillet.',
+        successions: '2 semis : début mai + début juillet',
+      },
+      laitues: {
+        icon: '🥬', color: '#639922', name: 'Laitues (Côte de Beaune + Parris Island)', qty: 'Rangée',
+        priority: 'Priorité 1', type: 'Légume-feuille',
+        desc: 'Deux variétés complémentaires en successions aux 2 semaines pour de la verdure tout l\'été.',
+        semis: 'Direct', dateSemis: 'Début mai (4-10 mai)',
+        profondeur: '0,5 cm', espacement: '25-30 cm entre plants',
+        temperature: 'Sol > 5°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Juin à septembre (continu)',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Radis',good:true},{name:'Carottes',good:true}],
+        conseils: 'Semer aux 2 semaines de début mai à mi-août. Dernière vague début août pour récolte automnale.',
+        successions: 'Toutes les 2 semaines, début mai à mi-août',
+      },
+      soucis: {
+        icon: '🌼', color: '#EF9F27', name: 'Soucis officinaux', qty: 'Bordure complète',
+        priority: 'Priorité 1', type: 'Fleur stratégique',
+        desc: 'Protection naturelle pour tout le bac. Repousse pucerons, aleurodes et chenilles. Bordure anti-ravageurs.',
+        semis: 'Direct', dateSemis: 'Fin mai (25-31 mai)',
+        profondeur: '1 cm', espacement: '~20 cm entre plants',
+        temperature: 'Sol > 10°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Floraison juin à octobre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Tomates',good:true},{name:'Poivrons',good:true},{name:'Tout le bac',good:true}],
+        conseils: 'Les fleurs sont comestibles! Laissez-les fleurir tout l\'été pour une protection continue.',
+      },
+    },
+    arriere: {
+      haricots: {
+        icon: '🫘', color: '#639922', name: 'Haricots nains mélange', qty: '3 rangées',
+        priority: 'Priorité 1', type: 'Légumineuse',
+        desc: 'Très faciles, bon rendement. Tolèrent l\'ombre partielle. Enrichissent le sol en azote. Parfaits pour le bac arrière.',
+        semis: 'Direct', dateSemis: 'Début juin (1-7 juin)',
+        profondeur: '3 cm', espacement: '8-10 cm · rangs à 40 cm',
+        temperature: 'Sol > 15°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Juillet à août',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:false},{m:'Juin',active:true,type:'semis'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:false}
+        ],
+        companions: [{name:'Maïs',good:true},{name:'Radis',good:true},{name:'Aneth',good:false}],
+        conseils: 'Ne pas tremper les graines avant le semis. Récolter régulièrement pour stimuler la production.',
+      },
+      radis: {
+        icon: '🔴', color: '#E24B4A', name: 'Radis géant de Sicile', qty: 'Bordure avant',
+        priority: 'Priorité 2', type: 'Légume-racine',
+        desc: 'Très facile, récolte en seulement 30 jours! Idéal pour combler les espaces vides entre les cultures.',
+        semis: 'Direct', dateSemis: 'Début mai (4-10 mai)',
+        profondeur: '1 cm', espacement: '5 cm entre plants',
+        temperature: 'Sol > 5°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: '30 jours après semis',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:false},{m:'Août',active:false},
+          {m:'Sep',active:false}
+        ],
+        companions: [{name:'Laitue',good:true},{name:'Haricots',good:true}],
+        conseils: 'Récolter dès qu\'ils sont prêts sinon ils deviennent creux.',
+        successions: 'Toutes les 2-3 semaines, début mai à mi-juin',
+      },
+      mesclun: {
+        icon: '🥗', color: '#C0DD97', name: 'Mesclun + Laitue feuille de chêne', qty: 'Section B',
+        priority: 'Priorité 1 + 2', type: 'Légume-feuille',
+        desc: 'Cultures rapides, tolèrent l\'ombre partielle. Successions possibles pour une récolte continue.',
+        semis: 'Direct', dateSemis: 'Début mai (4-10 mai)',
+        profondeur: '0,5 cm', espacement: '15-20 cm (f. chêne : 25 cm)',
+        temperature: 'Sol > 5°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Juin à septembre (continu)',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Radis',good:true},{name:'Betteraves',good:true}],
+        conseils: 'Mesclun : couper à 2 cm du sol, repousse 2-3 fois. Dernière vague début août.',
+        successions: 'Toutes les 2 semaines, début mai à mi-août',
+      },
+      betteraves: {
+        icon: '🟣', color: '#D4537E', name: 'Betteraves en mélange', qty: 'Section B',
+        priority: 'Priorité 2', type: 'Légume-racine',
+        desc: 'Racines peu profondes, OK malgré les racines d\'arbre dans le bac arrière.',
+        semis: 'Direct', dateSemis: 'Mi-mai (11-17 mai)',
+        profondeur: '1 cm', espacement: '10 cm · rangs à 20 cm',
+        temperature: 'Sol > 10°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Août à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'croissance'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Laitue',good:true},{name:'Mesclun',good:true}],
+        conseils: 'Les feuilles de betterave sont aussi comestibles! Tremper les graines 24h avant le semis pour accélérer la germination.',
+      },
+      mais: {
+        icon: '🌽', color: '#BA7517', name: 'Maïs Fisher\'s Earliest', qty: 'Bloc 3×3',
+        priority: 'Priorité 1', type: 'Légume',
+        desc: 'Variété hâtive adaptée à la saison courte. En bloc compact de 3×3 pour assurer la pollinisation croisée par le vent.',
+        semis: 'Direct', dateSemis: 'Début juin (1-7 juin)',
+        profondeur: '3-5 cm', espacement: '20-25 cm · rangs à 60 cm',
+        temperature: 'Sol > 15°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Fin août à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:false},{m:'Juin',active:true,type:'semis'},
+          {m:'Juil',active:true,type:'croissance'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Haricots',good:true},{name:'Coriandre',good:true}],
+        conseils: 'TOUJOURS en bloc (jamais en rangée unique) sinon mauvaise pollinisation = épis vides. Le maïs sert aussi de tuteur naturel.',
+      },
+      herbes: {
+        icon: '🌱', color: '#639922', name: 'Coriandre Santo + Aneth', qty: '2 plants',
+        priority: 'Priorité 1', type: 'Fines herbes',
+        desc: 'Coriandre en 3 vagues car elle monte vite en graine. L\'aneth attire les pollinisateurs et est un bon compagnon des carottes.',
+        semis: 'Direct', dateSemis: 'Fin mai (25-31 mai)',
+        profondeur: '0,5 cm', espacement: '15-20 cm',
+        temperature: 'Sol > 10°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Juin à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:false}
+        ],
+        companions: [{name:'Carottes',good:true},{name:'Maïs',good:true},{name:'Haricots (aneth)',good:false}],
+        conseils: 'Coriandre : semer en 3 vagues (fin mai, mi-juin, début juillet) car monte vite en graines. Aneth : laisser fleurir pour attirer les insectes bénéfiques.',
+        successions: 'Coriandre : toutes les 3 semaines',
+      },
+      carottes2: {
+        icon: '🥕', color: '#D85A30', name: 'Carottes Chantenay (2e vague)', qty: 'Section D',
+        priority: 'Priorité 1', type: 'Légume-racine',
+        desc: 'Semis de juillet pour une récolte automnale. Les tournesols en bordure nord ne font pas d\'ombre sur cette section.',
+        semis: 'Direct', dateSemis: 'Début juillet (1-6 juillet)',
+        profondeur: '0,5 cm', espacement: '5-8 cm · rangs à 20 cm',
+        temperature: 'Sol > 8°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Septembre à octobre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:false},{m:'Juin',active:false},
+          {m:'Juil',active:true,type:'semis'},{m:'Août',active:true,type:'croissance'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Aneth',good:true},{name:'Tournesols',good:true}],
+        conseils: 'Garder le sol humide pendant la germination. Dernière récolte avant le gel.',
+      },
+      tournesols: {
+        icon: '🌻', color: '#FAC775', name: 'Tournesols géants', qty: '5 plants',
+        priority: 'Priorité 1', type: 'Fleur stratégique',
+        desc: 'Bordure nord du bac. Attirent les pollinisateurs et servent de brise-vent naturel. Ne font pas d\'ombre au reste du bac.',
+        semis: 'Direct', dateSemis: 'Fin mai (25-31 mai)',
+        profondeur: '2-3 cm', espacement: '30-40 cm entre plants',
+        temperature: 'Sol > 10°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Floraison juillet à septembre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'croissance'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Carottes',good:true}],
+        conseils: 'Placés au nord pour ne pas faire d\'ombre. Les graines sont comestibles une fois séchées.',
+      },
+      soucis: {
+        icon: '🌼', color: '#EF9F27', name: 'Soucis officinaux', qty: 'Bordure sud complète',
+        priority: 'Priorité 1', type: 'Fleur stratégique',
+        desc: 'Protection anti-pucerons pour tout le bac arrière. Tout le long du côté sud.',
+        semis: 'Direct', dateSemis: 'Fin mai (25-31 mai)',
+        profondeur: '1 cm', espacement: '~20 cm entre plants',
+        temperature: 'Sol > 10°C',
+        transplantation: 'N/A (semis direct)',
+        recolte: 'Floraison juin à octobre',
+        timeline: [
+          {m:'Mars',active:false},{m:'Avr',active:false},
+          {m:'Mai',active:true,type:'semis'},{m:'Juin',active:true,type:'recolte'},
+          {m:'Juil',active:true,type:'recolte'},{m:'Août',active:true,type:'recolte'},
+          {m:'Sep',active:true,type:'recolte'}
+        ],
+        companions: [{name:'Tout le bac',good:true}],
+        conseils: 'Fleurs comestibles. Repoussent pucerons, aleurodes et chenilles.',
+      },
+    }
+  };
+
+  const timelineColors = {
+    semis: '#4E9FC8',
+    croissance: '#5BA84D',
+    acclimatation: '#E07A35',
+    transplant: '#D4A215',
+    recolte: '#D04040',
+  };
+  const timelineLabels = {
+    semis: 'Semis',
+    croissance: 'Croiss.',
+    acclimatation: 'Acclim.',
+    transplant: 'Transp.',
+    recolte: 'Récolte',
+  };
+
+  /* ════════════════════
+     RENDER
+  ════════════════════ */
+  function renderPlantCard(data, bed) {
+    const timelineHtml = data.timeline.map(t => {
+      if (!t.active) return `<div class="timeline-seg inactive">${t.m}</div>`;
+      const bg = timelineColors[t.type] || '#999';
+      return `<div class="timeline-seg" style="background:${bg}" title="${timelineLabels[t.type] || ''}">${t.m}</div>`;
+    }).join('');
+
+    const companionsHtml = data.companions.map(c =>
+      `<span class="companion-tag ${c.good ? 'good' : 'bad'}">${c.good ? '✓' : '✗'} ${c.name}</span>`
+    ).join('');
+
+    const successionsHtml = data.successions
+      ? `<div class="plant-field plant-field-full"><div class="plant-field-label">Successions</div><div class="plant-field-value">${data.successions}</div></div>`
+      : '';
+
+    return `<div class="plant-card">
+      <div class="plant-card-close-bar">
+        <button class="close-btn" onclick="closeInfo('${bed}')">✕ Fermer</button>
+      </div>
+      <div class="plant-card-hero">
+        <div class="plant-card-icon" style="background:${data.color}22">${data.icon}</div>
+        <div>
+          <div class="plant-card-title">${data.name} <span class="plant-card-qty">${data.qty}</span></div>
+          <div class="plant-card-meta">
+            <span class="plant-badge plant-badge-priority">${data.priority}</span>
+            <span class="plant-badge plant-badge-type">${data.type}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="plant-card-desc">${data.desc}</div>
+
+      <div class="plant-card-section">
+        <div class="section-title">Calendrier de culture</div>
+        <div class="plant-card-timeline">${timelineHtml}</div>
+        <div class="timeline-legend">
+          ${Object.entries(timelineColors).map(([k,c]) =>
+            `<span class="timeline-legend-item"><span class="timeline-legend-dot" style="background:${c}"></span>${timelineLabels[k]}</span>`
+          ).join('')}
+        </div>
+      </div>
+
+      <div class="plant-card-section">
+        <div class="section-title">Informations de culture</div>
+        <div class="plant-card-grid">
+          <div class="plant-field">
+            <div class="plant-field-label">Mode de semis</div>
+            <div class="plant-field-value">${data.semis}</div>
+            <div class="plant-field-note">${data.dateSemis}</div>
+          </div>
+          <div class="plant-field">
+            <div class="plant-field-label">Profondeur</div>
+            <div class="plant-field-value">${data.profondeur}</div>
+          </div>
+          <div class="plant-field">
+            <div class="plant-field-label">Espacement</div>
+            <div class="plant-field-value">${data.espacement}</div>
+          </div>
+          <div class="plant-field">
+            <div class="plant-field-label">Transplantation</div>
+            <div class="plant-field-value">${data.transplantation}</div>
+          </div>
+          <div class="plant-field">
+            <div class="plant-field-label">Température</div>
+            <div class="plant-field-value">${data.temperature}</div>
+          </div>
+          <div class="plant-field">
+            <div class="plant-field-label">Récolte</div>
+            <div class="plant-field-value">${data.recolte}</div>
+          </div>
+          ${successionsHtml}
+        </div>
+      </div>
+
+      ${data.companions.length ? `<div class="plant-card-section">
+        <div class="section-title">Compagnonnage</div>
+        <div class="companions">${companionsHtml}</div>
+      </div>` : ''}
+
+      <div class="plant-card-section">
+        <div class="section-title">Conseils & notes</div>
+        <div class="conseils-box">${data.conseils}</div>
+      </div>
+    </div>`;
+  }
+
+  function showBed(bed) {
+    document.querySelectorAll('.bed-view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('bed-' + bed).classList.add('active');
+    document.querySelector(`.tab[data-bed="${bed}"]`).classList.add('active');
+    if (bed === 'calendrier') {
+      setTimeout(() => scrollToCurrentWeek(), 150);
+    }
+  }
+
+  function showInfo(bed, plant) {
+    const panel = document.getElementById('info-' + bed);
+    const data = plantData[bed]?.[plant];
+    if (!data) return;
+    panel.innerHTML = renderPlantCard(data, bed);
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+
+  function closeInfo(bed) {
+    const panel = document.getElementById('info-' + bed);
+    panel.innerHTML = `<div class="info-panel-empty"><span class="info-panel-empty-icon">🌱</span>Touchez un plant pour voir les détails de culture</div>`;
+  }
+
+  /* ��═══════════════════
+     CALENDAR LOGIC
+  ════════════════���═══ */
+  function loadChecklist() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_checklist')) || {}; }
+    catch { return {}; }
+  }
+
+  function saveChecklist(state) {
+    localStorage.setItem('jardin2026_checklist', JSON.stringify(state));
+  }
+
+  function getCurrentWeekId() {
+    const today = new Date();
+    for (const month of calendarData) {
+      for (const week of month.weeks) {
+        const start = new Date(week.startDate + 'T00:00:00');
+        const end = new Date(week.endDate + 'T23:59:59');
+        if (today >= start && today <= end) return week.id;
+      }
+    }
+    return null;
+  }
+
+  function scrollToCurrentWeek() {
+    const el = document.querySelector('.calendar-week.current-week');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function countTasks(weeks, state) {
+    let total = 0, done = 0;
+    for (const week of weeks) {
+      for (const task of week.tasks) {
+        total++;
+        if (state[task.id]) done++;
+      }
+    }
+    return { total, done };
+  }
+
+  function updateProgress() {
+    const state = loadChecklist();
+    let globalTotal = 0, globalDone = 0;
+
+    calendarData.forEach((month, mi) => {
+      const { total, done } = countTasks(month.weeks, state);
+      globalTotal += total;
+      globalDone += done;
+
+      const monthProg = document.getElementById(`month-progress-${mi}`);
+      const monthBar = document.getElementById(`month-bar-${mi}`);
+      if (monthProg) monthProg.textContent = `${done}/${total}`;
+      if (monthBar) monthBar.style.width = total ? `${(done/total)*100}%` : '0%';
+
+      month.weeks.forEach(week => {
+        const wTotal = week.tasks.length;
+        let wDone = 0;
+        week.tasks.forEach(t => { if (state[t.id]) wDone++; });
+
+        const wProg = document.getElementById(`week-progress-${week.id}`);
+        if (wProg) {
+          wProg.innerHTML = wDone === wTotal
+            ? `<span class="done">✓ ${wDone}/${wTotal}</span>`
+            : `${wDone}/${wTotal}`;
+        }
+
+        const wCard = document.getElementById(`week-${week.id}`);
+        if (wCard) {
+          const today = new Date();
+          const end = new Date(week.endDate + 'T23:59:59');
+          const isPast = today > end;
+          wCard.classList.toggle('past-complete', isPast && wDone === wTotal);
+        }
+      });
+    });
+
+    const globalProg = document.getElementById('global-progress-text');
+    const globalBar = document.getElementById('global-progress-bar');
+    if (globalProg) globalProg.textContent = `${globalDone}/${globalTotal} tâches`;
+    if (globalBar) globalBar.style.width = globalTotal ? `${(globalDone/globalTotal)*100}%` : '0%';
+
+    const pct = document.getElementById('global-progress-pct');
+    if (pct) pct.textContent = globalTotal ? `${Math.round((globalDone/globalTotal)*100)}%` : '0%';
+  }
+
+  function renderCalendar() {
+    const container = document.getElementById('bed-calendrier');
+    const state = loadChecklist();
+    const currentWeekId = getCurrentWeekId();
+
+    let html = `
+      <div class="calendar-header">
+        <h2 class="bed-title">Calendrier de culture 📅</h2>
+        <p class="bed-sub">Cochez vos tâches au fil des semaines — mars à septembre 2026</p>
+        <div class="calendar-progress-overall">
+          <div class="calendar-progress-label">
+            <span id="global-progress-text">0/0 tâches</span>
+            <strong id="global-progress-pct">0%</strong>
+          </div>
+          <div class="calendar-progress-bar">
+            <div class="calendar-progress-fill" id="global-progress-bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>`;
+
+    calendarData.forEach((month, mi) => {
+      html += `
+      <div class="calendar-month">
+        <div class="calendar-month-header">
+          <div class="calendar-month-icon">${monthIcons[mi]}</div>
+          <span class="calendar-month-name">${month.month}</span>
+          <span class="calendar-month-progress" id="month-progress-${mi}">0/0</span>
+          <div class="calendar-month-bar">
+            <div class="calendar-month-bar-fill" id="month-bar-${mi}" style="width:0%"></div>
+          </div>
+        </div>`;
+
+      month.weeks.forEach(week => {
+        const isCurrent = week.id === currentWeekId;
+        const today = new Date();
+        const end = new Date(week.endDate + 'T23:59:59');
+        const isPast = today > end;
+        let wDone = 0;
+        week.tasks.forEach(t => { if (state[t.id]) wDone++; });
+        const pastComplete = isPast && wDone === week.tasks.length;
+
+        html += `
+        <div class="calendar-week${isCurrent ? ' current-week' : ''}${pastComplete ? ' past-complete' : ''}" id="week-${week.id}">
+          <div class="calendar-week-badge">📍 Cette semaine</div>
+          <div class="calendar-week-header">
+            <span class="calendar-week-dates">${week.dateRange}</span>
+            <span class="calendar-week-duration">~${week.duration}</span>
+            <span class="calendar-week-progress" id="week-progress-${week.id}">
+              ${wDone === week.tasks.length ? `<span class="done">✓ ${wDone}/${week.tasks.length}</span>` : `${wDone}/${week.tasks.length}`}
+            </span>
+          </div>
+          <div class="calendar-tasks">`;
+
+        week.tasks.forEach(task => {
+          const checked = state[task.id] ? true : false;
+          html += `
+            <label class="calendar-task${checked ? ' checked' : ''}">
+              <input type="checkbox" data-task-id="${task.id}" ${checked ? 'checked' : ''}>
+              <span class="calendar-task-check"></span>
+              <span class="calendar-task-text">${task.text}</span>
+              <span class="calendar-task-badge badge-${task.category}">${categoryLabels[task.category]}</span>
+            </label>`;
+        });
+
+        html += `
+          </div>
+        </div>`;
+      });
+
+      html += `</div>`;
+    });
+
+    container.innerHTML = html;
+    updateProgress();
+  }
+
+  // Event delegation for checkboxes
+  document.getElementById('bed-calendrier').addEventListener('change', function(e) {
+    if (e.target.matches('.calendar-task input[type="checkbox"]')) {
+      const taskId = e.target.dataset.taskId;
+      const state = loadChecklist();
+      if (e.target.checked) {
+        state[taskId] = true;
+      } else {
+        delete state[taskId];
+      }
+      saveChecklist(state);
+
+      const label = e.target.closest('.calendar-task');
+      if (label) label.classList.toggle('checked', e.target.checked);
+
+      updateProgress();
+    }
+  });
+
+  // Initialize calendar
+  renderCalendar();
+  </script>
+
+</body>
+</html>

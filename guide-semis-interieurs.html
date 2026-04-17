@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide des semis intérieurs · Jardin de Sainte-Thérèse</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Guide semis">
+  <meta name="theme-color" content="#2A5C45">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5EFE3;
+      --cream-light: #FAF6EF;
+      --cream-dark: #EDE5D4;
+      --green-deep: #2A5C45;
+      --green-mid: #3D8060;
+      --green-sage: #7BAE8E;
+      --green-light: #C3DDD0;
+      --gold: #C8943A;
+      --gold-light: #E8C07A;
+      --terra: #B84B2C;
+      --terra-light: #E07050;
+      --blue: #4E9FC8;
+      --text-primary: #1E1A14;
+      --text-secondary: #5A5245;
+      --text-muted: #9A8E80;
+      --border: #D8CFC0;
+      --border-light: #EBE4D6;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(42, 28, 10, 0.08);
+      --shadow-md: 0 4px 20px rgba(42, 28, 10, 0.12);
+      --shadow-lg: 0 8px 40px rgba(42, 28, 10, 0.16);
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .hero {
+      background: var(--green-deep);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      color: var(--cream-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(125,185,148,0.2) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,148,58,0.15) 0%, transparent 70%);
+    }
+    .hero-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--green-light);
+      text-decoration: none;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+      position: relative; z-index: 1;
+    }
+    .hero-back:hover { opacity: 1; }
+    .hero-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+      position: relative; z-index: 1;
+    }
+    .hero p {
+      font-style: italic;
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0.5rem auto 0;
+      position: relative; z-index: 1;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* Timeline visuel */
+    .timeline-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .timeline-track {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0 0.5rem;
+      padding: 0 8px;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 8%; right: 8%;
+      top: 25px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--green-mid), var(--gold), var(--terra));
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .timeline-step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      flex: 1;
+    }
+    .timeline-dot {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 8px;
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-step:nth-child(1) .timeline-dot { border-color: var(--blue); }
+    .timeline-step:nth-child(2) .timeline-dot { border-color: var(--green-mid); }
+    .timeline-step:nth-child(3) .timeline-dot { border-color: var(--green-sage); }
+    .timeline-step:nth-child(4) .timeline-dot { border-color: var(--gold); }
+    .timeline-step:nth-child(5) .timeline-dot { border-color: var(--terra); }
+    .timeline-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .timeline-sub {
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+    .toc-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md);
+      background: var(--cream);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .toc-link:hover {
+      background: var(--green-light);
+      transform: translateX(3px);
+    }
+    .toc-link-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* Section */
+    .section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 1rem;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section h2 .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(200,148,58,0.15), rgba(232,192,122,0.1));
+      font-size: 1.3rem;
+    }
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+    .section p.lead {
+      font-size: 1.02rem;
+      color: var(--text-primary);
+    }
+
+    /* Answer boxes */
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .answer-box {
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+      border-left: 3px solid var(--green-mid);
+    }
+    .answer-box-kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .answer-box-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 4px;
+    }
+    .answer-box-detail {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    /* Status variants for answer boxes */
+    .answer-box.blue { border-left-color: var(--blue); }
+    .answer-box.blue .answer-box-value { color: #2E6B8B; }
+    .answer-box.green { border-left-color: var(--green-mid); }
+    .answer-box.gold { border-left-color: var(--gold); }
+    .answer-box.gold .answer-box-value { color: #8B6914; }
+    .answer-box.terra { border-left-color: var(--terra); }
+    .answer-box.terra .answer-box-value { color: var(--terra); }
+
+    /* Step list */
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+      margin-top: 1rem;
+    }
+    .step-item {
+      counter-increment: step;
+      position: relative;
+      padding: 0.85rem 1rem 0.85rem 3.25rem;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+    }
+    .step-item::before {
+      content: counter(step);
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--green-deep);
+      color: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    .step-title {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .step-desc {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Do / Don't */
+    .do-dont {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .do-box, .dont-box {
+      padding: 1rem 1.2rem;
+      border-radius: var(--radius-md);
+      background: var(--cream-light);
+    }
+    .do-box {
+      border-left: 4px solid var(--green-mid);
+    }
+    .dont-box {
+      border-left: 4px solid var(--terra);
+    }
+    .do-dont-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .do-box .do-dont-title { color: var(--green-deep); }
+    .dont-box .do-dont-title { color: var(--terra); }
+    .do-dont ul {
+      list-style: none;
+    }
+    .do-dont li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 4px 0;
+    }
+    .do-dont li::before {
+      margin-right: 6px;
+    }
+    .do-box li::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
+    .dont-box li::before { content: '✗'; color: var(--terra); font-weight: 700; }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, rgba(200,148,58,0.12), rgba(232,192,122,0.08));
+      border-left: 4px solid var(--gold);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--green-deep); }
+    .callout.warning {
+      background: linear-gradient(135deg, rgba(184,75,44,0.1), rgba(224,112,80,0.06));
+      border-left-color: var(--terra);
+    }
+    .callout.warning strong { color: var(--terra); }
+    .callout.info {
+      background: linear-gradient(135deg, rgba(78,159,200,0.1), rgba(78,159,200,0.05));
+      border-left-color: var(--blue);
+    }
+    .callout.info strong { color: #2E6B8B; }
+
+    /* FAQ accordion */
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.85rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .faq-question::before {
+      content: 'Q.';
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-answer {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding-left: 1.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .footer strong {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .section { padding: 1.25rem 1.1rem; }
+      .section h2 { font-size: 1.25rem; }
+      .timeline-dot { width: 40px; height: 40px; font-size: 1.1rem; }
+      .timeline-label { font-size: 0.62rem; }
+      .timeline-sub { font-size: 0.58rem; }
+      .timeline-track::before { top: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <a href="plan_jardins_sainte_therese_2026.html" class="hero-back">← Retour au plan de jardin</a>
+    <div class="hero-kicker">🌱 Guide pour débutant</div>
+    <h1>Semis intérieurs, étape par étape</h1>
+    <p>Tout ce qu'il faut savoir pour réussir tes semis : arrosage, dôme, lampes, ventilateur, tapis chauffant, et acclimatation.</p>
+  </header>
+
+  <main>
+
+    <!-- TIMELINE OVERVIEW -->
+    <div class="timeline-card">
+      <div class="timeline-title">Le parcours du semis 🌱 → 🌿</div>
+      <div class="timeline-track">
+        <div class="timeline-step">
+          <div class="timeline-dot">🌰</div>
+          <div class="timeline-label">Semis</div>
+          <div class="timeline-sub">Jour 0</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">🌱</div>
+          <div class="timeline-label">Germination</div>
+          <div class="timeline-sub">Jour 5–14</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">🌿</div>
+          <div class="timeline-label">Croissance</div>
+          <div class="timeline-sub">Semaine 2–6</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">☀️</div>
+          <div class="timeline-label">Acclimatation</div>
+          <div class="timeline-sub">7–10 jours</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">🏡</div>
+          <div class="timeline-label">Transplant</div>
+          <div class="timeline-sub">Au jardin</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table of contents -->
+    <div class="toc">
+      <div class="toc-title">Dans ce guide</div>
+      <div class="toc-links">
+        <a href="#arrosage" class="toc-link"><span class="toc-link-icon">💧</span>Arrosage</a>
+        <a href="#dome" class="toc-link"><span class="toc-link-icon">🫧</span>Dôme / couvercle</a>
+        <a href="#tapis" class="toc-link"><span class="toc-link-icon">🔥</span>Tapis chauffant</a>
+        <a href="#lumiere" class="toc-link"><span class="toc-link-icon">💡</span>Lumière & lampes</a>
+        <a href="#ventilateur" class="toc-link"><span class="toc-link-icon">💨</span>Ventilateur</a>
+        <a href="#acclimatation" class="toc-link"><span class="toc-link-icon">☀️</span>Acclimatation</a>
+        <a href="#problemes" class="toc-link"><span class="toc-link-icon">🩺</span>Problèmes courants</a>
+      </div>
+    </div>
+
+    <!-- ARROSAGE -->
+    <section class="section" id="arrosage">
+      <div class="section-label">Étape 1</div>
+      <h2><span class="icon">💧</span>Arrosage des semis</h2>
+      <p class="lead">La règle d'or : <strong>arroser par le dessous</strong>, dans la soucoupe. Les semences et plantules détestent avoir les feuilles mouillées (ça cause la <em>fonte des semis</em>, une maladie fongique mortelle).</p>
+
+      <div class="answer-grid">
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Avant le semis</div>
+          <div class="answer-box-value">Terreau humide</div>
+          <div class="answer-box-detail">Humecter le terreau (comme une éponge essorée) <em>avant</em> de le mettre dans les pots. Ne pas saturer.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Juste après le semis</div>
+          <div class="answer-box-value">Vaporisateur</div>
+          <div class="answer-box-detail">Brumisateur fin sur la surface pour ne pas déplacer les graines. 2-3 fois par jour.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Après la germination</div>
+          <div class="answer-box-value">Par le dessous</div>
+          <div class="answer-box-detail">Verser l'eau dans la soucoupe. Les racines l'absorbent par capillarité. Laisse tremper ~10-15 min puis vide l'excès.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Fréquence</div>
+          <div class="answer-box-value">Quand le dessus est sec</div>
+          <div class="answer-box-detail">Vérifie chaque jour en touchant la surface. Trop d'eau = racines qui pourrissent. Trop sec = plantules qui flétrissent.</div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <strong>⚠️ À éviter absolument :</strong> arroser par le dessus avec un arrosoir après la germination. Les feuilles mouillées + air stagnant = champignons garantis. Utilise <em>toujours</em> la soucoupe.
+      </div>
+    </section>
+
+    <!-- DÔME -->
+    <section class="section" id="dome">
+      <div class="section-label">Étape 2</div>
+      <h2><span class="icon">🫧</span>Dôme / couvercle</h2>
+      <p class="lead">Le dôme crée un effet de serre humide qui favorise la germination. Mais il faut l'enlever au bon moment, sinon les plantules vont pourrir.</p>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="do-dont-title">✓ Quand garder le dôme</div>
+          <ul>
+            <li>Dès le semis, couvre avec le dôme (ou pellicule plastique)</li>
+            <li>Tant que <strong>AUCUNE</strong> graine n'a germé</li>
+            <li>Soulève le dôme 5 min par jour pour aérer</li>
+            <li>Vérifie que la condensation soit modérée (pas de gouttes qui tombent)</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="do-dont-title">✗ Quand enlever le dôme</div>
+          <ul>
+            <li><strong>DÈS</strong> que la première graine germe (petite tige qui perce le terreau)</li>
+            <li>Ne pas attendre que toutes les graines lèvent</li>
+            <li>Si tu vois de la moisissure ou des gouttes excessives → enlève tout de suite</li>
+            <li>Une fois enlevé, le dôme ne revient plus jamais</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>💡 Pourquoi enlever si vite?</strong> Les plantules qui viennent de lever ont besoin d'air et de lumière intenses. Sous le dôme, elles s'étirent (<em>étiolement</em>) et deviennent faibles, prêtes à tomber malades.
+      </div>
+    </section>
+
+    <!-- TAPIS CHAUFFANT -->
+    <section class="section" id="tapis">
+      <div class="section-label">Étape 3</div>
+      <h2><span class="icon">🔥</span>Tapis chauffant</h2>
+      <p class="lead">Le tapis accélère la germination en maintenant le sol à 22-28 °C. Mais il ne sert <strong>QUE</strong> jusqu'à la germination — après, on l'enlève.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Du jour 0</div>
+          <div class="answer-box-value">Dès le semis</div>
+          <div class="answer-box-detail">Place le tapis sous le plateau dès que tu sèmes. Avec le dôme, ça crée un mini-tropical parfait pour les graines.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Jusqu'à quand</div>
+          <div class="answer-box-value">Jusqu'à la levée</div>
+          <div class="answer-box-detail">Dès que 50-75 % des graines ont germé (première tige visible), <strong>retire le tapis</strong>. Même timing que pour le dôme.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Pourquoi retirer</div>
+          <div class="answer-box-value">Trop de chaleur</div>
+          <div class="answer-box-detail">Les plantules levées préfèrent 18-22 °C. Trop chaud = tiges qui s'étirent et deviennent molles.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Exception</div>
+          <div class="answer-box-value">Poivrons & melons</div>
+          <div class="answer-box-detail">Garde le tapis 3-5 jours de plus après la levée, car ils adorent la chaleur. Retire-le avant qu'ils aient leurs 2e vraies feuilles.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUMIÈRE -->
+    <section class="section" id="lumiere">
+      <div class="section-label">Étape 4</div>
+      <h2><span class="icon">💡</span>Lumière & lampes T5</h2>
+      <p class="lead">La lumière est <strong>LE</strong> facteur #1 pour des plants robustes. Manquer de lumière = plants étiolés (longs et mous). Mieux vaut trop que pas assez.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box green">
+          <div class="answer-box-kicker">Distance des lampes</div>
+          <div class="answer-box-value">5 à 10 cm</div>
+          <div class="answer-box-detail">Les T5 fluorescentes sont froides, donc tu peux les coller à 5-10 cm des feuilles <em>sans</em> les brûler. Ajuste chaque semaine au fur et à mesure que les plants grandissent.</div>
+        </div>
+        <div class="answer-box green">
+          <div class="answer-box-kicker">Durée par jour</div>
+          <div class="answer-box-value">14 à 16 h</div>
+          <div class="answer-box-detail">Allume les lampes 14-16 h/jour. <strong>Une minuterie</strong> (9 $) est le meilleur investissement : elle garantit un cycle constant sans oubli.</div>
+        </div>
+        <div class="answer-box green">
+          <div class="answer-box-kicker">Quand allumer</div>
+          <div class="answer-box-value">Dès la levée</div>
+          <div class="answer-box-detail">Avant la germination, les graines n'ont pas besoin de lumière. Mais <strong>dès</strong> que les premières tiges sortent, allume les lampes à fond.</div>
+        </div>
+        <div class="answer-box green">
+          <div class="answer-box-kicker">La nuit</div>
+          <div class="answer-box-value">8 à 10 h d'obscurité</div>
+          <div class="answer-box-detail">Les plantules ont besoin d'une période sombre pour se reposer et bien croître. Ne laisse PAS les lampes 24 h/24.</div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>💡 Truc pour ajuster la hauteur :</strong> place ta main à la hauteur des plants sous la lampe. Si tu sens la chaleur après 30 sec, c'est trop proche. Si tu ne sens rien, c'est bon (surtout pour des T5 qui sont froides).
+      </div>
+    </section>
+
+    <!-- VENTILATEUR -->
+    <section class="section" id="ventilateur">
+      <div class="section-label">Étape 5</div>
+      <h2><span class="icon">💨</span>Ventilateur</h2>
+      <p class="lead">Un petit ventilateur simule le vent et rend les tiges <strong>robustes</strong>. Sans vent, les plants poussent longs et mous et s'écrasent au premier coup de vent dehors.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Quand commencer</div>
+          <div class="answer-box-value">2-3 jours après la levée</div>
+          <div class="answer-box-detail">Attends que les plantules aient leurs premières vraies feuilles (pas les cotylédons) avant d'allumer le ventilateur.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Durée par jour</div>
+          <div class="answer-box-value">2 à 4 h</div>
+          <div class="answer-box-detail">Quelques heures par jour, pas en continu. Le matin ou l'après-midi, pendant que les lampes sont allumées.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Intensité</div>
+          <div class="answer-box-value">Doux, oscillant</div>
+          <div class="answer-box-detail">Pas de vent qui casse les plants. Les feuilles doivent juste <em>trembler</em>, pas être couchées. Vitesse basse ou moyenne.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Position</div>
+          <div class="answer-box-value">À 1-2 m des plants</div>
+          <div class="answer-box-detail">Oriente-le pour qu'il envoie une brise indirecte. Idéalement oscillant pour varier la direction.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>💪 Alternative à l'ancienne :</strong> passer la main doucement sur le dessus des plants 2-3 fois par jour. Ça simule le vent. Efficace mais faut pas oublier.
+      </div>
+    </section>
+
+    <!-- ACCLIMATATION -->
+    <section class="section" id="acclimatation">
+      <div class="section-label">Étape 6</div>
+      <h2><span class="icon">☀️</span>Acclimatation (hardening off)</h2>
+      <p class="lead">C'est l'étape la plus <strong>délicate</strong>. Les plants ont grandi sous lampe, au chaud, sans vent. Les sortir directement au jardin = choc. Ils vont être brûlés par le soleil, secoués par le vent, et possiblement mourir.</p>
+
+      <p>Il faut les <strong>habituer progressivement</strong> au grand air sur <strong>7 à 10 jours</strong>.</p>
+
+      <ol class="step-list">
+        <li class="step-item">
+          <span class="step-title">Jour 1-2 : 1-2 heures, à l'ombre</span>
+          <span class="step-desc">Sors les plants dans un endroit <strong>ombragé</strong> (porche, côté nord de la maison, sous un arbre). Pas de soleil direct, pas de vent fort. Température minimum <strong>10 °C</strong>. Rentre-les après 1-2 heures.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Jour 3-4 : 3-4 heures, ombre partielle</span>
+          <span class="step-desc">Laisse-les dehors plus longtemps, toujours principalement à l'ombre. Un peu de soleil du matin (doux) est OK.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Jour 5-6 : demi-journée, soleil du matin</span>
+          <span class="step-desc">Expose-les au soleil du matin (jusqu'à 10-11h) mais ramène-les à l'ombre l'après-midi quand le soleil est fort.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Jour 7-8 : journée complète, soleil modéré</span>
+          <span class="step-desc">Laisse-les dehors toute la journée. Soleil du matin et après-midi OK. Rentre-les la nuit si < 10 °C.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Jour 9-10 : nuit incluse</span>
+          <span class="step-desc">Si les nuits sont > 10 °C, laisse-les dehors 24 h/24 pendant 1-2 jours. Ils sont prêts à transplanter!</span>
+        </li>
+      </ol>
+
+      <div class="callout warning">
+        <strong>⚠️ Les signes d'un plant stressé :</strong> feuilles blanchies (coup de soleil), feuilles molles qui pendent, tiges cassées. Si ça arrive, rentre-les immédiatement et recommence plus doucement.
+      </div>
+
+      <div class="callout info">
+        <strong>💡 Arroser pendant l'acclimatation :</strong> les plants dehors sèchent beaucoup plus vite (vent + soleil). Vérifie l'humidité 2 fois par jour pendant cette période.
+      </div>
+    </section>
+
+    <!-- PROBLÈMES -->
+    <section class="section" id="problemes">
+      <div class="section-label">Dépannage</div>
+      <h2><span class="icon">🩺</span>Problèmes courants</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">Mes plants sont longs, blancs et mous — pourquoi?</div>
+        <div class="faq-answer"><strong>Étiolement</strong> : pas assez de lumière. Rapproche les lampes (5-10 cm), augmente la durée à 16 h/jour. Si c'est trop avancé, replante-les plus profond pour enterrer la tige allongée.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Mes plantules tombent et meurent subitement à la base</div>
+        <div class="faq-answer"><strong>Fonte des semis</strong> (champignon). Tu as trop arrosé ou l'air ne circulait pas. Enlève les plants morts, arrose <em>seulement</em> par le dessous, allume le ventilateur, et laisse sécher la surface entre 2 arrosages.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Il y a de la moisissure blanche sur le terreau</div>
+        <div class="faq-answer">Trop d'humidité. Enlève la couche moisie avec une cuillère, aère mieux (ventilateur, pas de dôme), laisse la surface sécher entre les arrosages. Un peu de cannelle saupoudrée sur le terreau a un effet anti-fongique naturel.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Les feuilles jaunissent</div>
+        <div class="faq-answer">Probable manque d'azote. Les semis n'ont besoin d'aucun engrais avant 3-4 semaines. Après, commence avec un engrais très dilué (1/4 de la dose recommandée) une fois par semaine.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Puis-je sauter le ventilateur?</div>
+        <div class="faq-answer">Oui, mais tes plants seront plus fragiles au moment de l'acclimatation. Si tu n'as pas de ventilateur, passe la main sur les plants 2-3 fois par jour pour simuler le vent.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Combien de graines par pot?</div>
+        <div class="faq-answer">2-3 graines par pot (au cas où certaines ne germent pas). Une fois que les plants ont leurs 2-3 vraies feuilles, coupe les plus faibles au ras du sol avec des ciseaux (ne les arrache pas, ça dérange les racines du plant conservé).</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Quand rempoter dans un plus gros pot?</div>
+        <div class="faq-answer">Quand tu vois les racines sortir par les trous du dessous, ou quand les plants ont 4-6 vraies feuilles. Rempote dans un pot 2× plus gros, enterre la tige jusqu'aux cotylédons pour renforcer l'enracinement.</div>
+      </div>
+    </section>
+
+    <!-- Checklist récapitulatif -->
+    <section class="section">
+      <div class="section-label">Récapitulatif</div>
+      <h2><span class="icon">📋</span>Checklist express</h2>
+
+      <div class="answer-grid">
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Arrosage</div>
+          <div class="answer-box-value">Par le dessous</div>
+          <div class="answer-box-detail">Toujours dans la soucoupe après la germination. Vaporisateur avant.</div>
+        </div>
+        <div class="answer-box green">
+          <div class="answer-box-kicker">Dôme</div>
+          <div class="answer-box-value">Enlever dès 1ère levée</div>
+          <div class="answer-box-detail">Pas avant, pas après.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Tapis chauffant</div>
+          <div class="answer-box-value">Semis → levée</div>
+          <div class="answer-box-detail">Retirer à la germination (sauf poivrons/melons : +3-5 jours).</div>
+        </div>
+        <div class="answer-box green">
+          <div class="answer-box-kicker">Lumière</div>
+          <div class="answer-box-value">5-10 cm · 14-16 h/j</div>
+          <div class="answer-box-detail">Avec minuterie idéalement.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Ventilateur</div>
+          <div class="answer-box-value">2-4 h/j · doux</div>
+          <div class="answer-box-detail">Commencer 2-3 jours après la levée.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Acclimatation</div>
+          <div class="answer-box-value">7-10 jours</div>
+          <div class="answer-box-detail">Commencer à l'ombre, augmenter progressivement.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>🌱 Bon jardinage!</strong> · Zone 5b · Sainte-Thérèse
+  </footer>
+
+</body>
+</html>

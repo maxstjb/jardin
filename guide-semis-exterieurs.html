@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide des semis extérieurs · Jardin de Sainte-Thérèse</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Guide extérieur">
+  <meta name="theme-color" content="#2A5C45">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5EFE3;
+      --cream-light: #FAF6EF;
+      --cream-dark: #EDE5D4;
+      --green-deep: #2A5C45;
+      --green-mid: #3D8060;
+      --green-sage: #7BAE8E;
+      --green-light: #C3DDD0;
+      --gold: #C8943A;
+      --gold-light: #E8C07A;
+      --terra: #B84B2C;
+      --terra-light: #E07050;
+      --blue: #4E9FC8;
+      --text-primary: #1E1A14;
+      --text-secondary: #5A5245;
+      --text-muted: #9A8E80;
+      --border: #D8CFC0;
+      --border-light: #EBE4D6;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(42, 28, 10, 0.08);
+      --shadow-md: 0 4px 20px rgba(42, 28, 10, 0.12);
+      --shadow-lg: 0 8px 40px rgba(42, 28, 10, 0.16);
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .hero {
+      background: var(--green-deep);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      color: var(--cream-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(125,185,148,0.2) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,148,58,0.15) 0%, transparent 70%);
+    }
+    .hero-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--green-light);
+      text-decoration: none;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+      position: relative; z-index: 1;
+    }
+    .hero-back:hover { opacity: 1; }
+    .hero-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+      position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+      position: relative; z-index: 1;
+    }
+    .hero p {
+      font-style: italic;
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0.5rem auto 0;
+      position: relative; z-index: 1;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* Timeline */
+    .timeline-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .timeline-track {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0 0.5rem;
+      padding: 0 8px;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 10%; right: 10%;
+      top: 25px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--green-mid), var(--green-sage), var(--terra));
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .timeline-step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      flex: 1;
+    }
+    .timeline-dot {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin: 0 auto 8px;
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-step:nth-child(1) .timeline-dot { border-color: var(--gold); }
+    .timeline-step:nth-child(2) .timeline-dot { border-color: var(--green-sage); }
+    .timeline-step:nth-child(3) .timeline-dot { border-color: var(--green-mid); }
+    .timeline-step:nth-child(4) .timeline-dot { border-color: var(--terra); }
+    .timeline-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .timeline-sub {
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Table of contents */
+    .toc {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+    .toc-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.5rem;
+    }
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md);
+      background: var(--cream);
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .toc-link:hover {
+      background: var(--green-light);
+      transform: translateX(3px);
+    }
+    .toc-link-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* Section */
+    .section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+      scroll-margin-top: 1rem;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section h2 .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(200,148,58,0.15), rgba(232,192,122,0.1));
+      font-size: 1.3rem;
+    }
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+    .section p.lead {
+      font-size: 1.02rem;
+      color: var(--text-primary);
+    }
+
+    /* Answer grid */
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .answer-box {
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.1rem;
+      border-left: 3px solid var(--green-mid);
+    }
+    .answer-box-kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .answer-box-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 4px;
+    }
+    .answer-box-detail {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .answer-box.blue { border-left-color: var(--blue); }
+    .answer-box.blue .answer-box-value { color: #2E6B8B; }
+    .answer-box.gold { border-left-color: var(--gold); }
+    .answer-box.gold .answer-box-value { color: #8B6914; }
+    .answer-box.terra { border-left-color: var(--terra); }
+    .answer-box.terra .answer-box-value { color: var(--terra); }
+
+    /* Depth visual */
+    .depth-chart {
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      margin: 1rem 0;
+    }
+    .depth-row {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .depth-row:last-child { border-bottom: none; }
+    .depth-seed {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+    }
+    .depth-bar-container {
+      position: relative;
+      background: linear-gradient(to bottom, var(--cream-light) 0%, #A88B5C 50%, #8B6914 100%);
+      height: 50px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .depth-marker {
+      position: absolute;
+      left: 10px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #D85A30;
+      border: 2px solid var(--cream-light);
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+    }
+    .depth-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--terra);
+      white-space: nowrap;
+    }
+
+    /* Germination times */
+    .germ-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .germ-item {
+      background: var(--cream);
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      border-top: 3px solid var(--green-mid);
+    }
+    .germ-emoji { font-size: 1.3rem; }
+    .germ-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 4px;
+      color: var(--text-primary);
+    }
+    .germ-days {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-top: 2px;
+    }
+
+    /* Step list */
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+      margin-top: 1rem;
+    }
+    .step-item {
+      counter-increment: step;
+      position: relative;
+      padding: 0.85rem 1rem 0.85rem 3.25rem;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+    }
+    .step-item::before {
+      content: counter(step);
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--green-deep);
+      color: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    .step-title {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .step-desc {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Do / Don't */
+    .do-dont {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .do-box, .dont-box {
+      padding: 1rem 1.2rem;
+      border-radius: var(--radius-md);
+      background: var(--cream-light);
+    }
+    .do-box {
+      border-left: 4px solid var(--green-mid);
+    }
+    .dont-box {
+      border-left: 4px solid var(--terra);
+    }
+    .do-dont-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .do-box .do-dont-title { color: var(--green-deep); }
+    .dont-box .do-dont-title { color: var(--terra); }
+    .do-dont ul { list-style: none; }
+    .do-dont li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding: 4px 0;
+    }
+    .do-dont li::before { margin-right: 6px; }
+    .do-box li::before { content: '✓'; color: var(--green-mid); font-weight: 700; }
+    .dont-box li::before { content: '✗'; color: var(--terra); font-weight: 700; }
+
+    /* Cold/warm */
+    .temp-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .temp-col {
+      padding: 1rem;
+      border-radius: var(--radius-md);
+    }
+    .temp-col.cool {
+      background: linear-gradient(135deg, rgba(78,159,200,0.1), rgba(78,159,200,0.03));
+      border: 1px solid rgba(78,159,200,0.2);
+    }
+    .temp-col.warm {
+      background: linear-gradient(135deg, rgba(200,148,58,0.1), rgba(232,192,122,0.05));
+      border: 1px solid rgba(200,148,58,0.2);
+    }
+    .temp-col-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .temp-col.cool .temp-col-title { color: #2E6B8B; }
+    .temp-col.warm .temp-col-title { color: #8B6914; }
+    .temp-col-date {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .temp-col ul {
+      list-style: none;
+    }
+    .temp-col li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding: 3px 0;
+    }
+    .temp-col li::before {
+      content: '•';
+      color: inherit;
+      margin-right: 6px;
+    }
+
+    /* Callout */
+    .callout {
+      background: linear-gradient(135deg, rgba(200,148,58,0.12), rgba(232,192,122,0.08));
+      border-left: 4px solid var(--gold);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--green-deep); }
+    .callout.warning {
+      background: linear-gradient(135deg, rgba(184,75,44,0.1), rgba(224,112,80,0.06));
+      border-left-color: var(--terra);
+    }
+    .callout.warning strong { color: var(--terra); }
+    .callout.info {
+      background: linear-gradient(135deg, rgba(78,159,200,0.1), rgba(78,159,200,0.05));
+      border-left-color: var(--blue);
+    }
+    .callout.info strong { color: #2E6B8B; }
+
+    /* FAQ */
+    .faq-item {
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.85rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .faq-question::before {
+      content: 'Q.';
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-answer {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      padding-left: 1.5rem;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .footer strong {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .section { padding: 1.25rem 1.1rem; }
+      .section h2 { font-size: 1.25rem; }
+      .timeline-dot { width: 40px; height: 40px; font-size: 1.1rem; }
+      .timeline-label { font-size: 0.62rem; }
+      .timeline-sub { font-size: 0.58rem; }
+      .timeline-track::before { top: 20px; }
+      .depth-row {
+        grid-template-columns: 80px 1fr auto;
+        gap: 0.5rem;
+      }
+      .depth-seed { font-size: 0.8rem; }
+      .temp-table { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <a href="plan_jardins_sainte_therese_2026.html" class="hero-back">← Retour au plan de jardin</a>
+    <div class="hero-kicker">🌿 Guide pour débutant</div>
+    <h1>Semis extérieurs directs</h1>
+    <p>Tout pour réussir tes semis directement au jardin : quand semer, à quelle profondeur, arrosage, démariage, et protection.</p>
+  </header>
+
+  <main>
+
+    <!-- TIMELINE -->
+    <div class="timeline-card">
+      <div class="timeline-title">Le parcours du semis direct 🌰 → 🥕</div>
+      <div class="timeline-track">
+        <div class="timeline-step">
+          <div class="timeline-dot">🪴</div>
+          <div class="timeline-label">Préparation</div>
+          <div class="timeline-sub">Avant semis</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">🌰</div>
+          <div class="timeline-label">Semis</div>
+          <div class="timeline-sub">Jour 0</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">🌱</div>
+          <div class="timeline-label">Levée</div>
+          <div class="timeline-sub">3–21 jours</div>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">✂️</div>
+          <div class="timeline-label">Démariage</div>
+          <div class="timeline-sub">2–4 semaines</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+      <div class="toc-title">Dans ce guide</div>
+      <div class="toc-links">
+        <a href="#quand" class="toc-link"><span class="toc-link-icon">📅</span>Quand semer</a>
+        <a href="#preparation" class="toc-link"><span class="toc-link-icon">🪴</span>Préparation du sol</a>
+        <a href="#profondeur" class="toc-link"><span class="toc-link-icon">📏</span>Profondeur & espacement</a>
+        <a href="#methodes" class="toc-link"><span class="toc-link-icon">🌾</span>Rangs, poquets, volée</a>
+        <a href="#arrosage" class="toc-link"><span class="toc-link-icon">💧</span>Arrosage</a>
+        <a href="#germination" class="toc-link"><span class="toc-link-icon">⏱️</span>Temps de germination</a>
+        <a href="#demariage" class="toc-link"><span class="toc-link-icon">✂️</span>Démariage</a>
+        <a href="#protection" class="toc-link"><span class="toc-link-icon">🛡️</span>Protection</a>
+        <a href="#succession" class="toc-link"><span class="toc-link-icon">🔁</span>Successions</a>
+        <a href="#problemes" class="toc-link"><span class="toc-link-icon">🩺</span>Problèmes courants</a>
+      </div>
+    </div>
+
+    <!-- QUAND SEMER -->
+    <section class="section" id="quand">
+      <div class="section-label">Étape 1</div>
+      <h2><span class="icon">📅</span>Quand semer dehors en zone 5b</h2>
+      <p class="lead">À Sainte-Thérèse, la date moyenne des <strong>dernières gelées</strong> est vers le <strong>25 mai</strong>. Mais toutes les cultures n'ont pas les mêmes exigences : certaines tolèrent le froid, d'autres ont besoin de chaleur.</p>
+
+      <div class="temp-table">
+        <div class="temp-col cool">
+          <div class="temp-col-title">❄️ Cultures froides</div>
+          <div class="temp-col-date">Début mai (dès que le sol est travaillable)</div>
+          <ul>
+            <li>Carottes</li>
+            <li>Laitues & mesclun</li>
+            <li>Radis</li>
+            <li>Pois & pois de senteur</li>
+            <li>Betteraves (mi-mai)</li>
+            <li>Épinards</li>
+          </ul>
+        </div>
+        <div class="temp-col warm">
+          <div class="temp-col-title">☀️ Cultures chaudes</div>
+          <div class="temp-col-date">Après le 1er juin (quand le sol est > 15 °C)</div>
+          <ul>
+            <li>Haricots</li>
+            <li>Maïs</li>
+            <li>Concombres</li>
+            <li>Courges & citrouilles</li>
+            <li>Basilic (transplantation uniquement)</li>
+            <li>Coriandre & aneth (fin mai OK)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>🌡️ Test du sol :</strong> plante ton doigt dans la terre. Si tu peux l'enfoncer facilement et qu'il sort propre (pas collant comme de la boue), le sol est prêt. Si c'est encore boueux ou gelé, attends 1-2 semaines.
+      </div>
+
+      <div class="callout warning">
+        <strong>⚠️ Gel tardif :</strong> à Sainte-Thérèse, il peut encore geler début juin de façon exceptionnelle. Si la météo annonce un gel, couvre tes semis fragiles avec une toile ou une vieille couverture le soir.
+      </div>
+    </section>
+
+    <!-- PRÉPARATION -->
+    <section class="section" id="preparation">
+      <div class="section-label">Étape 2</div>
+      <h2><span class="icon">🪴</span>Préparation du sol</h2>
+      <p class="lead">Un bon sol = bons semis. Prends 15 min pour bien préparer ton bac avant de semer.</p>
+
+      <ol class="step-list">
+        <li class="step-item">
+          <span class="step-title">Désherber</span>
+          <span class="step-desc">Enlève toutes les mauvaises herbes et leurs racines. Si tu laisses des racines, elles repousseront et étoufferont tes semis.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Ameublir le sol</span>
+          <span class="step-desc">Avec une griffe ou une petite fourche, aère les 10-15 premiers cm. Les graines germent mieux dans un sol souple.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Enlever cailloux et débris</span>
+          <span class="step-desc">Spécialement important pour les carottes qui se déforment si elles rencontrent un obstacle.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Ajouter compost (si nécessaire)</span>
+          <span class="step-desc">5-8 cm de compost en surface, mélangé au sol, nourrit les jeunes plants. Déjà fait dans les bacs cette saison.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Niveler</span>
+          <span class="step-desc">Passe ta main ou un râteau pour aplanir la surface. Pas de bosses, pas de creux qui retiennent trop d'eau.</span>
+        </li>
+        <li class="step-item">
+          <span class="step-title">Humidifier légèrement</span>
+          <span class="step-desc">Arrose la zone 1-2 h avant de semer pour que le sol soit humide (mais pas trempé). Les graines germent mieux dans un sol humide.</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- PROFONDEUR -->
+    <section class="section" id="profondeur">
+      <div class="section-label">Étape 3</div>
+      <h2><span class="icon">📏</span>Profondeur de semis</h2>
+      <p class="lead">La règle d'or : la profondeur = <strong>2 à 3 fois le diamètre de la graine</strong>. Trop profond = la graine n'a pas assez d'énergie pour sortir. Trop superficiel = elle sèche avant de germer.</p>
+
+      <div class="depth-chart">
+        <div class="depth-row">
+          <span class="depth-seed">Laitues, mesclun</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 3px;"></div>
+          </div>
+          <span class="depth-label">0,5 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Carottes</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 3px;"></div>
+          </div>
+          <span class="depth-label">0,5 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Coriandre, aneth</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 6px;"></div>
+          </div>
+          <span class="depth-label">1 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Radis</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 6px;"></div>
+          </div>
+          <span class="depth-label">1 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Betteraves</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 12px;"></div>
+          </div>
+          <span class="depth-label">2 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Pois, pois de senteur</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 14px;"></div>
+          </div>
+          <span class="depth-label">2,5 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Haricots</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 17px;"></div>
+          </div>
+          <span class="depth-label">3 cm</span>
+        </div>
+        <div class="depth-row">
+          <span class="depth-seed">Maïs, courges</span>
+          <div class="depth-bar-container">
+            <div class="depth-marker" style="top: 22px;"></div>
+          </div>
+          <span class="depth-label">3-5 cm</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>💡 Astuce pratique :</strong> pour semer des graines très fines (laitue, carotte), mélange-les avec du sable fin avant de semer. Ça répartit mieux les graines et évite les paquets.
+      </div>
+    </section>
+
+    <!-- MÉTHODES -->
+    <section class="section" id="methodes">
+      <div class="section-label">Étape 4</div>
+      <h2><span class="icon">🌾</span>Rangs, poquets ou à la volée?</h2>
+      <p class="lead">Trois façons de semer selon le type de culture. Choisis la bonne méthode pour avoir un jardin organisé et facile à entretenir.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Méthode 1</div>
+          <div class="answer-box-value">🌾 En rangs</div>
+          <div class="answer-box-detail"><strong>Pour :</strong> carottes, radis, betteraves, laitues, pois, haricots.<br><br>Trace un sillon droit avec un bâton, dépose les graines, recouvre. Facile à désherber.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Méthode 2</div>
+          <div class="answer-box-value">🕳️ En poquets</div>
+          <div class="answer-box-detail"><strong>Pour :</strong> haricots, maïs, courges, concombres, pois de senteur.<br><br>Petit trou, 2-3 graines dedans, recouvre. Une fois levées, garde la plus forte.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Méthode 3</div>
+          <div class="answer-box-value">✨ À la volée</div>
+          <div class="answer-box-detail"><strong>Pour :</strong> mesclun, coriandre, aneth, soucis, camomille.<br><br>Saupoudre les graines sur une zone, recouvre légèrement de terreau. Démarier après la levée.</div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <strong>💡 Pour les rangs :</strong> un vieux truc de jardinier : étire une corde tendue entre 2 piquets pour tracer un sillon parfaitement droit. Tes rangées seront beaucoup plus élégantes et faciles à désherber.
+      </div>
+    </section>
+
+    <!-- ARROSAGE -->
+    <section class="section" id="arrosage">
+      <div class="section-label">Étape 5</div>
+      <h2><span class="icon">💧</span>Arrosage</h2>
+      <p class="lead">L'arrosage est <strong>critique</strong> pendant les 2-3 premières semaines. Un seul jour de sécheresse pendant la germination et tes graines sont foutues.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Juste après le semis</div>
+          <div class="answer-box-value">Pomme d'arrosoir fine</div>
+          <div class="answer-box-detail">Arrose délicatement avec une pomme qui fait une pluie fine. Un jet fort déplace les graines.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Avant la germination</div>
+          <div class="answer-box-value">Sol toujours humide</div>
+          <div class="answer-box-detail">Arrose 1-2 fois par jour si soleil/vent. Le sol ne doit <strong>jamais</strong> sécher. Un paillis léger aide.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Après la germination</div>
+          <div class="answer-box-value">2-3 fois / semaine</div>
+          <div class="answer-box-detail">Arrosages plus espacés mais profonds. L'eau doit descendre à 10-15 cm pour forcer les racines à s'enfoncer.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Quand arroser</div>
+          <div class="answer-box-value">Tôt le matin</div>
+          <div class="answer-box-detail">Les feuilles sèchent avant la nuit = moins de champignons. Arroser le soir = humidité stagnante pendant la nuit.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Où arroser</div>
+          <div class="answer-box-value">Au pied, pas sur les feuilles</div>
+          <div class="answer-box-detail">Vise le sol autour des plants. Les feuilles mouillées au soleil peuvent brûler (effet loupe) et attirent les champignons.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Quantité</div>
+          <div class="answer-box-value">~2-3 cm / semaine</div>
+          <div class="answer-box-detail">Au total (pluie + arrosage). Mets un bol dans le jardin pour mesurer la pluie tombée cette semaine.</div>
+        </div>
+      </div>
+
+      <div class="callout warning">
+        <strong>⚠️ Signe de surplus d'eau :</strong> la terre reste détrempée plusieurs jours, les feuilles jaunissent. Réduis la fréquence et vérifie que le bac draine bien.
+      </div>
+    </section>
+
+    <!-- GERMINATION -->
+    <section class="section" id="germination">
+      <div class="section-label">Étape 6</div>
+      <h2><span class="icon">⏱️</span>Temps de germination</h2>
+      <p class="lead">Patience! Chaque plante a son rythme. Si rien ne lève après le temps indiqué + 5 jours, c'est qu'il y a un problème (sol trop sec, graines vieilles, trop profond).</p>
+
+      <div class="germ-grid">
+        <div class="germ-item"><div class="germ-emoji">🌰</div><div class="germ-name">Radis</div><div class="germ-days">3-5 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🥬</div><div class="germ-name">Laitues</div><div class="germ-days">5-10 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌿</div><div class="germ-name">Mesclun</div><div class="germ-days">5-10 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌱</div><div class="germ-name">Betteraves</div><div class="germ-days">7-14 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌿</div><div class="germ-name">Haricots</div><div class="germ-days">7-10 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌽</div><div class="germ-name">Maïs</div><div class="germ-days">7-10 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌸</div><div class="germ-name">Pois de senteur</div><div class="germ-days">10-14 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌱</div><div class="germ-name">Coriandre</div><div class="germ-days">10-14 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🌱</div><div class="germ-name">Aneth</div><div class="germ-days">10-14 j</div></div>
+        <div class="germ-item"><div class="germ-emoji">🥕</div><div class="germ-name">Carottes</div><div class="germ-days">14-21 j</div></div>
+      </div>
+
+      <div class="callout info">
+        <strong>🥕 Les carottes sont les pires :</strong> 3 semaines pour germer, ça semble long! Pour voir où tu as semé, mélange quelques graines de radis avec tes carottes. Les radis lèveront en 5 jours et marqueront les rangs. Tu les récolteras avant que les carottes aient besoin d'espace.
+      </div>
+    </section>
+
+    <!-- DÉMARIAGE -->
+    <section class="section" id="demariage">
+      <div class="section-label">Étape 7</div>
+      <h2><span class="icon">✂️</span>Démariage (thinning)</h2>
+      <p class="lead">Quand tu sèmes, tu mets plus de graines que nécessaire (au cas où). Une fois levées, il faut <strong>éliminer les surplus</strong> pour que les plants restants aient assez d'espace.</p>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="do-dont-title">✓ Comment démarier</div>
+          <ul>
+            <li>Attends que les plants aient 2-3 <em>vraies feuilles</em></li>
+            <li><strong>Coupe</strong> les surplus au ras du sol avec des ciseaux</li>
+            <li>Garde les plus forts, élimine les plus faibles</li>
+            <li>Respecte l'espacement recommandé sur le sachet de graines</li>
+            <li>Arrose bien après le démariage</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="do-dont-title">✗ À éviter</div>
+          <ul>
+            <li>Ne <strong>jamais arracher</strong> : ça dérange les racines du plant conservé</li>
+            <li>Ne pas attendre trop : si les plants sont déjà étouffés, tu as perdu du temps</li>
+            <li>Ne pas sous-estimer l'espace requis — trop serré = aucune récolte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>🥗 Les démariages sont mangeables!</strong> Les jeunes pousses de laitue, mesclun, betteraves ou carottes que tu coupes sont super dans une salade. Zéro gaspillage.
+      </div>
+    </section>
+
+    <!-- PROTECTION -->
+    <section class="section" id="protection">
+      <div class="section-label">Étape 8</div>
+      <h2><span class="icon">🛡️</span>Protection des jeunes semis</h2>
+      <p class="lead">Les semis fraîchement germés sont fragiles. Oiseaux, chats, limaces, vents forts et gel tardif peuvent anéantir tes efforts en une nuit.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">🐦 Oiseaux</div>
+          <div class="answer-box-value">Filet ou couverture</div>
+          <div class="answer-box-detail">Les mésanges et étourneaux adorent les jeunes pousses. Pose un filet léger ou une toile flottante jusqu'à ce que les plants aient 5-8 cm.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">🐌 Limaces & escargots</div>
+          <div class="answer-box-value">Cendres ou bière</div>
+          <div class="answer-box-detail">Saupoudre de cendre de bois autour. Ou piège à bière (un bol enterré rempli à moitié). Inspection nocturne avec une lampe.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">🐈 Chats</div>
+          <div class="answer-box-value">Grillage au sol</div>
+          <div class="answer-box-detail">Les chats adorent gratter la terre fraîchement retournée. Pose un grillage à poules (ou branchages) jusqu'à la levée.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">🌬️ Vent fort</div>
+          <div class="answer-box-value">Paillis léger</div>
+          <div class="answer-box-detail">Après la levée, ajoute un paillis léger (5 cm de paille ou BRF) entre les rangs. Protège les plantules et retient l'humidité.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">❄️ Gel tardif</div>
+          <div class="answer-box-value">Couverture flottante</div>
+          <div class="answer-box-detail">Une vieille couverture ou une toile spéciale posée le soir d'un gel annoncé. Enlève le matin pour que le soleil réchauffe.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">☀️ Chaleur excessive</div>
+          <div class="answer-box-value">Ombrage temporaire</div>
+          <div class="answer-box-detail">Canicule? Pose une toile d'ombrage ou quelques branches feuillues en milieu de journée. Surtout important pour laitues qui montent en graine.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUCCESSIONS -->
+    <section class="section" id="succession">
+      <div class="section-label">Étape 9</div>
+      <h2><span class="icon">🔁</span>Successions de semis</h2>
+      <p class="lead">Pour avoir des récoltes continues pendant tout l'été (au lieu d'une mer de laitue pendant 2 semaines puis plus rien), <strong>sème plusieurs fois</strong> les cultures à croissance rapide.</p>
+
+      <div class="answer-grid">
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Laitues & mesclun</div>
+          <div class="answer-box-value">Toutes les 2 semaines</div>
+          <div class="answer-box-detail">De début mai à mi-août. Arrête en plein été (trop chaud, elles montent en graine).</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Radis</div>
+          <div class="answer-box-value">Toutes les 2-3 semaines</div>
+          <div class="answer-box-detail">De début mai à mi-juin, puis reprendre fin août pour récolte automnale.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Coriandre</div>
+          <div class="answer-box-value">Toutes les 3 semaines</div>
+          <div class="answer-box-detail">Elle monte très vite en graine quand il fait chaud. Semer en continu pour avoir des feuilles fraîches.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Carottes</div>
+          <div class="answer-box-value">2 semis : mai et juillet</div>
+          <div class="answer-box-detail">Récolte d'été (semé en mai) et récolte d'automne (semé début juillet) qui se conserve tout l'hiver.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>📅 Astuce organisation :</strong> note les dates de semis dans le calendrier de l'app. À chaque semis, vérifie dans la case « Succession » pour ne pas oublier le prochain cycle.
+      </div>
+    </section>
+
+    <!-- PROBLÈMES -->
+    <section class="section" id="problemes">
+      <div class="section-label">Dépannage</div>
+      <h2><span class="icon">🩺</span>Problèmes courants</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">Aucune graine n'a germé après 3 semaines</div>
+        <div class="faq-answer">3 causes probables : <strong>(1)</strong> sol trop sec ou trop froid, <strong>(2)</strong> graines semées trop profond, <strong>(3)</strong> graines trop vieilles. Vérifie l'humidité, refais un test avec des graines fraîches, et recommence plus superficiel.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Les plants ont levé puis sont morts subitement</div>
+        <div class="faq-answer"><strong>Fonte des semis</strong> (champignon). Trop d'humidité ou air stagnant. Arrose moins fréquemment mais plus profondément. Éclaircis les plants trop serrés pour améliorer la circulation d'air.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Les semis sont dévorés dans la nuit</div>
+        <div class="faq-answer">Probablement des <strong>limaces</strong> (trace de bave le matin) ou des <strong>oiseaux</strong> (trous nets). Inspection nocturne avec une lampe pour les limaces. Pose un filet pour les oiseaux.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Mes carottes sont toutes tordues/fourchues</div>
+        <div class="faq-answer">Le sol n'était pas assez ameubli, ou il y a des cailloux. La racine rencontre un obstacle et se déforme. L'an prochain, ameublis le sol à 20-25 cm de profondeur et retire tous les cailloux.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Mes laitues montent en graine trop vite</div>
+        <div class="faq-answer">Trop chaud. Les laitues aiment 15-20 °C. En juillet-août, choisis des variétés résistantes à la chaleur ou mets de l'ombrage partiel. Passé début août, les successions reprennent avec le retour du frais.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Les haricots ne germent pas — sol trop froid?</div>
+        <div class="faq-answer">Oui, très probable. Les haricots germent en dessous de 15 °C seulement. Si tu les as semés avant le 1er juin, attends la chaleur. Si pas de levée après 2 semaines, ressemer directement par-dessus.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Combien de graines par trou/sillon?</div>
+        <div class="faq-answer">Règle générale : <strong>2x la quantité finale souhaitée</strong>. Ex. pour 1 plant de haricot par poquet final, sème 2 graines. Pour 5 carottes dans un rang, sème ~10 graines. Tu démaries après la levée.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Mes graines sont de l'an passé, encore bonnes?</div>
+        <div class="faq-answer">Dépend de l'espèce. Radis, haricots, laitues : oui (3-5 ans). Carottes, panais : 1-2 ans max. Pour tester : mets 10 graines sur un papier humide dans un sac Ziploc, attends 5-7 jours. Si 7+/10 germent, elles sont bonnes.</div>
+      </div>
+    </section>
+
+    <!-- Récapitulatif -->
+    <section class="section">
+      <div class="section-label">Récapitulatif</div>
+      <h2><span class="icon">📋</span>Checklist express</h2>
+      <div class="answer-grid">
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Quand</div>
+          <div class="answer-box-value">Mai (froides), juin (chaudes)</div>
+          <div class="answer-box-detail">Jamais avant que le sol soit travaillable.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Préparation</div>
+          <div class="answer-box-value">Désherber, ameublir, niveler</div>
+          <div class="answer-box-detail">Sol humide juste avant de semer.</div>
+        </div>
+        <div class="answer-box gold">
+          <div class="answer-box-kicker">Profondeur</div>
+          <div class="answer-box-value">2-3× le diamètre de la graine</div>
+          <div class="answer-box-detail">Petites graines : 0,5 cm. Grosses : 2-5 cm.</div>
+        </div>
+        <div class="answer-box blue">
+          <div class="answer-box-kicker">Arrosage</div>
+          <div class="answer-box-value">Le matin, au pied</div>
+          <div class="answer-box-detail">Sol humide jusqu'à la levée, puis 2-3× / semaine.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Démariage</div>
+          <div class="answer-box-value">Couper (pas arracher)</div>
+          <div class="answer-box-detail">Quand 2-3 vraies feuilles.</div>
+        </div>
+        <div class="answer-box terra">
+          <div class="answer-box-kicker">Protection</div>
+          <div class="answer-box-value">Filet + paillis</div>
+          <div class="answer-box-detail">Contre oiseaux, limaces, vent et gel tardif.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>🌿 Bon jardinage!</strong> · Zone 5b · Sainte-Thérèse
+  </footer>
+
+</body>
+</html>

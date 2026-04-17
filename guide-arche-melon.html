@@ -426,13 +426,16 @@
 
             <!-- Soucis border (dots around the perimeter) -->
             <g fill="#E8C07A" opacity="0.75">
-              <circle cx="20" cy="10" r="3"/><circle cx="60" cy="10" r="3"/><circle cx="100" cy="10" r="3"/>
+              <circle cx="20" cy="10" r="3"/><circle cx="100" cy="10" r="3"/>
               <circle cx="140" cy="10" r="3"/><circle cx="180" cy="10" r="3"/><circle cx="220" cy="10" r="3"/>
               <circle cx="260" cy="10" r="3"/><circle cx="300" cy="10" r="3"/><circle cx="340" cy="10" r="3"/>
               <circle cx="20" cy="170" r="3"/><circle cx="60" cy="170" r="3"/><circle cx="100" cy="170" r="3"/>
               <circle cx="140" cy="170" r="3"/><circle cx="180" cy="170" r="3"/><circle cx="220" cy="170" r="3"/>
               <circle cx="260" cy="170" r="3"/><circle cx="300" cy="170" r="3"/><circle cx="340" cy="170" r="3"/>
             </g>
+            <!-- Spacing indicator between soucis (bordure nord, en remplacant 2 dots) -->
+            <line x1="20" y1="10" x2="100" y2="10" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+            <text x="60" y="7" text-anchor="middle" font-family="DM Sans" font-size="7" font-style="italic" fill="#B84B2C" font-weight="600">Soucis · ~40 cm</text>
 
             <!-- Row labels on left -->
             <text x="-8" y="30" text-anchor="end" font-family="DM Sans" font-size="8.5" font-style="italic" fill="#9A8E80">Nord →</text>
@@ -450,7 +453,10 @@
               <circle cx="160" cy="35" r="8" fill="#F08080" opacity="0.7"/>
               <circle cx="210" cy="35" r="10" fill="#FF6B5D" opacity="0.85" stroke="#A82020" stroke-width="1"/>
               <circle cx="250" cy="35" r="10" fill="#FF6B5D" opacity="0.85" stroke="#A82020" stroke-width="1"/>
-              <text x="130" y="65" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#7A1818" font-weight="600">Tomates Plourde + cerises</text>
+              <!-- Spacing indicator between Plourde -->
+              <line x1="40" y1="53" x2="100" y2="53" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+              <text x="70" y="51" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="600">~50 cm</text>
+              <text x="130" y="67" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#7A1818" font-weight="600">Tomates Plourde + cerises</text>
             </g>
 
             <!-- MILIEU - Poivrons + brocoli -->
@@ -460,6 +466,12 @@
               <circle cx="150" cy="95" r="11" fill="#C8943A" opacity="0.85" stroke="#8B6914" stroke-width="1"/>
               <circle cx="200" cy="95" r="11" fill="#C8943A" opacity="0.85" stroke="#8B6914" stroke-width="1"/>
               <circle cx="255" cy="95" r="13" fill="#5B9A4D" opacity="0.8" stroke="#2E5B20" stroke-width="1"/>
+              <!-- Spacing indicator between poivrons -->
+              <line x1="40" y1="79" x2="90" y2="79" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+              <text x="65" y="77" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="600">~35 cm</text>
+              <!-- Spacing indicator between poivron and brocoli -->
+              <line x1="200" y1="79" x2="255" y2="79" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+              <text x="227" y="77" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="600">~45 cm</text>
               <text x="120" y="115" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#5A5245" font-weight="600">Poivrons (4)</text>
               <text x="255" y="115" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#2E5B20" font-weight="600">Brocoli</text>
             </g>
@@ -472,13 +484,19 @@
                 <circle cx="65" cy="145" r="3"/><circle cx="80" cy="145" r="3"/><circle cx="95" cy="145" r="3"/>
                 <circle cx="110" cy="145" r="3"/><circle cx="125" cy="145" r="3"/>
               </g>
-              <text x="70" y="158" text-anchor="middle" font-family="DM Sans" font-size="8" fill="#7A2810" font-weight="600">Carottes</text>
+              <!-- Spacing indicator between carottes -->
+              <line x1="20" y1="135" x2="35" y2="135" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+              <text x="27" y="133" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="600">5 cm</text>
+              <text x="70" y="159" text-anchor="middle" font-family="DM Sans" font-size="8" fill="#7A2810" font-weight="600">Carottes · rangs 20 cm</text>
               <!-- Laitues -->
               <g fill="#C0DD97" opacity="0.75" stroke="#639922" stroke-width="0.5">
                 <circle cx="160" cy="140" r="10"/><circle cx="185" cy="140" r="10"/><circle cx="210" cy="140" r="10"/>
                 <circle cx="235" cy="140" r="10"/><circle cx="260" cy="140" r="10"/><circle cx="285" cy="140" r="10"/>
                 <circle cx="310" cy="140" r="10"/>
               </g>
+              <!-- Spacing indicator between laitues -->
+              <line x1="160" y1="124" x2="185" y2="124" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+              <text x="172" y="122" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="600">~25 cm</text>
               <text x="230" y="163" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#27500A" font-weight="600">Laitues (successions)</text>
             </g>
 

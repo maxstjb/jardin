@@ -377,7 +377,7 @@
     <section class="section">
       <div class="section-label">Vue du dessus · Placement dans le bac maison</div>
       <h2>Où placer le treillis</h2>
-      <p class="lead">Le treillis se positionne à l'<strong>extrémité est (droite)</strong> du bac maison, dressé verticalement sur toute la largeur (3 pi nord-sud). Le plant de melon est au pied, au centre, et grimpe en ligne droite.</p>
+      <p class="lead">Le treillis se positionne à l'<strong>extrémité est (droite)</strong> du bac maison, dressé verticalement sur toute la largeur (3 pi nord-sud). <strong>2 plants de melon</strong> sont plantés côte à côte au pied du treillis, séparés d'environ 45 cm (18 po).</p>
 
       <div class="diagram-wrap">
         <svg viewBox="0 0 820 340" xmlns="http://www.w3.org/2000/svg">
@@ -492,18 +492,40 @@
             <circle cx="442" cy="172" r="5" fill="#2A2018" stroke="#000" stroke-width="0.5"/>
 
             <!-- Melon plant at base of trellis, centered vertically -->
-            <g transform="translate(405, 90)">
-              <circle r="14" fill="#4A7C3E" opacity="0.95"/>
-              <circle r="9" fill="#7FB87E"/>
-              <circle r="4" fill="#A8D5A2"/>
-              <!-- Leaves spreading -->
-              <ellipse cx="-15" cy="-8" rx="8" ry="5" fill="#7FB87E" opacity="0.7" transform="rotate(-30)"/>
-              <ellipse cx="-15" cy="8" rx="8" ry="5" fill="#7FB87E" opacity="0.7" transform="rotate(30)"/>
-              <ellipse cx="15" cy="-5" rx="6" ry="4" fill="#7FB87E" opacity="0.7" transform="rotate(20)"/>
-              <ellipse cx="15" cy="5" rx="6" ry="4" fill="#7FB87E" opacity="0.7" transform="rotate(-20)"/>
+            <!-- Plant #1 (north side) -->
+            <g transform="translate(410, 55)">
+              <!-- Spread of leaves around plant -->
+              <circle r="22" fill="#7FB87E" opacity="0.25"/>
+              <ellipse cx="-14" cy="-4" rx="9" ry="6" fill="#7FB87E" opacity="0.6" transform="rotate(-25)"/>
+              <ellipse cx="14" cy="-4" rx="9" ry="6" fill="#7FB87E" opacity="0.6" transform="rotate(25)"/>
+              <ellipse cx="-10" cy="12" rx="8" ry="5" fill="#7FB87E" opacity="0.6" transform="rotate(40)"/>
+              <ellipse cx="10" cy="12" rx="8" ry="5" fill="#7FB87E" opacity="0.6" transform="rotate(-40)"/>
+              <!-- Plant center -->
+              <circle r="9" fill="#4A7C3E"/>
+              <circle r="5" fill="#7FB87E"/>
+              <circle r="2" fill="#A8D5A2"/>
+              <!-- Label -->
+              <text x="0" y="-28" text-anchor="middle" font-family="DM Sans" font-size="9" font-weight="600" fill="#2A5C45">#1</text>
             </g>
-            <text x="390" y="25" text-anchor="middle" font-family="Playfair Display" font-size="11" font-weight="600" fill="#B84B2C">🍉 Melon + Treillis</text>
-            <text x="390" y="40" text-anchor="middle" font-family="DM Sans" font-size="8.5" fill="#5A5245">1-2 plants Sweet Siberian</text>
+
+            <!-- Plant #2 (south side) -->
+            <g transform="translate(410, 125)">
+              <circle r="22" fill="#7FB87E" opacity="0.25"/>
+              <ellipse cx="-14" cy="-4" rx="9" ry="6" fill="#7FB87E" opacity="0.6" transform="rotate(-25)"/>
+              <ellipse cx="14" cy="-4" rx="9" ry="6" fill="#7FB87E" opacity="0.6" transform="rotate(25)"/>
+              <ellipse cx="-10" cy="12" rx="8" ry="5" fill="#7FB87E" opacity="0.6" transform="rotate(40)"/>
+              <ellipse cx="10" cy="12" rx="8" ry="5" fill="#7FB87E" opacity="0.6" transform="rotate(-40)"/>
+              <circle r="9" fill="#4A7C3E"/>
+              <circle r="5" fill="#7FB87E"/>
+              <circle r="2" fill="#A8D5A2"/>
+              <text x="0" y="38" text-anchor="middle" font-family="DM Sans" font-size="9" font-weight="600" fill="#2A5C45">#2</text>
+            </g>
+
+            <!-- Spacing indicator between plants (45 cm / 18 po) -->
+            <line x1="395" y1="70" x2="395" y2="110" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2,2"/>
+            <text x="388" y="93" text-anchor="end" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C">~45 cm</text>
+
+            <text x="415" y="25" text-anchor="middle" font-family="Playfair Display" font-size="11" font-weight="600" fill="#B84B2C">🍉 2 plants Sweet Siberian</text>
           </g>
 
           <!-- Dimension labels -->
@@ -540,6 +562,10 @@
 
       <div class="callout">
         <strong>💡 Pourquoi à l'est?</strong> Le soleil sud qui est la force du bac passe <em>devant</em> le treillis toute la journée. En plaçant le treillis à l'est, l'ombre tombe à l'extérieur du bac le matin, jamais sur tes tomates. Et l'arrière (nord) reste libre pour les grandes tomates.
+      </div>
+
+      <div class="callout">
+        <strong>🌱 Combien de plants?</strong> <strong>2 plants = idéal</strong>, placés côte à côte sur la largeur de 3 pi avec ~45 cm (18 po) entre eux. Chaque plant donnera 3-4 beaux melons = <strong>6-8 melons au total</strong>. Tu pourrais serrer jusqu'à 3 plants, mais pas plus : en zone 5b, mieux vaut 2 plants en santé qui produisent de gros fruits mûrs que 4-5 plants serrés avec des petits fruits immatures.
       </div>
     </section>
 

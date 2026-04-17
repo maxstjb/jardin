@@ -845,6 +845,125 @@
     }
 
     /* ─────────────────────────────
+       PLAN B (BACKUP BONUS)
+    ───────────────────────────── */
+    .backup-plan {
+      background: linear-gradient(135deg, rgba(200,148,58,0.08), rgba(232,192,122,0.04));
+      border: 2px solid var(--gold-light);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .backup-plan::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,148,58,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .backup-plan-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      background: rgba(200,148,58,0.12);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+    }
+    .backup-plan-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 0.35rem;
+    }
+    .backup-plan-sub {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .backup-group {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+      border: 1px solid var(--border-light);
+    }
+    .backup-group-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.5rem;
+    }
+    .backup-group-dates {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .backup-group-kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .backup-badge {
+      background: var(--gold-light);
+      color: #5A4208;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: auto;
+    }
+    .backup-no-indoor {
+      background: rgba(184,75,44,0.06);
+      border: 1px solid rgba(184,75,44,0.2);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      margin-top: 0.75rem;
+    }
+    .backup-no-indoor-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--terra);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .backup-no-indoor-list {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .backup-no-indoor-list li {
+      margin: 0.25rem 0;
+      list-style: none;
+    }
+    .backup-no-indoor-list li::before {
+      content: '✗';
+      color: var(--terra);
+      font-weight: 700;
+      margin-right: 6px;
+    }
+    .backup-no-indoor-list strong {
+      color: var(--text-primary);
+    }
+
+    /* ─────────────────────────────
        CALENDAR
     ───────────────────────────── */
     .calendar-header {
@@ -1905,6 +2024,40 @@
   ];
 
   /* ════════════════════
+     PLAN B · SEMIS BONUS
+  ════════════════════ */
+  const backupPlan = [
+    {
+      kicker: 'À démarrer maintenant',
+      dateRange: '17–23 avril',
+      badge: 'Optionnel',
+      tasks: [
+        { id:'bkp-now-0', text:'Semis intérieurs : Laitues Côte de Beaune + Parris Island (×10 plants, sème 15 graines) — transplanter mi-mai', category:'semis' },
+        { id:'bkp-now-1', text:'Semis intérieurs : Soucis officinaux (×15-20 plants pour bordures des 2 bacs, sème 25 graines)', category:'semis' },
+        { id:'bkp-now-2', text:'Semis intérieurs : Camomille allemande (×5 plants, sème 10 graines)', category:'semis' }
+      ]
+    },
+    {
+      kicker: 'Semaine prochaine',
+      dateRange: '20–26 avril',
+      badge: 'Optionnel',
+      tasks: [
+        { id:'bkp-next-0', text:'Semis intérieurs : Pois de senteur (×6 plants, tremper 12h avant, sème 8 graines)', category:'semis' },
+        { id:'bkp-next-1', text:'2e vague laitues en semis intérieur (×5-7 plants) pour succession', category:'semis' }
+      ]
+    },
+    {
+      kicker: 'Avant fin avril',
+      dateRange: '27 avril – 3 mai',
+      badge: 'Optionnel',
+      tasks: [
+        { id:'bkp-late-0', text:'Semis intérieurs : Mesclun de luxe (×1 plateau) pour récolte hâtive', category:'semis' },
+        { id:'bkp-late-1', text:'3e vague laitues en semis intérieur (×5 plants) pour succession d\'été', category:'semis' }
+      ]
+    }
+  ];
+
+  /* ════════════════════
      DATA
   ════════════════════ */
   const plantData = {
@@ -2511,6 +2664,49 @@
           </span>
           <span class="calendar-guide-arrow">→</span>
         </a>
+      </div>
+
+      <div class="backup-plan">
+        <div class="backup-plan-kicker">🎁 Plan B · Si tu as plus de temps</div>
+        <h3 class="backup-plan-title">Semis intérieurs bonus</h3>
+        <p class="backup-plan-sub">Tu peux devancer certains semis extérieurs en les démarrant à l'intérieur. Avantages : meilleur taux de levée, plants plus forts, récolte plus hâtive de 2-3 semaines. Parfait si tu as de l'espace sous les lampes!</p>`;
+
+    // Render backup plan groups
+    backupPlan.forEach(group => {
+      html += `
+        <div class="backup-group">
+          <div class="backup-group-header">
+            <span class="backup-group-kicker">${group.kicker}</span>
+            <span class="backup-group-dates">${group.dateRange}</span>
+            <span class="backup-badge">${group.badge}</span>
+          </div>
+          <div class="calendar-tasks">`;
+      group.tasks.forEach(task => {
+        const checked = state[task.id] ? true : false;
+        html += `
+            <label class="calendar-task${checked ? ' checked' : ''}">
+              <input type="checkbox" data-task-id="${task.id}" ${checked ? 'checked' : ''}>
+              <span class="calendar-task-check"></span>
+              <span class="calendar-task-text">${task.text}</span>
+              <span class="calendar-task-badge badge-${task.category}">${categoryLabels[task.category]}</span>
+            </label>`;
+      });
+      html += `
+          </div>
+        </div>`;
+    });
+
+    html += `
+        <div class="backup-no-indoor">
+          <div class="backup-no-indoor-title">⚠️ À laisser absolument en semis direct (ne pas démarrer à l'intérieur)</div>
+          <ul class="backup-no-indoor-list">
+            <li><strong>Carottes</strong> — racine pivotante qui se déforme si transplantée</li>
+            <li><strong>Radis</strong> — germent en 3-5 jours directement au sol, aucun gain à l'intérieur</li>
+            <li><strong>Haricots</strong> — racines fragiles, détestent la transplantation</li>
+            <li><strong>Coriandre & aneth</strong> — taproots qui n'aiment pas être dérangés</li>
+            <li><strong>Betteraves</strong> — tolèrent mal le repiquage, préfèrent le semis direct</li>
+          </ul>
+        </div>
       </div>`;
 
     calendarData.forEach((month, mi) => {

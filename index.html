@@ -845,6 +845,468 @@
     }
 
     /* ─────────────────────────────
+       SEARCH BAR
+    ───────────────────────────── */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--green-mid);
+      box-shadow: 0 4px 20px rgba(61,128,96,0.18);
+    }
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.05rem;
+      pointer-events: none;
+    }
+    .search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--cream-dark);
+      border: none;
+      color: var(--text-muted);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      font-size: 0.9rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-clear:hover { background: var(--border); color: var(--text-primary); }
+    .search-input:not(:placeholder-shown) + .search-clear { display: flex; }
+    .search-results {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      margin-top: 6px;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 100;
+    }
+    .search-results.visible { display: block; }
+    .search-group-title {
+      padding: 8px 14px 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      background: var(--cream-light);
+    }
+    .search-result {
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-light);
+      transition: background 0.15s;
+    }
+    .search-result:last-child { border-bottom: none; }
+    .search-result:hover { background: var(--cream); }
+    .search-result-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      width: 32px;
+      text-align: center;
+    }
+    .search-result-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .search-result-title {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .search-result-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .search-result mark {
+      background: var(--gold-light);
+      color: var(--text-primary);
+      padding: 0 2px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .search-empty {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.88rem;
+    }
+
+    /* Calendar week highlight from search */
+    .calendar-week.search-highlight {
+      animation: searchPulse 2s ease-out;
+    }
+    @keyframes searchPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(200,148,58,0); }
+      15%  { box-shadow: 0 0 0 8px rgba(200,148,58,0.4); transform: scale(1.01); }
+      100% { box-shadow: 0 0 0 0 rgba(200,148,58,0); transform: scale(1); }
+    }
+
+    /* ─────────────────────────────
+       SUCCESSIONS DYNAMIQUES
+    ───────────────────────────── */
+    .successions-card {
+      background: linear-gradient(135deg, rgba(61,128,96,0.08), rgba(125,185,148,0.04));
+      border: 2px solid var(--green-sage);
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .successions-card::before {
+      content: '';
+      position: absolute;
+      top: -25px; right: -25px;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(61,128,96,0.12) 0%, transparent 70%);
+    }
+    .successions-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-deep);
+      background: rgba(61,128,96,0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.6rem;
+    }
+    .successions-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 0.5rem;
+    }
+    .successions-sub {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .succession-row {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 0.95rem;
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .succession-row.due {
+      border-color: var(--terra);
+      background: linear-gradient(135deg, rgba(184,75,44,0.05), rgba(255,255,255,1));
+    }
+    .succession-row.upcoming {
+      border-color: var(--gold-light);
+    }
+    .succession-emoji {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--cream);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .succession-info { flex: 1; min-width: 0; }
+    .succession-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+    }
+    .succession-detail {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .succession-badge {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .succession-badge.due {
+      background: var(--terra);
+      color: var(--cream-light);
+    }
+    .succession-badge.upcoming {
+      background: var(--gold-light);
+      color: #5A4208;
+    }
+    .succession-badge.future {
+      background: var(--cream);
+      color: var(--text-secondary);
+    }
+    .successions-empty {
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ─────────────────────────────
+       SEED INVENTORY
+    ───────────────────────────── */
+    .seed-inventory {
+      background: linear-gradient(135deg, rgba(78,159,200,0.06), rgba(78,159,200,0.02));
+      border: 2px solid rgba(78,159,200,0.35);
+      border-radius: var(--radius-xl);
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .seed-inventory::before {
+      content: '';
+      position: absolute;
+      top: -25px; left: -25px;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(78,159,200,0.1) 0%, transparent 70%);
+    }
+    .seed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      position: relative; z-index: 1;
+      flex-wrap: wrap;
+    }
+    .seed-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #2E6B8B;
+      background: rgba(78,159,200,0.15);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.4rem;
+    }
+    .seed-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2E6B8B;
+    }
+    .seed-count {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .seed-count strong { color: #2E6B8B; }
+    .seed-toggle-arrow {
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+    .seed-inventory.expanded .seed-toggle-arrow { transform: rotate(180deg); }
+    .seed-body {
+      display: none;
+      margin-top: 1rem;
+      position: relative; z-index: 1;
+    }
+    .seed-inventory.expanded .seed-body { display: block; }
+
+    .seed-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .seed-btn {
+      padding: 0.5rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .seed-btn:hover { border-color: var(--blue); color: #2E6B8B; }
+    .seed-btn.primary {
+      background: var(--blue);
+      color: var(--cream-light);
+      border-color: var(--blue);
+    }
+    .seed-btn.primary:hover { background: #3A8BAE; color: var(--cream-light); }
+
+    .seed-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .seed-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto auto;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.85rem;
+      transition: border-color 0.15s;
+    }
+    .seed-item:hover { border-color: var(--blue); }
+    .seed-item.empty { opacity: 0.55; border-left: 3px solid var(--terra); }
+    .seed-item.low { border-left: 3px solid var(--gold); }
+    .seed-item.expiring { border-left: 3px solid var(--terra); }
+    .seed-item-emoji {
+      font-size: 1.3rem;
+      width: 30px;
+      text-align: center;
+    }
+    .seed-item-name {
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .seed-item-stock {
+      font-size: 0.78rem;
+      padding: 3px 6px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text-secondary);
+      font-family: inherit;
+      cursor: pointer;
+    }
+    .seed-item-expires {
+      width: 60px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      text-align: center;
+      font-family: inherit;
+    }
+    .seed-item-delete {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    .seed-item-delete:hover { color: var(--terra); background: rgba(184,75,44,0.08); }
+
+    .seed-add-form {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto auto;
+      gap: 8px;
+      align-items: center;
+      background: var(--cream);
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-md);
+      margin-top: 0.5rem;
+    }
+    .seed-add-form input, .seed-add-form select {
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.85rem;
+    }
+    .seed-add-form input[type="text"] { min-width: 0; }
+    .seed-add-form button {
+      padding: 6px 12px;
+      background: var(--blue);
+      color: var(--cream-light);
+      border: none;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .seed-add-form button:hover { background: #3A8BAE; }
+
+    @media (max-width: 600px) {
+      .seed-item {
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+          "emoji name delete"
+          "emoji stock expires";
+        row-gap: 6px;
+      }
+      .seed-item-emoji { grid-area: emoji; }
+      .seed-item-name { grid-area: name; }
+      .seed-item-stock { grid-area: stock; justify-self: start; }
+      .seed-item-expires { grid-area: expires; justify-self: end; }
+      .seed-item-delete { grid-area: delete; }
+      .seed-add-form {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 6px;
+      }
+    }
+
+    /* ─────────────────────────────
        WEATHER WIDGET
     ───────────────────────────── */
     .weather-widget {
@@ -1672,6 +2134,14 @@
         <span class="tab-name">Calendrier</span>
         <span class="tab-desc">Mars–Sept. · Tâches hebdo</span>
       </button>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" class="search-input" placeholder="Rechercher une plante, une tâche, un guide…" autocomplete="off">
+      <button class="search-clear" id="search-clear" title="Effacer">✕</button>
+      <div id="search-results" class="search-results"></div>
     </div>
 
     <!-- WEATHER WIDGET -->
@@ -3057,7 +3527,11 @@
         </a>
       </div>
 
+      ${renderSuccessions()}
+
       ${renderHarvestTracker()}
+
+      ${renderSeedInventory()}
 
       <div class="backup-plan">
         <div class="backup-plan-kicker">🎁 Plan B · Si tu as plus de temps</div>
@@ -3510,6 +3984,621 @@
     if (e.target.id === 'harvest-history-toggle') {
       const hist = document.getElementById('harvest-history');
       if (hist) hist.classList.toggle('visible');
+    }
+  });
+
+  /* ════════════════════
+     SUCCESSIONS DYNAMIQUES
+  ════════════════════ */
+  const successionPlans = [
+    {
+      key: 'laitues',
+      name: 'Laitues',
+      emoji: '🥬',
+      intervalDays: 14,
+      endMonth: 7, // arrêter mi-août
+      taskIds: ['m05-w1-1', 'm05-w3-0', 'm06-w3-0', 'm07-w4-0', 'm08-w1-0', 'bkp-now-0', 'bkp-next-1', 'bkp-late-1'],
+      note: 'Semer aux 2 semaines pour des salades fraîches tout l\'été'
+    },
+    {
+      key: 'mesclun',
+      name: 'Mesclun',
+      emoji: '🌿',
+      intervalDays: 14,
+      endMonth: 7,
+      taskIds: ['m05-w1-2', 'm05-w3-0', 'm06-w3-0', 'm07-w4-0', 'm08-w1-0', 'bkp-late-0'],
+      note: 'Semer aux 2 semaines pour mesclun frais tout l\'été'
+    },
+    {
+      key: 'radis',
+      name: 'Radis',
+      emoji: '🌰',
+      intervalDays: 18,
+      endMonth: 5, // mi-juin puis reprise fin août
+      taskIds: ['m05-w1-3'],
+      note: 'Semer aux 2-3 semaines de mai à mi-juin, puis reprendre fin août'
+    },
+    {
+      key: 'coriandre',
+      name: 'Coriandre',
+      emoji: '🌿',
+      intervalDays: 21,
+      endMonth: 7,
+      taskIds: ['m05-w4-0', 'm06-w3-1', 'm07-w2-0'],
+      note: 'Semer aux 3 semaines (monte vite en graine par temps chaud)'
+    },
+    {
+      key: 'carottes',
+      name: 'Carottes',
+      emoji: '🥕',
+      intervalDays: 60,
+      endMonth: 6,
+      taskIds: ['m05-w1-0', 'm07-w1-0'],
+      note: '2 semis : début mai (récolte été) et début juillet (récolte automne, conservation hiver)'
+    }
+  ];
+
+  function loadCheckDates() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_check_dates')) || {}; }
+    catch { return {}; }
+  }
+  function saveCheckDates(d) {
+    localStorage.setItem('jardin2026_check_dates', JSON.stringify(d));
+  }
+
+  // Trouver la date par défaut d'une tâche (début de sa semaine calendrier)
+  function getDefaultTaskDate(taskId) {
+    for (const month of calendarData) {
+      for (const week of month.weeks) {
+        if (week.tasks.some(t => t.id === taskId)) {
+          return new Date(week.startDate + 'T12:00:00');
+        }
+      }
+    }
+    // Tâches backup : utiliser date actuelle approx
+    if (taskId.startsWith('bkp-')) return new Date();
+    return null;
+  }
+
+  function getActiveSuccessions() {
+    const state = loadChecklist();
+    const checkDates = loadCheckDates();
+    const results = [];
+
+    for (const plan of successionPlans) {
+      const checkedTasks = plan.taskIds.filter(id => state[id]);
+      if (checkedTasks.length === 0) continue;
+
+      // Trouver la date la plus récente
+      let mostRecent = null;
+      checkedTasks.forEach(id => {
+        const d = checkDates[id] ? new Date(checkDates[id]) : getDefaultTaskDate(id);
+        if (d && (!mostRecent || d > mostRecent)) mostRecent = d;
+      });
+      if (!mostRecent) continue;
+
+      const nextDate = new Date(mostRecent);
+      nextDate.setDate(nextDate.getDate() + plan.intervalDays);
+
+      // Skip si hors saison
+      if (nextDate.getMonth() > plan.endMonth) continue;
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const daysUntil = Math.round((nextDate - today) / (1000 * 60 * 60 * 24));
+
+      let status, badge;
+      if (daysUntil < 0) { status = 'due'; badge = 'À semer maintenant'; }
+      else if (daysUntil <= 3) { status = 'due'; badge = `Dans ${daysUntil} j`; }
+      else if (daysUntil <= 10) { status = 'upcoming'; badge = `Dans ${daysUntil} j`; }
+      else { status = 'future'; badge = `Dans ${daysUntil} j`; }
+
+      results.push({
+        ...plan,
+        lastDate: mostRecent,
+        nextDate: nextDate,
+        daysUntil: daysUntil,
+        status: status,
+        badge: badge,
+        waveCount: checkedTasks.length
+      });
+    }
+    // Tri : due en premier, puis upcoming, puis future
+    const order = { due: 0, upcoming: 1, future: 2 };
+    results.sort((a, b) => order[a.status] - order[b.status]);
+    return results;
+  }
+
+  function formatDate(d) {
+    return d.toLocaleDateString('fr-CA', { day: 'numeric', month: 'long' });
+  }
+
+  function renderSuccessions() {
+    const active = getActiveSuccessions();
+    if (active.length === 0) {
+      return `
+      <div class="successions-card">
+        <div class="successions-kicker">🔁 Successions dynamiques</div>
+        <div class="successions-title">Prochaines vagues</div>
+        <div class="successions-empty">Les successions apparaîtront ici dès que tu auras coché ta première vague de laitues, mesclun, radis, coriandre ou carottes. 🌱</div>
+      </div>`;
+    }
+
+    let html = `
+      <div class="successions-card">
+        <div class="successions-kicker">🔁 Successions dynamiques</div>
+        <div class="successions-title">Prochaines vagues</div>
+        <p class="successions-sub">Calculées depuis la date réelle de ta dernière vague. Ajuste automatiquement si tu es en retard!</p>`;
+
+    active.forEach(s => {
+      html += `
+        <div class="succession-row ${s.status}">
+          <div class="succession-emoji">${s.emoji}</div>
+          <div class="succession-info">
+            <div class="succession-name">${s.name} · vague ${s.waveCount + 1}</div>
+            <div class="succession-detail">Dernière : ${formatDate(s.lastDate)} · Prochaine : <strong>${formatDate(s.nextDate)}</strong></div>
+          </div>
+          <span class="succession-badge ${s.status}">${s.badge}</span>
+        </div>`;
+    });
+
+    html += `</div>`;
+    return html;
+  }
+
+  /* ════════════════════
+     SEED INVENTORY
+  ════════════════════ */
+  const defaultSeedInventory = [
+    { emoji: '🍅', name: 'Tomate Plourde', stock: 'full', expires: 2028 },
+    { emoji: '🍅', name: 'Tomates cerises mélange', stock: 'full', expires: 2028 },
+    { emoji: '🌶️', name: 'Poivron Gourmet', stock: 'full', expires: 2028 },
+    { emoji: '🌶️', name: 'Poivron King of the North', stock: 'full', expires: 2028 },
+    { emoji: '🥦', name: 'Brocoli De Cicco', stock: 'full', expires: 2028 },
+    { emoji: '🌿', name: 'Basilic Genovese', stock: 'full', expires: 2027 },
+    { emoji: '🌿', name: 'Basilic mélange', stock: 'full', expires: 2027 },
+    { emoji: '🍉', name: 'Melon d\'eau Sweet Siberian', stock: 'full', expires: 2028 },
+    { emoji: '🥕', name: 'Carotte Chantenay', stock: 'full', expires: 2027 },
+    { emoji: '🥬', name: 'Laitue Côte de Beaune', stock: 'full', expires: 2027 },
+    { emoji: '🥬', name: 'Laitue romaine Parris Island', stock: 'full', expires: 2027 },
+    { emoji: '🥬', name: 'Laitue feuille de chêne', stock: 'full', expires: 2027 },
+    { emoji: '🌰', name: 'Radis géant de Sicile', stock: 'full', expires: 2027 },
+    { emoji: '🌿', name: 'Mesclun de luxe', stock: 'full', expires: 2027 },
+    { emoji: '🫛', name: 'Haricot nain mélange', stock: 'full', expires: 2028 },
+    { emoji: '🌽', name: 'Maïs Fisher\'s Earliest', stock: 'full', expires: 2028 },
+    { emoji: '🍠', name: 'Betterave mélange', stock: 'full', expires: 2028 },
+    { emoji: '🌿', name: 'Coriandre Santo', stock: 'full', expires: 2027 },
+    { emoji: '🌿', name: 'Aneth de jardin', stock: 'full', expires: 2027 },
+    { emoji: '🌼', name: 'Souci officinal', stock: 'full', expires: 2028 },
+    { emoji: '🌸', name: 'Camomille allemande', stock: 'full', expires: 2028 },
+    { emoji: '🌻', name: 'Tournesol géant', stock: 'full', expires: 2028 },
+    { emoji: '🌸', name: 'Pois de senteur', stock: 'full', expires: 2027 }
+  ];
+
+  const stockLabels = {
+    full: { label: '📦 Plein', order: 3 },
+    medium: { label: '📬 Moyen', order: 2 },
+    low: { label: '⚠️ Faible', order: 1 },
+    empty: { label: '❌ Vide', order: 0 }
+  };
+
+  function loadSeeds() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_seeds')) || []; }
+    catch { return []; }
+  }
+  function saveSeeds(arr) {
+    localStorage.setItem('jardin2026_seeds', JSON.stringify(arr));
+  }
+
+  function renderSeedInventory() {
+    const seeds = loadSeeds();
+    const currentYear = new Date().getFullYear();
+
+    // Compteurs
+    const toReorder = seeds.filter(s => s.stock === 'empty' || s.stock === 'low').length;
+    const expiring = seeds.filter(s => s.expires && s.expires <= currentYear + 1 && s.stock !== 'empty').length;
+
+    // État d'ouverture (par défaut fermé)
+    const expanded = localStorage.getItem('jardin2026_seeds_expanded') === 'true';
+
+    let bodyHtml = '';
+
+    if (seeds.length === 0) {
+      bodyHtml = `
+        <div class="seed-actions">
+          <button class="seed-btn primary" id="seed-import-default">📥 Remplir avec mon plan 2026</button>
+          <button class="seed-btn" id="seed-add-empty">+ Ajouter une semence</button>
+        </div>
+        <div class="successions-empty">Aucune semence enregistrée. Clique sur « Remplir avec mon plan 2026 » pour importer automatiquement toutes tes semences.</div>`;
+    } else {
+      let itemsHtml = seeds.map(s => {
+        const classes = [];
+        if (s.stock === 'empty') classes.push('empty');
+        else if (s.stock === 'low') classes.push('low');
+        if (s.expires && s.expires <= currentYear) classes.push('expiring');
+
+        return `
+          <div class="seed-item ${classes.join(' ')}" data-seed-id="${s.id}">
+            <span class="seed-item-emoji">${s.emoji || '🌱'}</span>
+            <span class="seed-item-name">${s.name}</span>
+            <select class="seed-item-stock" data-seed-id="${s.id}" data-field="stock">
+              ${Object.entries(stockLabels).map(([k,v]) => `<option value="${k}" ${s.stock === k ? 'selected' : ''}>${v.label}</option>`).join('')}
+            </select>
+            <input type="number" class="seed-item-expires" value="${s.expires || ''}" placeholder="Exp." data-seed-id="${s.id}" data-field="expires" min="2024" max="2040">
+            <button class="seed-item-delete" data-seed-id="${s.id}" title="Supprimer">🗑️</button>
+          </div>`;
+      }).join('');
+
+      bodyHtml = `
+        <div class="seed-actions">
+          <button class="seed-btn" id="seed-toggle-add">+ Nouvelle semence</button>
+        </div>
+        <div class="seed-list">${itemsHtml}</div>
+        <div class="seed-add-form" id="seed-add-form" style="display:none;">
+          <input type="text" id="seed-new-emoji" placeholder="🌱" maxlength="4" style="width:50px; text-align:center;">
+          <input type="text" id="seed-new-name" placeholder="Nom de la semence">
+          <select id="seed-new-stock">
+            ${Object.entries(stockLabels).map(([k,v]) => `<option value="${k}" ${k === 'full' ? 'selected' : ''}>${v.label}</option>`).join('')}
+          </select>
+          <input type="number" id="seed-new-expires" placeholder="2028" min="2024" max="2040" style="width:70px;">
+          <button id="seed-add-confirm">Ajouter</button>
+        </div>`;
+    }
+
+    let statusText = `<strong>${seeds.length}</strong> variété${seeds.length !== 1 ? 's' : ''}`;
+    if (toReorder > 0) statusText += ` · <strong style="color:var(--terra);">${toReorder} à racheter</strong>`;
+    if (expiring > 0) statusText += ` · <strong style="color:#8B6914;">${expiring} bientôt périmées</strong>`;
+
+    return `
+      <div class="seed-inventory${expanded ? ' expanded' : ''}" id="seed-inventory">
+        <div class="seed-header" id="seed-header-toggle">
+          <div style="flex:1; min-width:0;">
+            <div class="seed-kicker">📦 Inventaire de semences</div>
+            <div class="seed-title">Mes semences</div>
+            <div class="seed-count">${statusText}</div>
+          </div>
+          <span class="seed-toggle-arrow">▼</span>
+        </div>
+        <div class="seed-body">${bodyHtml}</div>
+      </div>`;
+  }
+
+  // Event delegation pour l'inventaire
+  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
+    // Toggle inventory
+    if (e.target.closest('#seed-header-toggle')) {
+      const inv = document.getElementById('seed-inventory');
+      const nowExpanded = !inv.classList.contains('expanded');
+      inv.classList.toggle('expanded', nowExpanded);
+      localStorage.setItem('jardin2026_seeds_expanded', nowExpanded);
+    }
+    // Import default
+    if (e.target.id === 'seed-import-default') {
+      const seeds = defaultSeedInventory.map((s, i) => ({
+        ...s,
+        id: 'seed-' + Date.now() + '-' + i
+      }));
+      saveSeeds(seeds);
+      const inv = document.querySelector('.seed-inventory');
+      if (inv) {
+        inv.outerHTML = renderSeedInventory();
+        document.getElementById('seed-inventory').classList.add('expanded');
+        localStorage.setItem('jardin2026_seeds_expanded', 'true');
+      }
+    }
+    // Add empty (when list is empty)
+    if (e.target.id === 'seed-add-empty') {
+      const seeds = [{
+        id: 'seed-' + Date.now(),
+        emoji: '🌱', name: 'Nouvelle semence', stock: 'full', expires: new Date().getFullYear() + 3
+      }];
+      saveSeeds(seeds);
+      const inv = document.querySelector('.seed-inventory');
+      if (inv) {
+        inv.outerHTML = renderSeedInventory();
+        document.getElementById('seed-inventory').classList.add('expanded');
+      }
+    }
+    // Toggle add form
+    if (e.target.id === 'seed-toggle-add') {
+      const form = document.getElementById('seed-add-form');
+      if (form) {
+        form.style.display = form.style.display === 'none' ? 'grid' : 'none';
+        if (form.style.display === 'grid') document.getElementById('seed-new-name').focus();
+      }
+    }
+    // Confirm add
+    if (e.target.id === 'seed-add-confirm') {
+      const emoji = document.getElementById('seed-new-emoji').value.trim() || '🌱';
+      const name = document.getElementById('seed-new-name').value.trim();
+      const stock = document.getElementById('seed-new-stock').value;
+      const expires = parseInt(document.getElementById('seed-new-expires').value) || null;
+      if (!name) return;
+      const seeds = loadSeeds();
+      seeds.push({ id: 'seed-' + Date.now(), emoji, name, stock, expires });
+      saveSeeds(seeds);
+      const inv = document.querySelector('.seed-inventory');
+      if (inv) {
+        inv.outerHTML = renderSeedInventory();
+        document.getElementById('seed-inventory').classList.add('expanded');
+      }
+    }
+    // Delete
+    if (e.target.classList.contains('seed-item-delete')) {
+      const id = e.target.dataset.seedId;
+      if (!confirm('Supprimer cette semence de l\'inventaire?')) return;
+      const seeds = loadSeeds().filter(s => s.id !== id);
+      saveSeeds(seeds);
+      const inv = document.querySelector('.seed-inventory');
+      if (inv) {
+        inv.outerHTML = renderSeedInventory();
+        document.getElementById('seed-inventory').classList.add('expanded');
+      }
+    }
+  });
+
+  // Change events (stock dropdown, expires input)
+  document.getElementById('bed-calendrier').addEventListener('change', function(e) {
+    if (e.target.matches('.seed-item-stock, .seed-item-expires')) {
+      const id = e.target.dataset.seedId;
+      const field = e.target.dataset.field;
+      const seeds = loadSeeds();
+      const seed = seeds.find(s => s.id === id);
+      if (seed) {
+        if (field === 'expires') {
+          seed.expires = parseInt(e.target.value) || null;
+        } else {
+          seed[field] = e.target.value;
+        }
+        saveSeeds(seeds);
+        // Update just the CSS class & count without full re-render
+        const row = e.target.closest('.seed-item');
+        if (row) {
+          row.classList.remove('empty', 'low', 'expiring');
+          if (seed.stock === 'empty') row.classList.add('empty');
+          else if (seed.stock === 'low') row.classList.add('low');
+          const currentYear = new Date().getFullYear();
+          if (seed.expires && seed.expires <= currentYear) row.classList.add('expiring');
+        }
+        // Refresh header counts
+        const header = document.querySelector('.seed-count');
+        if (header) {
+          const currentYear = new Date().getFullYear();
+          const toReorder = seeds.filter(s => s.stock === 'empty' || s.stock === 'low').length;
+          const expiring = seeds.filter(s => s.expires && s.expires <= currentYear + 1 && s.stock !== 'empty').length;
+          let statusText = `<strong>${seeds.length}</strong> variété${seeds.length !== 1 ? 's' : ''}`;
+          if (toReorder > 0) statusText += ` · <strong style="color:var(--terra);">${toReorder} à racheter</strong>`;
+          if (expiring > 0) statusText += ` · <strong style="color:#8B6914;">${expiring} bientôt périmées</strong>`;
+          header.innerHTML = statusText;
+        }
+      }
+    }
+  });
+
+  /* ════════════════════
+     SEARCH BAR
+  ════════════════════ */
+  function buildSearchIndex() {
+    const items = [];
+
+    // Plants (bac maison + bac arrière)
+    for (const [bed, plants] of Object.entries(plantData)) {
+      for (const [key, p] of Object.entries(plants)) {
+        items.push({
+          type: 'plant',
+          icon: p.icon || '🌱',
+          title: p.name,
+          sub: `${bed === 'maison' ? 'Bac maison' : 'Bac arrière'} · ${p.qty || ''}`,
+          search: (p.name + ' ' + (p.desc || '') + ' ' + (p.type || '')).toLowerCase(),
+          action: () => {
+            showBed(bed);
+            setTimeout(() => showInfo(bed, key), 200);
+          }
+        });
+      }
+    }
+
+    // Calendar tasks
+    calendarData.forEach(month => {
+      month.weeks.forEach(week => {
+        week.tasks.forEach(task => {
+          items.push({
+            type: 'task',
+            icon: categoryLabels[task.category] === 'Semis' ? '🌱' :
+                  categoryLabels[task.category] === 'Transplantation' ? '🏡' :
+                  categoryLabels[task.category] === 'Récolte' ? '🧺' :
+                  categoryLabels[task.category] === 'Engrais' ? '💩' :
+                  categoryLabels[task.category] === 'Préparation' ? '🪴' : '💧',
+            title: task.text,
+            sub: `${month.month} · ${week.dateRange}`,
+            search: (task.text + ' ' + month.month + ' ' + week.dateRange).toLowerCase(),
+            action: () => {
+              showBed('calendrier');
+              setTimeout(() => {
+                const wEl = document.getElementById('week-' + week.id);
+                if (wEl) {
+                  wEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  wEl.classList.add('search-highlight');
+                  setTimeout(() => wEl.classList.remove('search-highlight'), 2100);
+                }
+              }, 200);
+            }
+          });
+        });
+      });
+    });
+
+    // Backup plan tasks
+    backupPlan.forEach(group => {
+      group.tasks.forEach(task => {
+        items.push({
+          type: 'task',
+          icon: '🎁',
+          title: task.text,
+          sub: `Plan B · ${group.dateRange}`,
+          search: (task.text + ' ' + group.dateRange).toLowerCase(),
+          action: () => {
+            showBed('calendrier');
+            setTimeout(() => {
+              const el = document.querySelector('.backup-plan');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+          }
+        });
+      });
+    });
+
+    // Guides
+    const guides = [
+      { title: 'Guide des semis intérieurs', sub: 'Arrosage, dôme, lumière, tapis chauffant, acclimatation', href: 'guide-semis-interieurs.html', icon: '🌱', search: 'semis interieurs guide arrosage dome lumiere ventilateur tapis chauffant acclimatation' },
+      { title: 'Guide des semis extérieurs', sub: 'Quand semer, profondeur, démariage, protection', href: 'guide-semis-exterieurs.html', icon: '🌿', search: 'semis exterieurs guide quand semer profondeur demariage protection successions' },
+      { title: 'Guide de la transplantation', sub: 'Technique, profondeur, reprise, conseils par culture', href: 'guide-transplantation.html', icon: '🏡', search: 'transplantation repiquage jardin technique profondeur reprise' },
+      { title: 'Guide du treillis à melons', sub: 'Plan visuel, matériaux, étapes de montage', href: 'guide-arche-melon.html', icon: '🍉', search: 'treillis melon arche panneau galvanise' }
+    ];
+    guides.forEach(g => {
+      items.push({
+        type: 'guide',
+        icon: g.icon,
+        title: g.title,
+        sub: g.sub,
+        search: g.search.toLowerCase(),
+        action: () => { window.location.href = g.href; }
+      });
+    });
+
+    return items;
+  }
+
+  let searchIndex = null;
+  function getSearchIndex() {
+    if (!searchIndex) searchIndex = buildSearchIndex();
+    return searchIndex;
+  }
+
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return text.replace(re, '<mark>$1</mark>');
+  }
+
+  function doSearch(query) {
+    const resultsEl = document.getElementById('search-results');
+    query = query.trim().toLowerCase();
+
+    if (!query) {
+      resultsEl.classList.remove('visible');
+      resultsEl.innerHTML = '';
+      return;
+    }
+
+    const all = getSearchIndex();
+    const matched = all.filter(item => item.search.includes(query)).slice(0, 20);
+
+    if (matched.length === 0) {
+      resultsEl.innerHTML = '<div class="search-empty">Aucun résultat pour « ' + query + ' »</div>';
+      resultsEl.classList.add('visible');
+      return;
+    }
+
+    // Grouper par type
+    const groups = { plant: [], task: [], guide: [] };
+    matched.forEach(m => groups[m.type].push(m));
+
+    let html = '';
+    if (groups.plant.length > 0) {
+      html += '<div class="search-group-title">🌱 Plantes (' + groups.plant.length + ')</div>';
+      groups.plant.forEach((m, i) => {
+        html += `<div class="search-result" data-type="plant" data-idx="${i}">
+          <span class="search-result-icon">${m.icon}</span>
+          <div class="search-result-body">
+            <div class="search-result-title">${highlightMatch(m.title, query)}</div>
+            <div class="search-result-sub">${m.sub}</div>
+          </div>
+        </div>`;
+      });
+    }
+    if (groups.task.length > 0) {
+      html += '<div class="search-group-title">📋 Tâches du calendrier (' + groups.task.length + ')</div>';
+      groups.task.forEach((m, i) => {
+        html += `<div class="search-result" data-type="task" data-idx="${i}">
+          <span class="search-result-icon">${m.icon}</span>
+          <div class="search-result-body">
+            <div class="search-result-title">${highlightMatch(m.title, query)}</div>
+            <div class="search-result-sub">${m.sub}</div>
+          </div>
+        </div>`;
+      });
+    }
+    if (groups.guide.length > 0) {
+      html += '<div class="search-group-title">📚 Guides (' + groups.guide.length + ')</div>';
+      groups.guide.forEach((m, i) => {
+        html += `<div class="search-result" data-type="guide" data-idx="${i}">
+          <span class="search-result-icon">${m.icon}</span>
+          <div class="search-result-body">
+            <div class="search-result-title">${highlightMatch(m.title, query)}</div>
+            <div class="search-result-sub">${m.sub}</div>
+          </div>
+        </div>`;
+      });
+    }
+
+    resultsEl.innerHTML = html;
+    resultsEl.classList.add('visible');
+
+    // Stocker les résultats groupés pour clic
+    window._searchGroups = groups;
+  }
+
+  const searchInput = document.getElementById('search-input');
+  const searchClear = document.getElementById('search-clear');
+  const searchResults = document.getElementById('search-results');
+
+  searchInput.addEventListener('input', (e) => doSearch(e.target.value));
+  searchClear.addEventListener('click', () => {
+    searchInput.value = '';
+    searchInput.focus();
+    doSearch('');
+  });
+
+  searchResults.addEventListener('click', (e) => {
+    const item = e.target.closest('.search-result');
+    if (!item) return;
+    const type = item.dataset.type;
+    const idx = parseInt(item.dataset.idx);
+    const match = window._searchGroups[type][idx];
+    if (match && match.action) {
+      searchInput.value = '';
+      searchResults.classList.remove('visible');
+      searchResults.innerHTML = '';
+      match.action();
+    }
+  });
+
+  // Fermer les résultats quand on clique dehors
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrapper')) {
+      searchResults.classList.remove('visible');
+    }
+  });
+
+  /* ════════════════════
+     CHECK DATES (pour successions)
+  ════════════════════ */
+  // Enrichir l'event handler de checkbox pour enregistrer les dates
+  document.getElementById('bed-calendrier').addEventListener('change', function(e) {
+    if (e.target.matches('.calendar-task input[type="checkbox"]')) {
+      const taskId = e.target.dataset.taskId;
+      const dates = loadCheckDates();
+      if (e.target.checked) {
+        dates[taskId] = new Date().toISOString();
+      } else {
+        delete dates[taskId];
+      }
+      saveCheckDates(dates);
+
+      // Re-render le widget de successions
+      const sWidget = document.querySelector('.successions-card');
+      if (sWidget) sWidget.outerHTML = renderSuccessions();
     }
   });
 

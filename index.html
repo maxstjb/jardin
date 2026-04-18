@@ -845,6 +845,383 @@
     }
 
     /* ─────────────────────────────
+       WEATHER WIDGET
+    ───────────────────────────── */
+    .weather-widget {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FAF6EF 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+      flex-wrap: wrap;
+    }
+    .weather-today {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .weather-icon {
+      font-size: 2rem;
+    }
+    .weather-temp {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      line-height: 1;
+    }
+    .weather-city {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+    .weather-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .weather-forecast {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .weather-day {
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      padding: 0.4rem 0.7rem;
+      text-align: center;
+      min-width: 65px;
+    }
+    .weather-day-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+    .weather-day-temps {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      font-size: 0.82rem;
+      margin-top: 2px;
+    }
+    .weather-day-max { color: var(--terra); font-weight: 600; }
+    .weather-day-min { color: var(--blue); font-weight: 600; }
+    .weather-day-icon { font-size: 1rem; }
+
+    .weather-alert {
+      background: linear-gradient(135deg, rgba(184,75,44,0.12), rgba(224,112,80,0.08));
+      border: 2px solid var(--terra);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--terra);
+      font-weight: 600;
+    }
+    .weather-alert-icon {
+      font-size: 1.4rem;
+    }
+    .weather-alert-text {
+      flex: 1;
+    }
+    .weather-alert-text small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .weather-loading {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .weather-widget { flex-direction: column; align-items: stretch; }
+      .weather-forecast { justify-content: center; }
+    }
+
+    /* ─────────────────────────────
+       WEEK JOURNAL
+    ───────────────────────────── */
+    .journal-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 0;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+    .journal-toggle:hover { color: var(--green-deep); }
+    .journal-toggle.has-notes {
+      color: var(--green-mid);
+      font-weight: 600;
+    }
+    .journal-toggle-icon {
+      font-size: 0.9rem;
+    }
+    .journal-area {
+      margin-top: 0.5rem;
+      display: none;
+    }
+    .journal-area.visible { display: block; }
+    .journal-textarea {
+      width: 100%;
+      min-height: 60px;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      background: var(--cream);
+      font-family: inherit;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+    .journal-textarea:focus {
+      outline: none;
+      border-color: var(--green-mid);
+      background: var(--white);
+    }
+    .journal-textarea::placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .journal-saved-hint {
+      font-size: 0.72rem;
+      color: var(--green-mid);
+      margin-top: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .journal-saved-hint.visible { opacity: 1; }
+
+    /* ─────────────────────────────
+       HARVEST TRACKER
+    ───────────────────────────── */
+    .harvest-tracker {
+      background: linear-gradient(135deg, rgba(184,75,44,0.06), rgba(216,90,48,0.03));
+      border: 2px solid var(--terra-light);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .harvest-tracker::before {
+      content: '';
+      position: absolute;
+      top: -30px; left: -30px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(216,90,48,0.12) 0%, transparent 70%);
+    }
+    .harvest-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--terra);
+      background: rgba(184,75,44,0.1);
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 0.6rem;
+      position: relative; z-index: 1;
+    }
+    .harvest-header-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .harvest-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--terra);
+    }
+    .harvest-grand-total {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .harvest-grand-total strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--terra);
+    }
+    .harvest-add-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative; z-index: 1;
+    }
+    .harvest-select {
+      flex: 1;
+      min-width: 140px;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--text-primary);
+    }
+    .harvest-qty {
+      width: 80px;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    .harvest-add-btn {
+      padding: 0.5rem 1rem;
+      background: var(--terra);
+      color: var(--cream-light);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .harvest-add-btn:hover { background: #A13D20; }
+    .harvest-add-btn:active { transform: scale(0.98); }
+
+    .harvest-totals {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+      position: relative; z-index: 1;
+    }
+    .harvest-pill {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .harvest-pill-emoji {
+      font-size: 1.2rem;
+    }
+    .harvest-pill-body { flex: 1; min-width: 0; }
+    .harvest-pill-name {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .harvest-pill-count {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--terra);
+      line-height: 1.1;
+    }
+    .harvest-pill-unit {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .harvest-empty {
+      text-align: center;
+      padding: 0.75rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+
+    .harvest-history-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px 0;
+      font-family: inherit;
+      position: relative; z-index: 1;
+    }
+    .harvest-history-toggle:hover { color: var(--terra); }
+    .harvest-history {
+      margin-top: 0.5rem;
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border-light);
+    }
+    .harvest-history.visible { display: block; }
+    .harvest-history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      border-bottom: 1px dashed var(--border-light);
+      font-size: 0.82rem;
+    }
+    .harvest-history-item:last-child { border-bottom: none; }
+    .harvest-history-item-date {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+    .harvest-history-delete {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 2px 6px;
+      font-size: 0.8rem;
+      border-radius: 4px;
+    }
+    .harvest-history-delete:hover {
+      color: var(--terra);
+      background: rgba(184,75,44,0.08);
+    }
+
+    /* ─────────────────────────────
        PLAN B (BACKUP BONUS)
     ───────────────────────────── */
     .backup-plan {
@@ -1295,6 +1672,12 @@
         <span class="tab-name">Calendrier</span>
         <span class="tab-desc">Mars–Sept. · Tâches hebdo</span>
       </button>
+    </div>
+
+    <!-- WEATHER WIDGET -->
+    <div id="weather-alert-container"></div>
+    <div id="weather-widget" class="weather-widget">
+      <div class="weather-loading">🌦️ Chargement de la météo…</div>
     </div>
 
     <!-- ════════════════════════════════
@@ -2674,6 +3057,8 @@
         </a>
       </div>
 
+      ${renderHarvestTracker()}
+
       <div class="backup-plan">
         <div class="backup-plan-kicker">🎁 Plan B · Si tu as plus de temps</div>
         <h3 class="backup-plan-title">Semis intérieurs bonus</h3>
@@ -2761,7 +3146,20 @@
             </label>`;
         });
 
+        // Journal section
+        const journal = loadJournal();
+        const note = journal[week.id] || '';
+        const hasNotes = !!note;
+
         html += `
+          </div>
+          <button class="journal-toggle${hasNotes ? ' has-notes' : ''}" data-week-id="${week.id}">
+            <span class="journal-toggle-icon">${hasNotes ? '📔' : '📝'}</span>
+            ${hasNotes ? 'Note ajoutée · modifier' : 'Ajouter une note'}
+          </button>
+          <div class="journal-area${hasNotes ? ' visible' : ''}" id="journal-${week.id}">
+            <textarea class="journal-textarea" data-week-id="${week.id}" placeholder="Tes observations de la semaine : météo, germinations, problèmes, idées pour l'an prochain...">${note}</textarea>
+            <div class="journal-saved-hint">✓ Sauvegardé</div>
           </div>
         </div>`;
       });
@@ -2789,6 +3187,329 @@
       if (label) label.classList.toggle('checked', e.target.checked);
 
       updateProgress();
+    }
+  });
+
+  /* ════════════════════
+     WEATHER (Open-Meteo API)
+  ════════════════════ */
+  const WEATHER_CACHE_KEY = 'jardin2026_weather_cache';
+  const WEATHER_CACHE_TTL = 3 * 60 * 60 * 1000; // 3 heures
+  const SAINTE_THERESE_LAT = 45.64;
+  const SAINTE_THERESE_LON = -73.84;
+
+  function weatherIcon(code) {
+    // WMO weather codes → emoji
+    if (code === 0) return '☀️';
+    if ([1,2].includes(code)) return '🌤️';
+    if (code === 3) return '⛅';
+    if ([45,48].includes(code)) return '🌫️';
+    if ([51,53,55,56,57].includes(code)) return '🌦️';
+    if ([61,63,65,66,67,80,81,82].includes(code)) return '🌧️';
+    if ([71,73,75,77,85,86].includes(code)) return '❄️';
+    if ([95,96,99].includes(code)) return '⛈️';
+    return '🌡️';
+  }
+
+  function weatherDesc(code) {
+    if (code === 0) return 'Ciel dégagé';
+    if (code === 1) return 'Plutôt dégagé';
+    if (code === 2) return 'Partiellement nuageux';
+    if (code === 3) return 'Nuageux';
+    if ([45,48].includes(code)) return 'Brouillard';
+    if ([51,53,55].includes(code)) return 'Bruine';
+    if ([56,57].includes(code)) return 'Bruine verglaçante';
+    if ([61,63,65].includes(code)) return 'Pluie';
+    if ([66,67].includes(code)) return 'Pluie verglaçante';
+    if ([71,73,75,77].includes(code)) return 'Neige';
+    if ([80,81,82].includes(code)) return 'Averses';
+    if ([85,86].includes(code)) return 'Averses de neige';
+    if ([95].includes(code)) return 'Orage';
+    if ([96,99].includes(code)) return 'Orage avec grêle';
+    return 'Météo variable';
+  }
+
+  async function fetchWeather() {
+    // Essayer le cache d'abord
+    try {
+      const cached = JSON.parse(localStorage.getItem(WEATHER_CACHE_KEY));
+      if (cached && (Date.now() - cached.timestamp) < WEATHER_CACHE_TTL) {
+        return cached.data;
+      }
+    } catch {}
+
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${SAINTE_THERESE_LAT}&longitude=${SAINTE_THERESE_LON}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&hourly=temperature_2m&forecast_days=4&timezone=America%2FToronto`;
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error('Weather fetch failed');
+      const data = await resp.json();
+
+      localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify({
+        timestamp: Date.now(),
+        data: data
+      }));
+      return data;
+    } catch (e) {
+      console.error('Erreur météo:', e);
+      return null;
+    }
+  }
+
+  function renderWeather(data) {
+    const widget = document.getElementById('weather-widget');
+    const alertContainer = document.getElementById('weather-alert-container');
+
+    if (!data) {
+      widget.innerHTML = '<div class="weather-loading">⚠️ Météo indisponible</div>';
+      return;
+    }
+
+    const current = data.current_weather;
+    const daily = data.daily;
+    const dayLabels = ['Aujourd\'hui', 'Demain', 'Apr. dem.', 'J+3'];
+
+    let html = `
+      <div class="weather-today">
+        <span class="weather-icon">${weatherIcon(current.weathercode)}</span>
+        <div>
+          <div class="weather-city">🌱 Sainte-Thérèse</div>
+          <div class="weather-temp">${Math.round(current.temperature)}°C</div>
+          <div class="weather-desc">${weatherDesc(current.weathercode)}</div>
+        </div>
+      </div>
+      <div class="weather-forecast">`;
+
+    for (let i = 0; i < Math.min(4, daily.time.length); i++) {
+      const max = Math.round(daily.temperature_2m_max[i]);
+      const min = Math.round(daily.temperature_2m_min[i]);
+      const code = daily.weather_code[i];
+      const label = dayLabels[i] || new Date(daily.time[i]).toLocaleDateString('fr-CA', { weekday: 'short' });
+      html += `
+        <div class="weather-day">
+          <div class="weather-day-label">${label}</div>
+          <div class="weather-day-icon">${weatherIcon(code)}</div>
+          <div class="weather-day-temps">
+            <span class="weather-day-max">${max}°</span>
+            <span class="weather-day-min">${min}°</span>
+          </div>
+        </div>`;
+    }
+    html += `</div>`;
+    widget.innerHTML = html;
+
+    // Alerte gel : vérifier les 3 prochains jours pour min < 3°C
+    let frostDay = null;
+    for (let i = 0; i < Math.min(3, daily.time.length); i++) {
+      if (daily.temperature_2m_min[i] <= 3) {
+        frostDay = { idx: i, temp: daily.temperature_2m_min[i], date: daily.time[i] };
+        break;
+      }
+    }
+
+    if (frostDay) {
+      const dateLabel = frostDay.idx === 0 ? 'cette nuit' :
+                       frostDay.idx === 1 ? 'demain soir' :
+                       'dans 2 jours';
+      const temp = Math.round(frostDay.temp);
+      alertContainer.innerHTML = `
+        <div class="weather-alert">
+          <span class="weather-alert-icon">❄️</span>
+          <div class="weather-alert-text">
+            ALERTE GEL — Min ${temp}°C prévu ${dateLabel}
+            <small>Couvre les plants sensibles (tomates, poivrons, basilic, melons) avec une toile ou une vieille couverture le soir.</small>
+          </div>
+        </div>`;
+    } else {
+      alertContainer.innerHTML = '';
+    }
+  }
+
+  fetchWeather().then(renderWeather);
+
+  /* ════════════════════
+     JOURNAL (localStorage par semaine)
+  ════════════════════ */
+  function loadJournal() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_journal')) || {}; }
+    catch { return {}; }
+  }
+  function saveJournal(state) {
+    localStorage.setItem('jardin2026_journal', JSON.stringify(state));
+  }
+
+  // Event delegation pour le journal
+  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
+    if (e.target.closest('.journal-toggle')) {
+      const btn = e.target.closest('.journal-toggle');
+      const weekId = btn.dataset.weekId;
+      const area = document.getElementById('journal-' + weekId);
+      if (area) area.classList.toggle('visible');
+    }
+  });
+
+  document.getElementById('bed-calendrier').addEventListener('input', function(e) {
+    if (e.target.matches('.journal-textarea')) {
+      const weekId = e.target.dataset.weekId;
+      const state = loadJournal();
+      const value = e.target.value.trim();
+      if (value) state[weekId] = value;
+      else delete state[weekId];
+      saveJournal(state);
+
+      // Indicateur "sauvegardé" temporaire
+      const hint = e.target.parentElement.querySelector('.journal-saved-hint');
+      if (hint) {
+        hint.classList.add('visible');
+        clearTimeout(hint._timeout);
+        hint._timeout = setTimeout(() => hint.classList.remove('visible'), 1500);
+      }
+      // Update le bouton toggle pour refléter qu'il y a des notes
+      const btn = document.querySelector(`.journal-toggle[data-week-id="${weekId}"]`);
+      if (btn) btn.classList.toggle('has-notes', !!value);
+    }
+  });
+
+  /* ════════════════════
+     HARVEST TRACKER
+  ════════════════════ */
+  const harvestableCrops = [
+    { id: 'tomates-plourde', name: 'Tomates Plourde', emoji: '🍅', unit: 'unités' },
+    { id: 'tomates-cerises', name: 'Tomates cerises', emoji: '🍅', unit: 'unités' },
+    { id: 'poivrons-gourmet', name: 'Poivrons Gourmet', emoji: '🌶️', unit: 'unités' },
+    { id: 'poivrons-king', name: 'Poivrons King', emoji: '🌶️', unit: 'unités' },
+    { id: 'brocoli', name: 'Brocoli De Cicco', emoji: '🥦', unit: 'têtes/jets' },
+    { id: 'laitues', name: 'Laitues', emoji: '🥬', unit: 'plants' },
+    { id: 'mesclun', name: 'Mesclun', emoji: '🌿', unit: 'récoltes' },
+    { id: 'radis', name: 'Radis', emoji: '🌰', unit: 'unités' },
+    { id: 'carottes', name: 'Carottes', emoji: '🥕', unit: 'unités' },
+    { id: 'betteraves', name: 'Betteraves', emoji: '🍠', unit: 'unités' },
+    { id: 'haricots', name: 'Haricots nains', emoji: '🫛', unit: 'g' },
+    { id: 'mais', name: 'Maïs', emoji: '🌽', unit: 'épis' },
+    { id: 'melon', name: 'Melon d\'eau', emoji: '🍉', unit: 'fruits' },
+    { id: 'basilic', name: 'Basilic', emoji: '🌿', unit: 'récoltes' },
+    { id: 'coriandre', name: 'Coriandre', emoji: '🌿', unit: 'récoltes' },
+    { id: 'aneth', name: 'Aneth', emoji: '🌿', unit: 'récoltes' }
+  ];
+
+  function loadHarvests() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_harvests')) || []; }
+    catch { return []; }
+  }
+  function saveHarvests(arr) {
+    localStorage.setItem('jardin2026_harvests', JSON.stringify(arr));
+  }
+
+  function renderHarvestTracker() {
+    const harvests = loadHarvests();
+    const totalsByCrop = {};
+    harvests.forEach(h => {
+      totalsByCrop[h.cropId] = (totalsByCrop[h.cropId] || 0) + h.qty;
+    });
+    const grandTotal = harvests.reduce((s, h) => s + h.qty, 0);
+    const totalEntries = harvests.length;
+
+    let totalsHtml = '';
+    if (totalEntries === 0) {
+      totalsHtml = '<div class="harvest-empty">Aucune récolte pour l\'instant. Ajoute ta première dès que tu as cueilli quelque chose! 🌱</div>';
+    } else {
+      totalsHtml = '<div class="harvest-totals">';
+      harvestableCrops.forEach(crop => {
+        if (totalsByCrop[crop.id]) {
+          totalsHtml += `
+            <div class="harvest-pill">
+              <span class="harvest-pill-emoji">${crop.emoji}</span>
+              <div class="harvest-pill-body">
+                <div class="harvest-pill-name">${crop.name}</div>
+                <div class="harvest-pill-count">${totalsByCrop[crop.id]} <span class="harvest-pill-unit">${crop.unit}</span></div>
+              </div>
+            </div>`;
+        }
+      });
+      totalsHtml += '</div>';
+    }
+
+    let selectOptions = harvestableCrops.map(c =>
+      `<option value="${c.id}">${c.emoji} ${c.name}</option>`
+    ).join('');
+
+    let historyHtml = '';
+    if (harvests.length > 0) {
+      const sorted = [...harvests].sort((a,b) => new Date(b.date) - new Date(a.date));
+      historyHtml = sorted.map(h => {
+        const crop = harvestableCrops.find(c => c.id === h.cropId);
+        const emoji = crop ? crop.emoji : '🌱';
+        const name = crop ? crop.name : h.cropId;
+        const unit = crop ? crop.unit : '';
+        const dateStr = new Date(h.date).toLocaleDateString('fr-CA', { day:'numeric', month:'short' });
+        return `
+          <div class="harvest-history-item">
+            <span>${emoji} ${h.qty} ${unit} · <strong>${name}</strong></span>
+            <span>
+              <span class="harvest-history-item-date">${dateStr}</span>
+              <button class="harvest-history-delete" data-harvest-id="${h.id}" title="Supprimer">✕</button>
+            </span>
+          </div>`;
+      }).join('');
+    }
+
+    const trackerHtml = `
+      <div class="harvest-tracker">
+        <div class="harvest-kicker">🧺 Tracker de récoltes</div>
+        <div class="harvest-header-row">
+          <h3 class="harvest-title">Mes récoltes 2026</h3>
+          <span class="harvest-grand-total">${totalEntries} entrée${totalEntries !== 1 ? 's' : ''} · <strong>${grandTotal}</strong> unités récoltées</span>
+        </div>
+        <div class="harvest-add-row">
+          <select class="harvest-select" id="harvest-select">${selectOptions}</select>
+          <input type="number" class="harvest-qty" id="harvest-qty" value="1" min="1" max="9999">
+          <button class="harvest-add-btn" id="harvest-add-btn">+ Ajouter</button>
+        </div>
+        ${totalsHtml}
+        ${historyHtml ? `
+          <button class="harvest-history-toggle" id="harvest-history-toggle">
+            📜 Voir l'historique (${harvests.length})
+          </button>
+          <div class="harvest-history" id="harvest-history">${historyHtml}</div>
+        ` : ''}
+      </div>`;
+
+    return trackerHtml;
+  }
+
+  // Event delegation pour le tracker de récoltes
+  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
+    if (e.target.id === 'harvest-add-btn') {
+      const select = document.getElementById('harvest-select');
+      const qty = document.getElementById('harvest-qty');
+      const cropId = select.value;
+      const quantity = parseInt(qty.value, 10);
+      if (!cropId || !quantity || quantity <= 0) return;
+
+      const harvests = loadHarvests();
+      harvests.push({
+        id: 'h-' + Date.now() + '-' + Math.random().toString(36).slice(2,8),
+        cropId: cropId,
+        qty: quantity,
+        date: new Date().toISOString()
+      });
+      saveHarvests(harvests);
+      // Re-render juste le tracker
+      const tracker = document.querySelector('.harvest-tracker');
+      if (tracker) tracker.outerHTML = renderHarvestTracker();
+    }
+
+    if (e.target.classList.contains('harvest-history-delete')) {
+      const hId = e.target.dataset.harvestId;
+      let harvests = loadHarvests();
+      harvests = harvests.filter(h => h.id !== hId);
+      saveHarvests(harvests);
+      const tracker = document.querySelector('.harvest-tracker');
+      if (tracker) tracker.outerHTML = renderHarvestTracker();
+    }
+
+    if (e.target.id === 'harvest-history-toggle') {
+      const hist = document.getElementById('harvest-history');
+      if (hist) hist.classList.toggle('visible');
     }
   });
 

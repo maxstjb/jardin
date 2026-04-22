@@ -194,7 +194,7 @@
     ───────────────────────────── */
     .tab-bar {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 0.5rem;
       margin-bottom: 1.5rem;
     }
@@ -1351,6 +1351,10 @@
       padding: 0.65rem 0.85rem;
       transition: border-color 0.15s;
     }
+    /* Pour les amendements (pas d'expires) : 4 colonnes */
+    .seed-item[data-inv-type="amendments"] {
+      grid-template-columns: auto 1fr auto auto;
+    }
     .seed-item:hover { border-color: var(--blue); }
     .seed-item.empty { opacity: 0.55; border-left: 3px solid var(--terra); }
     .seed-item.low { border-left: 3px solid var(--gold); }
@@ -1360,11 +1364,25 @@
       width: 30px;
       text-align: center;
     }
+    .seed-item-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
     .seed-item-name {
       font-size: 0.92rem;
       color: var(--text-primary);
       font-weight: 500;
       min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .seed-item-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.3;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -2263,7 +2281,6 @@
       .hero { padding: 2.5rem 1rem 2rem; }
       .hero-stats { gap: 1rem; }
       .tab-bar { grid-template-columns: 1fr 1fr; }
-      .tab[data-bed="calendrier"] { grid-column: 1 / -1; }
       .tab { padding: 0.75rem 0.8rem; }
       .tab-icon { font-size: 1.3rem; }
       .plant-card-grid { grid-template-columns: 1fr; }
@@ -2317,6 +2334,11 @@
         <span class="tab-icon">📚</span>
         <span class="tab-name">Guides</span>
         <span class="tab-desc">Semis · Transplant · Treillis</span>
+      </button>
+      <button class="tab" data-tab="inventaire" onclick="showBed('inventaire')">
+        <span class="tab-icon">📦</span>
+        <span class="tab-name">Inventaire</span>
+        <span class="tab-desc">Récoltes · Semences</span>
       </button>
     </div>
 
@@ -2941,6 +2963,11 @@
         </a>
       </div>
     </div>
+
+    <!-- ════════════════════════════════
+         INVENTAIRE
+    ════════════════════════════════ -->
+    <div class="bed-view" id="bed-inventaire"></div>
 
   </main>
 
@@ -3694,6 +3721,11 @@
       document.getElementById('bed-guides').classList.add('active');
       if (subTabBar) subTabBar.style.display = 'none';
       if (weatherSection) weatherSection.style.display = 'none';
+    } else if (bed === 'inventaire') {
+      document.querySelector('.tab[data-tab="inventaire"]').classList.add('active');
+      document.getElementById('bed-inventaire').classList.add('active');
+      if (subTabBar) subTabBar.style.display = 'none';
+      if (weatherSection) weatherSection.style.display = 'none';
     } else if (bed === 'bacs') {
       // Alias : ouvrir la vue Bacs par defaut (maison)
       showBed('maison');
@@ -3819,10 +3851,6 @@
       </div>
 
       ${renderSuccessions()}
-
-      ${renderHarvestTracker()}
-
-      ${renderSeedInventory()}
 
       <div class="backup-plan">
         <div class="backup-plan-kicker">🎁 Plan B · Si tu as plus de temps</div>
@@ -4306,8 +4334,8 @@
     return trackerHtml;
   }
 
-  // Event delegation pour le tracker de récoltes
-  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
+  // Event delegation pour le tracker de récoltes (niveau document)
+  document.addEventListener('click', function(e) {
     if (e.target.id === 'harvest-add-btn') {
       const select = document.getElementById('harvest-select');
       const qty = document.getElementById('harvest-qty');
@@ -4531,6 +4559,20 @@
     { emoji: '🌸', name: 'Pois de senteur', stock: 'full', expires: 2027 }
   ];
 
+  const defaultAmendmentsInventory = [
+    { emoji: '🐔', name: 'Fumier de poule 4-6-8', stock: 'full', note: '~700 g · utiliser fin avril' },
+    { emoji: '🌱', name: 'Engrais démarrage 9-18-6', stock: 'full', note: '~1,5 kg · aux transplantations' },
+    { emoji: '💧', name: 'Hydrosoluble 15-30-15', stock: 'full', note: '~1,5 kg · bacs à fleurs uniquement' },
+    { emoji: '🦐', name: 'Compost de crevettes', stock: 'full', note: 'Déjà en place au bac arrière' },
+    { emoji: '🌿', name: 'Compost (vrac ou sacs)', stock: 'empty', note: 'À acheter · 8-10 sacs 30 L' },
+    { emoji: '🟫', name: 'Terre à jardin', stock: 'empty', note: 'À acheter · 6-8 sacs 30 L (bac arrière)' },
+    { emoji: '🌾', name: 'Paillis (paille ou BRF)', stock: 'empty', note: 'À acheter · 2-3 ballots' },
+    { emoji: '⚫', name: 'Biochar', stock: 'empty', note: 'Optionnel · 660 g bac maison + 1,8 kg bac arrière' },
+    { emoji: '🌱', name: 'Engrais 4-4-4 organique', stock: 'empty', note: 'Optionnel · mi-juillet si besoin' },
+    { emoji: '🦠', name: 'BTK concentré', stock: 'full', note: '~100 ml · anti-chenilles (brocoli)' },
+    { emoji: '🧼', name: 'Savon noir', stock: 'full', note: '~500 ml · anti-pucerons' }
+  ];
+
   const stockLabels = {
     full: { label: '📦 Plein', order: 3 },
     medium: { label: '📬 Moyen', order: 2 },
@@ -4538,79 +4580,125 @@
     empty: { label: '❌ Vide', order: 0 }
   };
 
-  function loadSeeds() {
-    try { return JSON.parse(localStorage.getItem('jardin2026_seeds')) || []; }
+  /* ════════════════════
+     INVENTAIRES GENERIQUES (seeds + amendments)
+  ════════════════════ */
+  const inventoryConfigs = {
+    seeds: {
+      storageKey: 'jardin2026_seeds',
+      expandKey: 'jardin2026_seeds_expanded',
+      defaults: defaultSeedInventory,
+      kicker: '📦 Inventaire de semences',
+      title: 'Mes semences',
+      emptySingular: 'variété',
+      emptyPlural: 'variétés',
+      reorderLabel: 'à racheter',
+      importLabel: '📥 Remplir avec mon plan 2026',
+      placeholderEmoji: '🌱',
+      itemType: 'semence',
+      showExpires: true
+    },
+    amendments: {
+      storageKey: 'jardin2026_amendments',
+      expandKey: 'jardin2026_amendments_expanded',
+      defaults: defaultAmendmentsInventory,
+      kicker: '🌱 Compost, terre & engrais',
+      title: 'Amendements',
+      emptySingular: 'produit',
+      emptyPlural: 'produits',
+      reorderLabel: 'à acheter',
+      importLabel: '📥 Remplir avec mon plan 2026',
+      placeholderEmoji: '🌿',
+      itemType: 'produit',
+      showExpires: false
+    }
+  };
+
+  function loadInventory(type) {
+    try { return JSON.parse(localStorage.getItem(inventoryConfigs[type].storageKey)) || []; }
     catch { return []; }
   }
-  function saveSeeds(arr) {
-    localStorage.setItem('jardin2026_seeds', JSON.stringify(arr));
+  function saveInventory(type, arr) {
+    localStorage.setItem(inventoryConfigs[type].storageKey, JSON.stringify(arr));
   }
 
-  function renderSeedInventory() {
-    const seeds = loadSeeds();
+  function renderInventorySection(type) {
+    const config = inventoryConfigs[type];
+    const items = loadInventory(type);
     const currentYear = new Date().getFullYear();
 
-    // Compteurs
-    const toReorder = seeds.filter(s => s.stock === 'empty' || s.stock === 'low').length;
-    const expiring = seeds.filter(s => s.expires && s.expires <= currentYear + 1 && s.stock !== 'empty').length;
+    const toReorder = items.filter(s => s.stock === 'empty' || s.stock === 'low').length;
+    const expiring = config.showExpires
+      ? items.filter(s => s.expires && s.expires <= currentYear + 1 && s.stock !== 'empty').length
+      : 0;
 
-    // État d'ouverture (par défaut fermé)
-    const expanded = localStorage.getItem('jardin2026_seeds_expanded') === 'true';
+    const expanded = localStorage.getItem(config.expandKey) === 'true';
 
     let bodyHtml = '';
 
-    if (seeds.length === 0) {
+    if (items.length === 0) {
       bodyHtml = `
         <div class="seed-actions">
-          <button class="seed-btn primary" id="seed-import-default">📥 Remplir avec mon plan 2026</button>
-          <button class="seed-btn" id="seed-add-empty">+ Ajouter une semence</button>
+          <button class="seed-btn primary" data-inv-action="import" data-inv-type="${type}">${config.importLabel}</button>
+          <button class="seed-btn" data-inv-action="add-empty" data-inv-type="${type}">+ Ajouter</button>
         </div>
-        <div class="successions-empty">Aucune semence enregistrée. Clique sur « Remplir avec mon plan 2026 » pour importer automatiquement toutes tes semences.</div>`;
+        <div class="successions-empty">Aucun ${config.itemType} enregistré. Clique sur « ${config.importLabel} » pour importer automatiquement.</div>`;
     } else {
-      let itemsHtml = seeds.map(s => {
+      const itemsHtml = items.map(s => {
         const classes = [];
         if (s.stock === 'empty') classes.push('empty');
         else if (s.stock === 'low') classes.push('low');
-        if (s.expires && s.expires <= currentYear) classes.push('expiring');
+        if (config.showExpires && s.expires && s.expires <= currentYear) classes.push('expiring');
+
+        const expiresInput = config.showExpires
+          ? `<input type="number" class="seed-item-expires" value="${s.expires || ''}" placeholder="Exp." data-inv-type="${type}" data-item-id="${s.id}" data-field="expires" min="2024" max="2040">`
+          : '';
 
         return `
-          <div class="seed-item ${classes.join(' ')}" data-seed-id="${s.id}">
-            <span class="seed-item-emoji">${s.emoji || '🌱'}</span>
-            <span class="seed-item-name">${s.name}</span>
-            <select class="seed-item-stock" data-seed-id="${s.id}" data-field="stock">
+          <div class="seed-item ${classes.join(' ')}" data-item-id="${s.id}" data-inv-type="${type}">
+            <span class="seed-item-emoji">${s.emoji || config.placeholderEmoji}</span>
+            <div class="seed-item-body">
+              <span class="seed-item-name">${s.name}</span>
+              ${s.note ? `<span class="seed-item-sub">${s.note}</span>` : ''}
+            </div>
+            <select class="seed-item-stock" data-inv-type="${type}" data-item-id="${s.id}" data-field="stock">
               ${Object.entries(stockLabels).map(([k,v]) => `<option value="${k}" ${s.stock === k ? 'selected' : ''}>${v.label}</option>`).join('')}
             </select>
-            <input type="number" class="seed-item-expires" value="${s.expires || ''}" placeholder="Exp." data-seed-id="${s.id}" data-field="expires" min="2024" max="2040">
-            <button class="seed-item-delete" data-seed-id="${s.id}" title="Supprimer">🗑️</button>
+            ${expiresInput}
+            <button class="seed-item-delete" data-inv-action="delete" data-inv-type="${type}" data-item-id="${s.id}" title="Supprimer">🗑️</button>
           </div>`;
       }).join('');
 
+      const expiresFormInput = config.showExpires
+        ? `<input type="number" data-add-field="expires" placeholder="2028" min="2024" max="2040" style="width:70px;">`
+        : '';
+
       bodyHtml = `
         <div class="seed-actions">
-          <button class="seed-btn" id="seed-toggle-add">+ Nouvelle semence</button>
+          <button class="seed-btn" data-inv-action="toggle-add" data-inv-type="${type}">+ Nouveau</button>
         </div>
         <div class="seed-list">${itemsHtml}</div>
-        <div class="seed-add-form" id="seed-add-form" style="display:none;">
-          <input type="text" id="seed-new-emoji" placeholder="🌱" maxlength="4" style="width:50px; text-align:center;">
-          <input type="text" id="seed-new-name" placeholder="Nom de la semence">
-          <select id="seed-new-stock">
+        <div class="seed-add-form" id="add-form-${type}" style="display:none;">
+          <input type="text" data-add-field="emoji" placeholder="${config.placeholderEmoji}" maxlength="4" style="width:50px; text-align:center;">
+          <input type="text" data-add-field="name" placeholder="Nom">
+          <select data-add-field="stock">
             ${Object.entries(stockLabels).map(([k,v]) => `<option value="${k}" ${k === 'full' ? 'selected' : ''}>${v.label}</option>`).join('')}
           </select>
-          <input type="number" id="seed-new-expires" placeholder="2028" min="2024" max="2040" style="width:70px;">
-          <button id="seed-add-confirm">Ajouter</button>
+          ${expiresFormInput}
+          <button data-inv-action="add-confirm" data-inv-type="${type}">Ajouter</button>
         </div>`;
     }
 
-    let statusText = `<strong>${seeds.length}</strong> variété${seeds.length !== 1 ? 's' : ''}`;
-    if (toReorder > 0) statusText += ` · <strong style="color:var(--terra);">${toReorder} à racheter</strong>`;
+    let statusText = `<strong>${items.length}</strong> ${items.length !== 1 ? config.emptyPlural : config.emptySingular}`;
+    if (toReorder > 0) statusText += ` · <strong style="color:var(--terra);">${toReorder} ${config.reorderLabel}</strong>`;
     if (expiring > 0) statusText += ` · <strong style="color:#8B6914;">${expiring} bientôt périmées</strong>`;
 
     return `
-      <div class="seed-inventory${expanded ? ' expanded' : ''}" id="seed-inventory">
-        <div class="seed-header" id="seed-header-toggle">
+      <div class="seed-inventory${expanded ? ' expanded' : ''}" data-inv-type="${type}">
+        <div class="seed-header" data-inv-action="toggle-expand" data-inv-type="${type}">
           <div style="flex:1; min-width:0;">
-            <div class="seed-kicker">📦 Inventaire de semences</div>
-            <div class="seed-title">Mes semences</div>
+            <div class="seed-kicker">${config.kicker}</div>
+            <div class="seed-title">${config.title}</div>
             <div class="seed-count">${statusText}</div>
           </div>
           <span class="seed-toggle-arrow">▼</span>
@@ -4619,117 +4707,106 @@
       </div>`;
   }
 
-  // Event delegation pour l'inventaire
-  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
-    // Toggle inventory
-    if (e.target.closest('#seed-header-toggle')) {
-      const inv = document.getElementById('seed-inventory');
+  // Alias pour compatibilite
+  function renderSeedInventory() { return renderInventorySection('seeds'); }
+  function renderAmendmentsInventory() { return renderInventorySection('amendments'); }
+
+  function renderInventaire() {
+    const container = document.getElementById('bed-inventaire');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="bed-header">
+        <h2 class="bed-title">Inventaires 📦</h2>
+        <p class="bed-sub">Suivi des récoltes, semences et amendements. Parfait pour savoir ce que tu as en stock et ce qu'il faut racheter.</p>
+      </div>
+      ${renderHarvestTracker()}
+      ${renderInventorySection('seeds')}
+      ${renderInventorySection('amendments')}
+    `;
+  }
+
+  function rerenderInventorySection(type) {
+    const el = document.querySelector(`.seed-inventory[data-inv-type="${type}"]`);
+    if (el) el.outerHTML = renderInventorySection(type);
+  }
+
+  // Event delegation au niveau document (gere seeds + amendments partout)
+  document.addEventListener('click', function(e) {
+    const actionEl = e.target.closest('[data-inv-action]');
+    if (!actionEl) return;
+    const action = actionEl.dataset.invAction;
+    const type = actionEl.dataset.invType;
+    if (!type || !inventoryConfigs[type]) return;
+    const config = inventoryConfigs[type];
+
+    if (action === 'toggle-expand') {
+      const inv = document.querySelector(`.seed-inventory[data-inv-type="${type}"]`);
+      if (!inv) return;
       const nowExpanded = !inv.classList.contains('expanded');
       inv.classList.toggle('expanded', nowExpanded);
-      localStorage.setItem('jardin2026_seeds_expanded', nowExpanded);
+      localStorage.setItem(config.expandKey, nowExpanded);
     }
-    // Import default
-    if (e.target.id === 'seed-import-default') {
-      const seeds = defaultSeedInventory.map((s, i) => ({
-        ...s,
-        id: 'seed-' + Date.now() + '-' + i
-      }));
-      saveSeeds(seeds);
-      const inv = document.querySelector('.seed-inventory');
-      if (inv) {
-        inv.outerHTML = renderSeedInventory();
-        document.getElementById('seed-inventory').classList.add('expanded');
-        localStorage.setItem('jardin2026_seeds_expanded', 'true');
-      }
+    else if (action === 'import') {
+      const items = config.defaults.map((s, i) => ({ ...s, id: type + '-' + Date.now() + '-' + i }));
+      saveInventory(type, items);
+      localStorage.setItem(config.expandKey, 'true');
+      rerenderInventorySection(type);
     }
-    // Add empty (when list is empty)
-    if (e.target.id === 'seed-add-empty') {
-      const seeds = [{
-        id: 'seed-' + Date.now(),
-        emoji: '🌱', name: 'Nouvelle semence', stock: 'full', expires: new Date().getFullYear() + 3
+    else if (action === 'add-empty') {
+      const items = [{
+        id: type + '-' + Date.now(),
+        emoji: config.placeholderEmoji, name: 'Nouvel item', stock: 'full',
+        expires: config.showExpires ? new Date().getFullYear() + 3 : null
       }];
-      saveSeeds(seeds);
-      const inv = document.querySelector('.seed-inventory');
-      if (inv) {
-        inv.outerHTML = renderSeedInventory();
-        document.getElementById('seed-inventory').classList.add('expanded');
-      }
+      saveInventory(type, items);
+      localStorage.setItem(config.expandKey, 'true');
+      rerenderInventorySection(type);
     }
-    // Toggle add form
-    if (e.target.id === 'seed-toggle-add') {
-      const form = document.getElementById('seed-add-form');
-      if (form) {
-        form.style.display = form.style.display === 'none' ? 'grid' : 'none';
-        if (form.style.display === 'grid') document.getElementById('seed-new-name').focus();
-      }
+    else if (action === 'toggle-add') {
+      const form = document.getElementById('add-form-' + type);
+      if (form) form.style.display = form.style.display === 'none' ? 'grid' : 'none';
     }
-    // Confirm add
-    if (e.target.id === 'seed-add-confirm') {
-      const emoji = document.getElementById('seed-new-emoji').value.trim() || '🌱';
-      const name = document.getElementById('seed-new-name').value.trim();
-      const stock = document.getElementById('seed-new-stock').value;
-      const expires = parseInt(document.getElementById('seed-new-expires').value) || null;
+    else if (action === 'add-confirm') {
+      const form = document.getElementById('add-form-' + type);
+      if (!form) return;
+      const getField = (name) => (form.querySelector(`[data-add-field="${name}"]`)?.value || '').trim();
+      const emoji = getField('emoji') || config.placeholderEmoji;
+      const name = getField('name');
+      const stock = getField('stock') || 'full';
+      const expires = config.showExpires ? (parseInt(getField('expires')) || null) : null;
       if (!name) return;
-      const seeds = loadSeeds();
-      seeds.push({ id: 'seed-' + Date.now(), emoji, name, stock, expires });
-      saveSeeds(seeds);
-      const inv = document.querySelector('.seed-inventory');
-      if (inv) {
-        inv.outerHTML = renderSeedInventory();
-        document.getElementById('seed-inventory').classList.add('expanded');
-      }
+      const items = loadInventory(type);
+      items.push({ id: type + '-' + Date.now(), emoji, name, stock, expires });
+      saveInventory(type, items);
+      rerenderInventorySection(type);
     }
-    // Delete
-    if (e.target.classList.contains('seed-item-delete')) {
-      const id = e.target.dataset.seedId;
-      if (!confirm('Supprimer cette semence de l\'inventaire?')) return;
-      const seeds = loadSeeds().filter(s => s.id !== id);
-      saveSeeds(seeds);
-      const inv = document.querySelector('.seed-inventory');
-      if (inv) {
-        inv.outerHTML = renderSeedInventory();
-        document.getElementById('seed-inventory').classList.add('expanded');
-      }
+    else if (action === 'delete') {
+      const id = actionEl.dataset.itemId;
+      if (!confirm('Supprimer cet item?')) return;
+      const items = loadInventory(type).filter(s => s.id !== id);
+      saveInventory(type, items);
+      rerenderInventorySection(type);
     }
   });
 
-  // Change events (stock dropdown, expires input)
-  document.getElementById('bed-calendrier').addEventListener('change', function(e) {
-    if (e.target.matches('.seed-item-stock, .seed-item-expires')) {
-      const id = e.target.dataset.seedId;
-      const field = e.target.dataset.field;
-      const seeds = loadSeeds();
-      const seed = seeds.find(s => s.id === id);
-      if (seed) {
-        if (field === 'expires') {
-          seed.expires = parseInt(e.target.value) || null;
-        } else {
-          seed[field] = e.target.value;
-        }
-        saveSeeds(seeds);
-        // Update just the CSS class & count without full re-render
-        const row = e.target.closest('.seed-item');
-        if (row) {
-          row.classList.remove('empty', 'low', 'expiring');
-          if (seed.stock === 'empty') row.classList.add('empty');
-          else if (seed.stock === 'low') row.classList.add('low');
-          const currentYear = new Date().getFullYear();
-          if (seed.expires && seed.expires <= currentYear) row.classList.add('expiring');
-        }
-        // Refresh header counts
-        const header = document.querySelector('.seed-count');
-        if (header) {
-          const currentYear = new Date().getFullYear();
-          const toReorder = seeds.filter(s => s.stock === 'empty' || s.stock === 'low').length;
-          const expiring = seeds.filter(s => s.expires && s.expires <= currentYear + 1 && s.stock !== 'empty').length;
-          let statusText = `<strong>${seeds.length}</strong> variété${seeds.length !== 1 ? 's' : ''}`;
-          if (toReorder > 0) statusText += ` · <strong style="color:var(--terra);">${toReorder} à racheter</strong>`;
-          if (expiring > 0) statusText += ` · <strong style="color:#8B6914;">${expiring} bientôt périmées</strong>`;
-          header.innerHTML = statusText;
-        }
-      }
+  document.addEventListener('change', function(e) {
+    if (!e.target.matches('.seed-item-stock, .seed-item-expires')) return;
+    const type = e.target.dataset.invType;
+    if (!type || !inventoryConfigs[type]) return;
+    const id = e.target.dataset.itemId;
+    const field = e.target.dataset.field;
+    const items = loadInventory(type);
+    const item = items.find(s => s.id === id);
+    if (!item) return;
+    if (field === 'expires') {
+      item.expires = parseInt(e.target.value) || null;
+    } else {
+      item[field] = e.target.value;
     }
+    saveInventory(type, items);
+    rerenderInventorySection(type);
   });
+
 
   /* ════════════════════
      SEARCH BAR
@@ -4969,8 +5046,9 @@
     }
   });
 
-  // Initialize calendar
+  // Initialize calendar + inventaire
   renderCalendar();
+  renderInventaire();
   </script>
 
 </body>

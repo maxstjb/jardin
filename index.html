@@ -14,6 +14,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
+  <!-- Supabase SDK pour sync cloud + auth -->
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+    const SUPABASE_URL = 'https://snsmzvnlsmyfszvgzyqu.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_TS8-eCEHTuWAGQ7qn57T_g_O3Iymwr1';
+    window.supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        storage: window.localStorage,
+        storageKey: 'jardin2026_auth'
+      }
+    });
+    window.dispatchEvent(new CustomEvent('supabase-ready'));
+  </script>
+
   <style>
     /* ─────────────────────────────
        DESIGN TOKENS
@@ -986,6 +1003,214 @@
       .guide-big-icon { width: 48px; height: 48px; font-size: 1.6rem; border-radius: 12px; }
       .guide-big-title { font-size: 1.02rem; }
       .guide-big-desc { font-size: 0.78rem; }
+    }
+
+    /* ─────────────────────────────
+       AUTH BAR (Supabase cloud sync)
+    ───────────────────────────── */
+    .auth-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.25rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(78,159,200,0.08), rgba(78,159,200,0.02));
+      border: 1px solid rgba(78,159,200,0.25);
+      flex-wrap: wrap;
+    }
+    .auth-bar.signed-in {
+      background: linear-gradient(135deg, rgba(61,128,96,0.08), rgba(125,185,148,0.03));
+      border-color: rgba(61,128,96,0.25);
+    }
+
+    .auth-signed-out-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+    .auth-signed-out-text {
+      flex: 1;
+      min-width: 140px;
+    }
+    .auth-signed-out-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #2E6B8B;
+    }
+    .auth-signed-out-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .auth-btn {
+      padding: 0.5rem 1rem;
+      background: var(--blue);
+      color: var(--cream-light);
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .auth-btn:hover { background: #3A8BAE; }
+    .auth-btn.secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .auth-btn.secondary:hover {
+      background: var(--cream);
+      color: var(--text-primary);
+    }
+
+    .auth-signed-in-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+    .auth-user-info { flex: 1; min-width: 140px; }
+    .auth-user-badge {
+      font-size: 0.82rem;
+      color: var(--green-deep);
+      font-weight: 500;
+    }
+    .auth-user-email {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sync-status {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: var(--cream);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .sync-status.synced { background: rgba(61,128,96,0.12); color: var(--green-deep); }
+    .sync-status.syncing { background: rgba(200,148,58,0.15); color: #8B6914; }
+    .sync-status.pending { background: var(--cream-dark); color: var(--text-secondary); }
+    .sync-status.offline { background: rgba(184,75,44,0.12); color: var(--terra); }
+    .sync-status.error { background: rgba(184,75,44,0.18); color: var(--terra); font-weight: 700; }
+
+    /* Auth modal */
+    .auth-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 26, 20, 0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    .auth-modal-overlay.visible { display: flex; }
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .auth-modal-content {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      animation: modalSlideUp 0.25s ease-out;
+    }
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .auth-modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-bottom: 0.5rem;
+    }
+    .auth-modal-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .auth-modal-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--white);
+      font-family: inherit;
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s;
+    }
+    .auth-modal-input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+    .auth-modal-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .auth-modal-actions .auth-btn { flex: 1; }
+    .auth-modal-msg {
+      margin-top: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      display: none;
+    }
+    .auth-modal-msg.success {
+      display: block;
+      background: rgba(61,128,96,0.1);
+      color: var(--green-deep);
+      border-left: 3px solid var(--green-mid);
+    }
+    .auth-modal-msg.error {
+      display: block;
+      background: rgba(184,75,44,0.1);
+      color: var(--terra);
+      border-left: 3px solid var(--terra);
+    }
+    .auth-modal-close {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .auth-modal-close:hover { background: var(--border); color: var(--text-primary); }
+
+    @media (max-width: 480px) {
+      .auth-bar { flex-direction: column; align-items: stretch; }
+      .auth-signed-out-content, .auth-signed-in-content { flex-direction: column; align-items: stretch; }
+      .auth-btn { width: 100%; }
     }
 
     /* ─────────────────────────────
@@ -2340,6 +2565,41 @@
         <span class="tab-name">Inventaire</span>
         <span class="tab-desc">Récoltes · Semences</span>
       </button>
+    </div>
+
+    <!-- AUTH BAR (Supabase cloud sync) -->
+    <div id="auth-bar" class="auth-bar">
+      <!-- Not signed in -->
+      <div id="auth-signed-out" class="auth-signed-out-content">
+        <div class="auth-signed-out-text">
+          <div class="auth-signed-out-title">☁️ Connecter pour sauvegarder</div>
+          <div class="auth-signed-out-sub">Ne perds plus jamais tes donnees · sync automatique entre tes appareils</div>
+        </div>
+        <button id="auth-open-modal" class="auth-btn">Se connecter</button>
+      </div>
+      <!-- Signed in -->
+      <div id="auth-signed-in" class="auth-signed-in-content" style="display:none;">
+        <div class="auth-user-info">
+          <div class="auth-user-badge">✅ Connectee</div>
+          <div class="auth-user-email" id="auth-email-display"></div>
+        </div>
+        <span id="sync-status" class="sync-status synced">☁️ Synchronise</span>
+        <button id="auth-logout" class="auth-btn secondary">Deconnexion</button>
+      </div>
+    </div>
+
+    <!-- AUTH MODAL (magic link) -->
+    <div id="auth-modal" class="auth-modal-overlay">
+      <div class="auth-modal-content">
+        <button class="auth-modal-close" id="auth-modal-close" aria-label="Fermer">✕</button>
+        <div class="auth-modal-title">🔐 Lien magique par courriel</div>
+        <p class="auth-modal-desc">Entre ton courriel. Tu recevras un lien a cliquer pour te connecter — <strong>pas de mot de passe</strong> a retenir.</p>
+        <input type="email" id="auth-email-input" class="auth-modal-input" placeholder="ton@courriel.com" autocomplete="email" inputmode="email">
+        <div class="auth-modal-actions">
+          <button id="auth-send-magic" class="auth-btn">Envoyer le lien magique</button>
+        </div>
+        <div id="auth-modal-msg" class="auth-modal-msg"></div>
+      </div>
     </div>
 
     <!-- SOUS-ONGLETS BACS (visible seulement sur l'onglet "Mes bacs") -->
@@ -3755,6 +4015,7 @@
 
   function saveChecklist(state) {
     localStorage.setItem('jardin2026_checklist', JSON.stringify(state));
+    if (typeof scheduleSync === 'function') scheduleSync();
   }
 
   function getCurrentWeekId() {
@@ -4193,6 +4454,7 @@
   }
   function saveJournal(state) {
     localStorage.setItem('jardin2026_journal', JSON.stringify(state));
+    if (typeof scheduleSync === 'function') scheduleSync();
   }
 
   // Event delegation pour le journal
@@ -4255,6 +4517,7 @@
   }
   function saveHarvests(arr) {
     localStorage.setItem('jardin2026_harvests', JSON.stringify(arr));
+    if (typeof scheduleSync === 'function') scheduleSync();
   }
 
   function renderHarvestTracker() {
@@ -4428,6 +4691,7 @@
   }
   function saveCheckDates(d) {
     localStorage.setItem('jardin2026_check_dates', JSON.stringify(d));
+    if (typeof scheduleSync === 'function') scheduleSync();
   }
 
   // Trouver la date par défaut d'une tâche (début de sa semaine calendrier)
@@ -4620,6 +4884,7 @@
   }
   function saveInventory(type, arr) {
     localStorage.setItem(inventoryConfigs[type].storageKey, JSON.stringify(arr));
+    if (typeof scheduleSync === 'function') scheduleSync();
   }
 
   function renderInventorySection(type) {
@@ -5045,6 +5310,273 @@
       }
     }
   });
+
+  /* ════════════════════
+     SUPABASE SYNC + AUTH
+  ════════════════════ */
+
+  // Cles qui doivent sync vers le cloud
+  const SYNC_KEYS = [
+    'jardin2026_checklist',
+    'jardin2026_journal',
+    'jardin2026_harvests',
+    'jardin2026_check_dates',
+    'jardin2026_seeds',
+    'jardin2026_amendments',
+    'jardin2026_seeds_expanded',
+    'jardin2026_amendments_expanded'
+  ];
+
+  // Compile toutes les cles localStorage en un seul objet pour upload
+  function buildSyncPayload() {
+    const data = {};
+    SYNC_KEYS.forEach(k => {
+      const raw = localStorage.getItem(k);
+      if (raw != null) {
+        try { data[k] = JSON.parse(raw); } catch { data[k] = raw; }
+      }
+    });
+    return data;
+  }
+
+  // Applique le payload cloud sur le localStorage local
+  function applySyncPayload(data) {
+    if (!data || typeof data !== 'object') return;
+    SYNC_KEYS.forEach(k => {
+      if (k in data && data[k] !== null && data[k] !== undefined) {
+        const v = typeof data[k] === 'string' ? data[k] : JSON.stringify(data[k]);
+        localStorage.setItem(k, v);
+      }
+    });
+    localStorage.setItem('jardin2026_last_sync', new Date().toISOString());
+  }
+
+  // Mise a jour du badge de statut
+  function setSyncStatus(state) {
+    const el = document.getElementById('sync-status');
+    if (!el) return;
+    const online = navigator.onLine;
+    if (!online) {
+      el.className = 'sync-status offline';
+      el.textContent = '⚠️ Hors ligne';
+      return;
+    }
+    const states = {
+      synced: { cls: 'synced', txt: '☁️ Synchronise' },
+      syncing: { cls: 'syncing', txt: '⏳ Sync…' },
+      pending: { cls: 'pending', txt: '💾 En attente' },
+      error: { cls: 'error', txt: '⚠️ Erreur sync' }
+    };
+    const s = states[state] || states.synced;
+    el.className = 'sync-status ' + s.cls;
+    el.textContent = s.txt;
+  }
+
+  // Push localStorage vers Supabase
+  async function syncToCloud() {
+    if (!window.supabase) return;
+    const { data: { session } } = await window.supabase.auth.getSession();
+    if (!session) return;
+
+    setSyncStatus('syncing');
+    try {
+      const payload = buildSyncPayload();
+      const { error } = await window.supabase
+        .from('jardin_data')
+        .upsert({
+          user_id: session.user.id,
+          data: payload,
+          updated_at: new Date().toISOString()
+        });
+      if (error) throw error;
+      localStorage.setItem('jardin2026_last_sync', new Date().toISOString());
+      setSyncStatus('synced');
+    } catch (e) {
+      console.error('Sync to cloud failed:', e);
+      setSyncStatus('error');
+    }
+  }
+
+  // Fetch Supabase vers localStorage
+  async function syncFromCloud() {
+    if (!window.supabase) return false;
+    const { data: { session } } = await window.supabase.auth.getSession();
+    if (!session) return false;
+
+    setSyncStatus('syncing');
+    try {
+      const { data, error } = await window.supabase
+        .from('jardin_data')
+        .select('data, updated_at')
+        .eq('user_id', session.user.id)
+        .maybeSingle();
+      if (error) throw error;
+
+      if (data && data.data && Object.keys(data.data).length > 0) {
+        const cloudUpdatedAt = new Date(data.updated_at);
+        const localLastSync = localStorage.getItem('jardin2026_last_sync');
+        const localUpdatedAt = localLastSync ? new Date(localLastSync) : new Date(0);
+
+        if (cloudUpdatedAt > localUpdatedAt) {
+          // Cloud est plus recent → applique
+          applySyncPayload(data.data);
+          setSyncStatus('synced');
+          return true;
+        } else {
+          // Local est plus recent → push
+          await syncToCloud();
+          return false;
+        }
+      } else {
+        // Pas de donnees cloud → push localStorage vers cloud (1ere sync)
+        await syncToCloud();
+        return false;
+      }
+    } catch (e) {
+      console.error('Sync from cloud failed:', e);
+      setSyncStatus('error');
+      return false;
+    }
+  }
+
+  // Sync debounced (appele par chaque saveX)
+  let syncTimer = null;
+  function scheduleSync() {
+    if (!window.supabase) return;
+    if (syncTimer) clearTimeout(syncTimer);
+    setSyncStatus('pending');
+    syncTimer = setTimeout(() => {
+      syncTimer = null;
+      syncToCloud();
+    }, 2000);
+  }
+
+  // Met a jour l'UI selon l'etat d'auth
+  function updateAuthUI(session) {
+    const bar = document.getElementById('auth-bar');
+    const signedOut = document.getElementById('auth-signed-out');
+    const signedIn = document.getElementById('auth-signed-in');
+    const emailDisplay = document.getElementById('auth-email-display');
+    if (session) {
+      bar.classList.add('signed-in');
+      signedOut.style.display = 'none';
+      signedIn.style.display = 'flex';
+      emailDisplay.textContent = session.user.email;
+    } else {
+      bar.classList.remove('signed-in');
+      signedOut.style.display = 'flex';
+      signedIn.style.display = 'none';
+    }
+  }
+
+  // Flow auth Supabase
+  async function initSupabaseAuth() {
+    if (!window.supabase) {
+      setTimeout(initSupabaseAuth, 100);
+      return;
+    }
+
+    // Etat initial
+    const { data: { session } } = await window.supabase.auth.getSession();
+    updateAuthUI(session);
+
+    if (session) {
+      // Deja connectee → sync from cloud immediatement
+      const didImport = await syncFromCloud();
+      if (didImport) {
+        // Si on a remplace les donnees locales, re-render
+        renderCalendar();
+        renderInventaire();
+      }
+    }
+
+    // Ecouter changements d'auth
+    window.supabase.auth.onAuthStateChange(async (event, session) => {
+      updateAuthUI(session);
+      if (event === 'SIGNED_IN' && session) {
+        // Fermer la modal si ouverte
+        document.getElementById('auth-modal').classList.remove('visible');
+        const didImport = await syncFromCloud();
+        if (didImport) {
+          renderCalendar();
+          renderInventaire();
+        }
+      }
+    });
+  }
+
+  // Wiring UI auth
+  document.getElementById('auth-open-modal').addEventListener('click', () => {
+    document.getElementById('auth-modal').classList.add('visible');
+    setTimeout(() => document.getElementById('auth-email-input').focus(), 100);
+  });
+
+  document.getElementById('auth-modal-close').addEventListener('click', () => {
+    document.getElementById('auth-modal').classList.remove('visible');
+  });
+
+  document.getElementById('auth-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'auth-modal') {
+      document.getElementById('auth-modal').classList.remove('visible');
+    }
+  });
+
+  document.getElementById('auth-send-magic').addEventListener('click', async () => {
+    const email = document.getElementById('auth-email-input').value.trim();
+    const msgEl = document.getElementById('auth-modal-msg');
+    const btn = document.getElementById('auth-send-magic');
+
+    if (!email || !email.includes('@')) {
+      msgEl.className = 'auth-modal-msg error';
+      msgEl.textContent = 'Entre un courriel valide.';
+      return;
+    }
+    if (!window.supabase) {
+      msgEl.className = 'auth-modal-msg error';
+      msgEl.textContent = 'Supabase pas encore charge, reessaie dans 1 seconde.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Envoi…';
+    try {
+      const { error } = await window.supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.href.split('#')[0] }
+      });
+      if (error) throw error;
+      msgEl.className = 'auth-modal-msg success';
+      msgEl.innerHTML = '✅ Courriel envoye a <strong>' + email + '</strong>! Verifie ta boite (et les pourriels) et clique sur le lien pour te connecter.';
+    } catch (e) {
+      msgEl.className = 'auth-modal-msg error';
+      msgEl.textContent = '⚠️ ' + (e.message || 'Erreur inconnue');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Envoyer le lien magique';
+    }
+  });
+
+  document.getElementById('auth-email-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('auth-send-magic').click();
+  });
+
+  document.getElementById('auth-logout').addEventListener('click', async () => {
+    if (!confirm('Se deconnecter? Tes donnees locales resteront sur cet appareil.')) return;
+    await window.supabase.auth.signOut();
+  });
+
+  // Sync quand on revient online
+  window.addEventListener('online', () => {
+    if (window.supabase) scheduleSync();
+  });
+  window.addEventListener('offline', () => setSyncStatus('offline'));
+
+  // Demarrer l'auth quand Supabase est pret
+  if (window.supabase) {
+    initSupabaseAuth();
+  } else {
+    window.addEventListener('supabase-ready', initSupabaseAuth);
+  }
 
   // Initialize calendar + inventaire
   renderCalendar();

@@ -1684,6 +1684,46 @@
     }
 
     /* ─────────────────────────────
+       TACHES BONUS INJECTEES DANS LE CALENDRIER
+    ───────────────────────────── */
+    .calendar-task-bonus {
+      background: linear-gradient(135deg, rgba(200,148,58,0.08), rgba(232,192,122,0.04));
+      border-left: 3px solid var(--gold);
+      padding-left: 10px;
+      margin: 4px 0;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+    }
+    .calendar-task-bonus::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      transform: translateY(-50%);
+    }
+    .calendar-task-bonus .calendar-task-text {
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+    .calendar-task-bonus.checked .calendar-task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+    .calendar-task-bonus-badge {
+      background: var(--gold-light);
+      color: #5A4208;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* ─────────────────────────────
        PLAN B (BACKUP BONUS)
     ───────────────────────────── */
     .backup-plan {
@@ -2911,6 +2951,49 @@
   ];
 
   /* ════════════════════
+     BONUS FOLLOW-UPS (transplantations auto-ajoutées)
+  ════════════════════ */
+  // Quand une tâche du Plan B est cochée, on injecte automatiquement
+  // une tâche de transplantation dans la semaine calculée.
+  const bonusFollowups = {
+    'bkp-now-0': { // Laitues cette semaine
+      text: 'Transplanter laitues bonus (×10 plants, bac maison rangée avant)',
+      daysAfter: 35, // ~5 semaines après le semis
+      category: 'transplantation'
+    },
+    'bkp-now-1': { // Soucis
+      text: 'Transplanter soucis bonus (×15-20 plants en bordure des 2 bacs)',
+      daysAfter: 45, // ~6-7 semaines (après dernier gel)
+      category: 'transplantation'
+    },
+    'bkp-now-2': { // Camomille
+      text: 'Transplanter camomille bonus (×5 plants en plate-bande ensoleillée)',
+      daysAfter: 42, // ~6 semaines
+      category: 'transplantation'
+    },
+    'bkp-next-0': { // Pois de senteur
+      text: 'Transplanter pois de senteur bonus (×6 plants en plate-bande avec treillis)',
+      daysAfter: 21, // ~3 semaines (tolèrent le froid)
+      category: 'transplantation'
+    },
+    'bkp-next-1': { // 2e vague laitues
+      text: 'Transplanter 2e vague laitues bonus (×5-7 plants, succession bac maison)',
+      daysAfter: 30,
+      category: 'transplantation'
+    },
+    'bkp-late-0': { // Mesclun
+      text: 'Transplanter mesclun bonus (×1 plateau, section B bac arrière)',
+      daysAfter: 21,
+      category: 'transplantation'
+    },
+    'bkp-late-1': { // 3e vague laitues
+      text: 'Transplanter 3e vague laitues bonus (×5 plants, succession été)',
+      daysAfter: 30,
+      category: 'transplantation'
+    }
+  };
+
+  /* ════════════════════
      DATA
   ════════════════════ */
   const plantData = {
@@ -3576,6 +3659,54 @@
         </div>
       </div>`;
 
+    // ══════════════════════════════════════
+    // Calculer les transplantations bonus à injecter
+    // ══════════════════════════════════════
+    const checkDatesForBonus = loadCheckDates();
+    const bonusInjections = {}; // weekId -> [tasks]
+
+    Object.entries(bonusFollowups).forEach(([bonusId, followup]) => {
+      if (!state[bonusId]) return; // bonus pas coché → pas d'injection
+
+      // Date de référence = date réelle de la coche (ou aujourd'hui)
+      const checkDate = checkDatesForBonus[bonusId]
+        ? new Date(checkDatesForBonus[bonusId])
+        : new Date();
+      const targetDate = new Date(checkDate);
+      targetDate.setDate(targetDate.getDate() + followup.daysAfter);
+
+      // Trouver la semaine qui contient cette date
+      let targetWeekId = null;
+      let bestDiff = Infinity;
+      for (const m of calendarData) {
+        for (const w of m.weeks) {
+          const wStart = new Date(w.startDate + 'T00:00:00');
+          const wEnd = new Date(w.endDate + 'T23:59:59');
+          if (targetDate >= wStart && targetDate <= wEnd) {
+            targetWeekId = w.id;
+            break;
+          }
+          // Si on déborde, prendre la semaine la plus proche
+          const diff = Math.abs(targetDate - wStart);
+          if (diff < bestDiff) {
+            bestDiff = diff;
+            targetWeekId = w.id;
+          }
+        }
+        if (targetWeekId && bestDiff === 0) break;
+      }
+
+      if (targetWeekId) {
+        if (!bonusInjections[targetWeekId]) bonusInjections[targetWeekId] = [];
+        bonusInjections[targetWeekId].push({
+          id: 'bonus-followup-' + bonusId,
+          text: followup.text,
+          category: followup.category,
+          targetDate: targetDate
+        });
+      }
+    });
+
     calendarData.forEach((month, mi) => {
       html += `
       <div class="calendar-month">
@@ -3593,9 +3724,14 @@
         const today = new Date();
         const end = new Date(week.endDate + 'T23:59:59');
         const isPast = today > end;
+        const injected = bonusInjections[week.id] || [];
+
+        // Compteur incluant les tâches bonus
         let wDone = 0;
         week.tasks.forEach(t => { if (state[t.id]) wDone++; });
-        const pastComplete = isPast && wDone === week.tasks.length;
+        injected.forEach(t => { if (state[t.id]) wDone++; });
+        const wTotal = week.tasks.length + injected.length;
+        const pastComplete = isPast && wDone === wTotal && wTotal > 0;
 
         html += `
         <div class="calendar-week${isCurrent ? ' current-week' : ''}${pastComplete ? ' past-complete' : ''}" id="week-${week.id}">
@@ -3604,7 +3740,7 @@
             <span class="calendar-week-dates">${week.dateRange}</span>
             <span class="calendar-week-duration">~${week.duration}</span>
             <span class="calendar-week-progress" id="week-progress-${week.id}">
-              ${wDone === week.tasks.length ? `<span class="done">✓ ${wDone}/${week.tasks.length}</span>` : `${wDone}/${week.tasks.length}`}
+              ${wDone === wTotal && wTotal > 0 ? `<span class="done">✓ ${wDone}/${wTotal}</span>` : `${wDone}/${wTotal}`}
             </span>
           </div>
           <div class="calendar-tasks">`;
@@ -3617,6 +3753,18 @@
               <span class="calendar-task-check"></span>
               <span class="calendar-task-text">${task.text}</span>
               <span class="calendar-task-badge badge-${task.category}">${categoryLabels[task.category]}</span>
+            </label>`;
+        });
+
+        // Tâches bonus injectées (transplantations des semis Plan B)
+        injected.forEach(task => {
+          const checked = state[task.id] ? true : false;
+          html += `
+            <label class="calendar-task calendar-task-bonus${checked ? ' checked' : ''}">
+              <input type="checkbox" data-task-id="${task.id}" ${checked ? 'checked' : ''}>
+              <span class="calendar-task-check"></span>
+              <span class="calendar-task-text">🎁 ${task.text}</span>
+              <span class="calendar-task-badge calendar-task-bonus-badge">Plan B · Transplantation</span>
             </label>`;
         });
 
@@ -4582,7 +4730,7 @@
   });
 
   /* ════════════════════
-     CHECK DATES (pour successions)
+     CHECK DATES (pour successions + bonus followups)
   ════════════════════ */
   // Enrichir l'event handler de checkbox pour enregistrer les dates
   document.getElementById('bed-calendrier').addEventListener('change', function(e) {
@@ -4599,6 +4747,17 @@
       // Re-render le widget de successions
       const sWidget = document.querySelector('.successions-card');
       if (sWidget) sWidget.outerHTML = renderSuccessions();
+
+      // Si une tâche bonus du Plan B est (dé)cochée, re-render le calendrier
+      // complet pour (dé)injecter la tâche de transplantation associée
+      if (taskId.startsWith('bkp-') && bonusFollowups[taskId]) {
+        // Mémoriser la position de scroll pour ne pas sauter
+        const scrollY = window.scrollY;
+        setTimeout(() => {
+          renderCalendar();
+          window.scrollTo(0, scrollY);
+        }, 100);
+      }
     }
   });
 

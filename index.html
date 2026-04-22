@@ -2303,12 +2303,12 @@
 
     <!-- TAB BAR PRINCIPAL -->
     <div class="tab-bar">
-      <button class="tab active" data-tab="bacs" onclick="showBed('maison')">
+      <button class="tab" data-tab="bacs" onclick="showBed('maison')">
         <span class="tab-icon">🌱</span>
         <span class="tab-name">Mes bacs</span>
         <span class="tab-desc">Plan · Maison + Arrière</span>
       </button>
-      <button class="tab" data-tab="calendrier" onclick="showBed('calendrier')">
+      <button class="tab active" data-tab="calendrier" onclick="showBed('calendrier')">
         <span class="tab-icon">📅</span>
         <span class="tab-name">Calendrier</span>
         <span class="tab-desc">Mars–Sept. · Tâches hebdo</span>
@@ -2321,7 +2321,7 @@
     </div>
 
     <!-- SOUS-ONGLETS BACS (visible seulement sur l'onglet "Mes bacs") -->
-    <div id="sub-tab-bar" class="sub-tab-bar" style="display:grid;">
+    <div id="sub-tab-bar" class="sub-tab-bar" style="display:none;">
       <button class="sub-tab active" data-bed="maison" onclick="showBed('maison')">
         <span class="sub-tab-icon">☀️</span>
         <span class="sub-tab-name">Bac maison</span>
@@ -2343,7 +2343,7 @@
     </div>
 
     <!-- WEATHER WIDGET (visible uniquement dans l'onglet Calendrier) -->
-    <div id="weather-section" style="display:none;">
+    <div id="weather-section" style="display:block;">
       <div id="weather-alert-container"></div>
       <div id="weather-widget" class="weather-widget">
         <div class="weather-loading">🌦️ Chargement de la météo…</div>
@@ -2353,7 +2353,7 @@
     <!-- ════════════════════════════════
          BAC MAISON
     ════════════════════════════════ -->
-    <div class="bed-view active" id="bed-maison">
+    <div class="bed-view" id="bed-maison">
 
       <div class="bed-header">
         <h2 class="bed-title">La zone « star » ⭐</h2>
@@ -2888,7 +2888,7 @@
     <!-- ════════════════════════════════
          CALENDRIER
     ════════════════════════════════ -->
-    <div class="bed-view" id="bed-calendrier"></div>
+    <div class="bed-view active" id="bed-calendrier"></div>
 
     <!-- ════════════════════════════════
          GUIDES

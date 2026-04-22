@@ -2184,10 +2184,12 @@
       <div id="search-results" class="search-results"></div>
     </div>
 
-    <!-- WEATHER WIDGET -->
-    <div id="weather-alert-container"></div>
-    <div id="weather-widget" class="weather-widget">
-      <div class="weather-loading">🌦️ Chargement de la météo…</div>
+    <!-- WEATHER WIDGET (visible uniquement dans l'onglet Calendrier) -->
+    <div id="weather-section" style="display:none;">
+      <div id="weather-alert-container"></div>
+      <div id="weather-widget" class="weather-widget">
+        <div class="weather-loading">🌦️ Chargement de la météo…</div>
+      </div>
     </div>
 
     <!-- ════════════════════════════════
@@ -3460,6 +3462,13 @@
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById('bed-' + bed).classList.add('active');
     document.querySelector(`.tab[data-bed="${bed}"]`).classList.add('active');
+
+    // Afficher la météo uniquement dans l'onglet Calendrier
+    const weatherSection = document.getElementById('weather-section');
+    if (weatherSection) {
+      weatherSection.style.display = bed === 'calendrier' ? 'block' : 'none';
+    }
+
     if (bed === 'calendrier') {
       setTimeout(() => scrollToCurrentWeek(), 150);
     }

@@ -3440,7 +3440,9 @@
       badge: 'Optionnel',
       tasks: [
         { id:'bkp-next-0', text:'Semis intérieurs : Pois de senteur (×6 plants, tremper 12h avant, sème 8 graines)', category:'semis' },
-        { id:'bkp-next-1', text:'2e vague laitues en semis intérieur (×5-7 plants) pour succession', category:'semis' }
+        { id:'bkp-next-1', text:'2e vague laitues en semis intérieur (×5-7 plants) pour succession', category:'semis' },
+        { id:'bkp-next-2', text:'Semis intérieurs : Ciboulette de jardin (×1 plateau, sème en petites touffes, germination lente 2-3 sem., transplant après derniers gels)', category:'semis' },
+        { id:'bkp-next-3', text:'Semis intérieurs : Cosmos Fizzy White (×4-6 plants, sème 8 graines, 4-6 sem. avant transplantation)', category:'semis' }
       ]
     },
     {
@@ -3449,7 +3451,8 @@
       badge: 'Optionnel',
       tasks: [
         { id:'bkp-late-0', text:'Semis intérieurs : Mesclun de luxe (×1 plateau) pour récolte hâtive', category:'semis' },
-        { id:'bkp-late-1', text:'3e vague laitues en semis intérieur (×5 plants) pour succession d\'été', category:'semis' }
+        { id:'bkp-late-1', text:'3e vague laitues en semis intérieur (×5 plants) pour succession d\'été', category:'semis' },
+        { id:'bkp-late-2', text:'Semis intérieurs : Capucine Jewel (×4-6 plants en POTS DE TOURBE, transplante mal à racines nues, 2-3 sem. avant transplantation)', category:'semis' }
       ]
     }
   ];
@@ -3485,6 +3488,16 @@
       daysAfter: 30,
       category: 'transplantation'
     },
+    'bkp-next-2': { // Ciboulette
+      text: 'Transplanter ciboulette bonus (×1 plateau en touffes, bordure bac maison près des carottes — vivace)',
+      daysAfter: 49, // ~7 semaines (après derniers gels)
+      category: 'transplantation'
+    },
+    'bkp-next-3': { // Cosmos Fizzy White
+      text: 'Transplanter cosmos Fizzy White bonus (×4-6 plants en plate-bande ensoleillée, espacer 30 cm)',
+      daysAfter: 35, // ~5 semaines (après derniers gels)
+      category: 'transplantation'
+    },
     'bkp-late-0': { // Mesclun
       text: 'Transplanter mesclun bonus (×1 plateau, section B bac arrière)',
       daysAfter: 21,
@@ -3493,6 +3506,11 @@
     'bkp-late-1': { // 3e vague laitues
       text: 'Transplanter 3e vague laitues bonus (×5 plants, succession été)',
       daysAfter: 30,
+      category: 'transplantation'
+    },
+    'bkp-late-2': { // Capucine Jewel
+      text: 'Transplanter capucine Jewel bonus (×4-6 plants en pots de tourbe, bordure sud bac maison ou plate-bande)',
+      daysAfter: 28, // ~4 semaines (après derniers gels)
       category: 'transplantation'
     }
   };

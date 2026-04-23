@@ -3304,7 +3304,10 @@
           { id:'m05-w1-3', text:'Semis direct : radis (bordure section A bac arrière, 1 cm, espacer 5 cm)', category:'semis' },
           { id:'m05-w1-4', text:'Pois de senteur en plate-bande (×3-5 graines, tremper 12h avant)', category:'semis' },
           { id:'m05-w1-5', text:'Poser paillis entre les rangs', category:'entretien' },
-          { id:'m05-w1-6', text:'Compost en surface si pas encore fait', category:'engrais' }
+          { id:'m05-w1-6', text:'Compost en surface si pas encore fait', category:'engrais' },
+          { id:'m05-w1-7', text:'Semis direct : Pois Oregon Sugar Pod (plate-bande sur même treillis que pois de senteur, tremper 12h avant, 2-3 cm profond, espacer 5 cm)', category:'semis' },
+          { id:'m05-w1-8', text:'Semis direct : Nielle Purple Queen (plate-bande, 0,5 cm, espacer 20 cm — tolère le froid)', category:'semis' },
+          { id:'m05-w1-9', text:'Semis direct : Ciboulette de jardin (bordure bac maison près des carottes, 0,5 cm — vivace qui revient chaque année)', category:'semis' }
         ]},
         { id:'m05-w2', dateRange:'11–17 mai', startDate:'2026-05-11', endDate:'2026-05-17', duration:'1h30', tasks:[
           { id:'m05-w2-0', text:'Semis direct : betteraves (×5 plants, section B bac arrière, 2 cm)', category:'semis' },
@@ -3313,7 +3316,9 @@
         ]},
         { id:'m05-w3', dateRange:'18–24 mai', startDate:'2026-05-18', endDate:'2026-05-24', duration:'1h', tasks:[
           { id:'m05-w3-0', text:'2e vague laitue (×5 plants) + mesclun', category:'semis' },
-          { id:'m05-w3-1', text:'Installer les cages à tomates', category:'preparation' }
+          { id:'m05-w3-1', text:'Installer les cages à tomates', category:'preparation' },
+          { id:'m05-w3-2', text:'Semis direct : Capucine Jewel (bordure sud bac maison avec les soucis, 1-2 cm — répulsive pucerons, compagne tomates/brocoli)', category:'semis' },
+          { id:'m05-w3-3', text:'Semis direct : Cosmos Fizzy White (plate-bande ensoleillée, 0,5 cm, espacer 30 cm)', category:'semis' }
         ]},
         { id:'m05-w4', dateRange:'25–31 mai', startDate:'2026-05-25', endDate:'2026-05-31', duration:'2h', tasks:[
           { id:'m05-w4-0', text:'Semis direct : coriandre (section C bac arrière, zone 30×30 cm, 1 cm)', category:'semis' },
@@ -3435,7 +3440,9 @@
       badge: 'Optionnel',
       tasks: [
         { id:'bkp-next-0', text:'Semis intérieurs : Pois de senteur (×6 plants, tremper 12h avant, sème 8 graines)', category:'semis' },
-        { id:'bkp-next-1', text:'2e vague laitues en semis intérieur (×5-7 plants) pour succession', category:'semis' }
+        { id:'bkp-next-1', text:'2e vague laitues en semis intérieur (×5-7 plants) pour succession', category:'semis' },
+        { id:'bkp-next-2', text:'Semis intérieurs : Ciboulette de jardin (×1 plateau, sème en petites touffes, germination lente 2-3 sem., transplant après derniers gels)', category:'semis' },
+        { id:'bkp-next-3', text:'Semis intérieurs : Cosmos Fizzy White (×4-6 plants, sème 8 graines, 4-6 sem. avant transplantation)', category:'semis' }
       ]
     },
     {
@@ -3444,7 +3451,8 @@
       badge: 'Optionnel',
       tasks: [
         { id:'bkp-late-0', text:'Semis intérieurs : Mesclun de luxe (×1 plateau) pour récolte hâtive', category:'semis' },
-        { id:'bkp-late-1', text:'3e vague laitues en semis intérieur (×5 plants) pour succession d\'été', category:'semis' }
+        { id:'bkp-late-1', text:'3e vague laitues en semis intérieur (×5 plants) pour succession d\'été', category:'semis' },
+        { id:'bkp-late-2', text:'Semis intérieurs : Capucine Jewel (×4-6 plants en POTS DE TOURBE, transplante mal à racines nues, 2-3 sem. avant transplantation)', category:'semis' }
       ]
     }
   ];
@@ -3480,6 +3488,16 @@
       daysAfter: 30,
       category: 'transplantation'
     },
+    'bkp-next-2': { // Ciboulette
+      text: 'Transplanter ciboulette bonus (×1 plateau en touffes, bordure bac maison près des carottes — vivace)',
+      daysAfter: 49, // ~7 semaines (après derniers gels)
+      category: 'transplantation'
+    },
+    'bkp-next-3': { // Cosmos Fizzy White
+      text: 'Transplanter cosmos Fizzy White bonus (×4-6 plants en plate-bande ensoleillée, espacer 30 cm)',
+      daysAfter: 35, // ~5 semaines (après derniers gels)
+      category: 'transplantation'
+    },
     'bkp-late-0': { // Mesclun
       text: 'Transplanter mesclun bonus (×1 plateau, section B bac arrière)',
       daysAfter: 21,
@@ -3488,6 +3506,11 @@
     'bkp-late-1': { // 3e vague laitues
       text: 'Transplanter 3e vague laitues bonus (×5 plants, succession été)',
       daysAfter: 30,
+      category: 'transplantation'
+    },
+    'bkp-late-2': { // Capucine Jewel
+      text: 'Transplanter capucine Jewel bonus (×4-6 plants en pots de tourbe, bordure sud bac maison ou plate-bande)',
+      daysAfter: 28, // ~4 semaines (après derniers gels)
       category: 'transplantation'
     }
   };
@@ -4820,7 +4843,12 @@
     { emoji: '🌼', name: 'Souci officinal', stock: 'full', expires: 2028 },
     { emoji: '🌸', name: 'Camomille allemande', stock: 'full', expires: 2028 },
     { emoji: '🌻', name: 'Tournesol géant', stock: 'full', expires: 2028 },
-    { emoji: '🌸', name: 'Pois de senteur', stock: 'full', expires: 2027 }
+    { emoji: '🌸', name: 'Pois de senteur', stock: 'full', expires: 2027 },
+    { emoji: '🌺', name: 'Capucine Jewel (Tropaeolum majus)', stock: 'full', expires: 2028 },
+    { emoji: '🌿', name: 'Ciboulette de jardin', stock: 'full', expires: 2028 },
+    { emoji: '🫛', name: 'Pois Oregon Sugar Pod', stock: 'full', expires: 2028 },
+    { emoji: '🌸', name: 'Nielle Purple Queen (Agrostemma githago)', stock: 'full', expires: 2028 },
+    { emoji: '🌼', name: 'Cosmos Fizzy White', stock: 'full', expires: 2028 }
   ];
 
   const defaultAmendmentsInventory = [

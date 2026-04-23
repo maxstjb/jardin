@@ -4915,6 +4915,25 @@
     if (typeof scheduleSync === 'function') scheduleSync();
   }
 
+  // Migration : ajoute au stock existant les semences par défaut absentes (match par nom).
+  // Se rejoue à chaque bump de MIGRATION_VERSION. Préserve les suppressions faites après coup.
+  const MIGRATION_VERSION = '2026-04-23-new-seeds';
+  function runInventoryMigration() {
+    const flagKey = 'jardin2026_inventory_migration';
+    if (localStorage.getItem(flagKey) === MIGRATION_VERSION) return;
+    const current = loadInventory('seeds');
+    if (current.length === 0) { localStorage.setItem(flagKey, MIGRATION_VERSION); return; }
+    const existingNames = new Set(current.map(s => (s.name || '').toLowerCase().trim()));
+    const missing = defaultSeedInventory.filter(s => !existingNames.has(s.name.toLowerCase().trim()));
+    if (missing.length > 0) {
+      const additions = missing.map((s, i) => ({ ...s, id: 'seeds-' + Date.now() + '-m' + i }));
+      saveInventory('seeds', [...current, ...additions]);
+      console.log('[migration] Ajout de ' + missing.length + ' semence(s) :', missing.map(s => s.name).join(', '));
+    }
+    localStorage.setItem(flagKey, MIGRATION_VERSION);
+  }
+  try { runInventoryMigration(); } catch (e) { console.warn('Migration inventaire échouée :', e); }
+
   function renderInventorySection(type) {
     const config = inventoryConfigs[type];
     const items = loadInventory(type);

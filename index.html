@@ -1191,6 +1191,37 @@
       color: var(--terra);
       border-left: 3px solid var(--terra);
     }
+    .defer-task-list {
+      margin: 12px 0 16px;
+      max-height: 240px;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--cream);
+    }
+    .defer-task-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .defer-task-item:last-child { border-bottom: none; }
+    .defer-task-item-from {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .calendar-task-deferred-badge {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #2E6B8B;
+      background: rgba(74,144,180,0.12);
+      border-radius: 999px;
+      letter-spacing: 0.3px;
+    }
     .auth-modal-close {
       position: absolute;
       top: 12px; right: 12px;
@@ -2599,6 +2630,24 @@
           <button id="auth-send-magic" class="auth-btn">Envoyer le lien magique</button>
         </div>
         <div id="auth-modal-msg" class="auth-modal-msg"></div>
+      </div>
+    </div>
+
+    <!-- Modal de report d'acclimatation (auto-trigger après semaine passée) -->
+    <div id="defer-modal" class="auth-modal-overlay">
+      <div class="auth-modal-content">
+        <button class="auth-modal-close" id="defer-modal-close" aria-label="Fermer">✕</button>
+        <div class="auth-modal-title">↪ Reporter l'acclimatation ?</div>
+        <p class="auth-modal-desc">
+          Ces tâches d'acclimatation des semaines passées ne sont pas cochées.
+          C'est probablement parce qu'il a fait trop froid pour sortir tes plants.
+          Veux-tu les <strong>reporter à cette semaine</strong> ?
+        </p>
+        <div id="defer-task-list" class="defer-task-list"></div>
+        <div class="auth-modal-actions">
+          <button id="defer-confirm" class="auth-btn">↪ Reporter</button>
+          <button id="defer-mark-done" class="auth-btn secondary">J'avais juste oublié de cocher</button>
+        </div>
       </div>
     </div>
 
@@ -4069,6 +4118,106 @@
     return null;
   }
 
+  function getCurrentOrUpcomingWeekId() {
+    const today = new Date();
+    let upcoming = null;
+    for (const month of calendarData) {
+      for (const week of month.weeks) {
+        const end = new Date(week.endDate + 'T23:59:59');
+        if (today <= end) {
+          if (!upcoming) upcoming = week.id;
+          const start = new Date(week.startDate + 'T00:00:00');
+          if (today >= start) return week.id;
+        }
+      }
+    }
+    return upcoming;
+  }
+
+  /* ════════════════════
+     AUTO-REPORT D'ACCLIMATATION
+  ════════════════════ */
+  function loadDeferrals() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_deferrals')) || {}; }
+    catch { return {}; }
+  }
+  function saveDeferrals(d) {
+    localStorage.setItem('jardin2026_deferrals', JSON.stringify(d));
+    if (typeof scheduleSync === 'function') scheduleSync();
+  }
+  function loadProcessedWeeks() {
+    try { return JSON.parse(localStorage.getItem('jardin2026_defer_processed_weeks')) || []; }
+    catch { return []; }
+  }
+  function saveProcessedWeeks(w) {
+    localStorage.setItem('jardin2026_defer_processed_weeks', JSON.stringify(w));
+    if (typeof scheduleSync === 'function') scheduleSync();
+  }
+
+  // Une tâche d'acclimatation = texte qui commence par 🟢 / 🟡 / 🔴 (groupes A/B/C)
+  function isAcclimatationTask(task) {
+    return /^\s*[🟢🟡🔴]/.test(task.text || '');
+  }
+
+  function findTaskById(taskId) {
+    for (const month of calendarData) {
+      for (const week of month.weeks) {
+        for (const task of week.tasks) {
+          if (task.id === taskId) {
+            return { task, fromWeekId: week.id, fromWeekDateRange: week.dateRange };
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  // Liste les tâches d'acclimatation non cochées des semaines passées non encore traitées
+  function findPendingDeferrals() {
+    const today = new Date();
+    const state = loadChecklist();
+    const deferrals = loadDeferrals();
+    const processed = loadProcessedWeeks();
+    const candidates = [];
+
+    for (const month of calendarData) {
+      for (const week of month.weeks) {
+        const wEnd = new Date(week.endDate + 'T23:59:59');
+        if (today <= wEnd) continue;            // semaine pas encore terminée
+        if (processed.includes(week.id)) continue; // semaine déjà traitée par l'utilisateur
+        for (const task of week.tasks) {
+          if (!isAcclimatationTask(task)) continue;
+          if (state[task.id]) continue;          // déjà cochée
+          if (deferrals[task.id]) continue;      // déjà reportée
+          candidates.push({ task, fromWeekId: week.id, fromWeekDateRange: week.dateRange });
+        }
+      }
+    }
+    return candidates;
+  }
+
+  function applyDeferralDecision(candidates, decision) {
+    const deferrals = loadDeferrals();
+    const checklist = loadChecklist();
+    const processed = loadProcessedWeeks();
+    const targetWeekId = getCurrentOrUpcomingWeekId();
+
+    candidates.forEach(c => {
+      if (decision === 'defer' && targetWeekId) {
+        deferrals[c.task.id] = targetWeekId;
+      } else if (decision === 'mark-done') {
+        checklist[c.task.id] = true;
+      }
+    });
+    // Marque toutes les semaines source comme traitées (qu'on ait déféré ou complété)
+    const sourceWeeks = [...new Set(candidates.map(c => c.fromWeekId))];
+    sourceWeeks.forEach(wid => { if (!processed.includes(wid)) processed.push(wid); });
+
+    saveDeferrals(deferrals);
+    saveChecklist(checklist);
+    saveProcessedWeeks(processed);
+  }
+
   function scrollToCurrentWeek() {
     const el = document.querySelector('.calendar-week.current-week');
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -4196,6 +4345,18 @@
       </div>`;
 
     // ══════════════════════════════════════
+    // Calculer les tâches d'acclimatation reportées par semaine cible
+    // ══════════════════════════════════════
+    const deferralsMap = loadDeferrals();
+    const deferredInjections = {}; // weekId -> [{task, fromWeekDateRange}]
+    Object.entries(deferralsMap).forEach(([taskId, targetWeekId]) => {
+      const orig = findTaskById(taskId);
+      if (!orig) return; // tâche supprimée du code, on ignore
+      if (!deferredInjections[targetWeekId]) deferredInjections[targetWeekId] = [];
+      deferredInjections[targetWeekId].push(orig);
+    });
+
+    // ══════════════════════════════════════
     // Calculer les transplantations bonus à injecter
     // ══════════════════════════════════════
     const checkDatesForBonus = loadCheckDates();
@@ -4261,12 +4422,27 @@
         const end = new Date(week.endDate + 'T23:59:59');
         const isPast = today > end;
         const injected = bonusInjections[week.id] || [];
+        const deferredHere = deferredInjections[week.id] || [];
 
-        // Compteur incluant les tâches bonus
-        let wDone = 0;
-        week.tasks.forEach(t => { if (state[t.id]) wDone++; });
-        injected.forEach(t => { if (state[t.id]) wDone++; });
-        const wTotal = week.tasks.length + injected.length;
+        // Tâches d'acclimatation reportées DEPUIS cette semaine ne sont plus comptées ici
+        const deferredFromHere = new Set(
+          Object.entries(deferralsMap)
+            .filter(([taskId]) => {
+              const orig = findTaskById(taskId);
+              return orig && orig.fromWeekId === week.id;
+            })
+            .map(([taskId]) => taskId)
+        );
+
+        // Compteur incluant les tâches bonus et reportées (mais excluant celles déférées hors d'ici)
+        let wDone = 0, wTotal = 0;
+        week.tasks.forEach(t => {
+          if (deferredFromHere.has(t.id)) return; // déférée vers une autre semaine, on ne la compte pas ici
+          wTotal++;
+          if (state[t.id]) wDone++;
+        });
+        injected.forEach(t => { wTotal++; if (state[t.id]) wDone++; });
+        deferredHere.forEach(d => { wTotal++; if (state[d.task.id]) wDone++; });
         const pastComplete = isPast && wDone === wTotal && wTotal > 0;
 
         html += `
@@ -4282,6 +4458,7 @@
           <div class="calendar-tasks">`;
 
         week.tasks.forEach(task => {
+          if (deferredFromHere.has(task.id)) return; // déférée → ne pas afficher dans la semaine d'origine
           const checked = state[task.id] ? true : false;
           html += `
             <label class="calendar-task${checked ? ' checked' : ''}">
@@ -4289,6 +4466,18 @@
               <span class="calendar-task-check"></span>
               <span class="calendar-task-text">${task.text}</span>
               <span class="calendar-task-badge badge-${task.category}">${categoryLabels[task.category]}</span>
+            </label>`;
+        });
+
+        // Tâches d'acclimatation reportées vers cette semaine (avec badge)
+        deferredHere.forEach(d => {
+          const checked = state[d.task.id] ? true : false;
+          html += `
+            <label class="calendar-task${checked ? ' checked' : ''}">
+              <input type="checkbox" data-task-id="${d.task.id}" ${checked ? 'checked' : ''}>
+              <span class="calendar-task-check"></span>
+              <span class="calendar-task-text">${d.task.text}<span class="calendar-task-deferred-badge">↪ reporté de ${d.fromWeekDateRange}</span></span>
+              <span class="calendar-task-badge badge-${d.task.category}">${categoryLabels[d.task.category]}</span>
             </label>`;
         });
 
@@ -5387,7 +5576,9 @@
     'jardin2026_seeds',
     'jardin2026_amendments',
     'jardin2026_seeds_expanded',
-    'jardin2026_amendments_expanded'
+    'jardin2026_amendments_expanded',
+    'jardin2026_deferrals',
+    'jardin2026_defer_processed_weeks'
   ];
 
   // Compile toutes les cles localStorage en un seul objet pour upload
@@ -5644,6 +5835,39 @@
   // Initialize calendar + inventaire
   renderCalendar();
   renderInventaire();
+
+  // Détection des tâches d'acclimatation à reporter (semaine passée non cochée)
+  function showDeferModal(candidates) {
+    const modal = document.getElementById('defer-modal');
+    const list = document.getElementById('defer-task-list');
+    if (!modal || !list) return;
+    list.innerHTML = candidates.map(c => `
+      <div class="defer-task-item">
+        ${c.task.text}
+        <span class="defer-task-item-from">↪ Initialement prévue : ${c.fromWeekDateRange}</span>
+      </div>`).join('');
+    modal.classList.add('visible');
+
+    const close = () => modal.classList.remove('visible');
+    document.getElementById('defer-modal-close').onclick = close;
+    document.getElementById('defer-confirm').onclick = () => {
+      applyDeferralDecision(candidates, 'defer');
+      close();
+      renderCalendar();
+    };
+    document.getElementById('defer-mark-done').onclick = () => {
+      applyDeferralDecision(candidates, 'mark-done');
+      close();
+      renderCalendar();
+    };
+  }
+
+  function checkDeferralsAndPrompt() {
+    const candidates = findPendingDeferrals();
+    if (candidates.length > 0) showDeferModal(candidates);
+  }
+  // Léger délai pour ne pas afficher avant que la page soit visible
+  setTimeout(checkDeferralsAndPrompt, 800);
   </script>
 
 </body>

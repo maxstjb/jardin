@@ -3281,8 +3281,9 @@
           { id:'m04-w2-2', text:'Tourner les semis pour croissance uniforme', category:'entretien' }
         ]},
         { id:'m04-w3', dateRange:'20–26 avril', startDate:'2026-04-20', endDate:'2026-04-26', duration:'30 min', tasks:[
-          { id:'m04-w3-0', text:'Début acclimatation : sortir plants quand T° > 10°C', category:'entretien' },
-          { id:'m04-w3-1', text:'Quelques heures dehors, augmenter progressivement', category:'entretien' }
+          { id:'m04-w3-0', text:'🟢 Groupe A (brocoli + plants Plan B si démarrés) : sortir 1-2h à l\'ombre, T° > 5°C, abri du vent', category:'entretien' },
+          { id:'m04-w3-1', text:'🟡 Groupe B (tomates Plourde + cerises + Poivron King of the North) : 1-2h à l\'ombre seulement si T° jour > 12°C, rentrer le soir', category:'entretien' },
+          { id:'m04-w3-2', text:'🔴 Groupe C (Poivron Gourmet, basilic, melon d\'eau) : RESTENT à l\'intérieur — trop sensibles', category:'entretien' }
         ]},
         { id:'m04-w4', dateRange:'27 avril – 3 mai', startDate:'2026-04-27', endDate:'2026-05-03', duration:'2h', tasks:[
           { id:'m04-w4-0', text:'Achats : compost, terre, paillis', category:'preparation' },
@@ -3291,7 +3292,10 @@
           { id:'m04-w4-3', text:'Bac arrière : monter planches 2×4 + géotextile', category:'preparation' },
           { id:'m04-w4-4', text:'Bac arrière : ajouter terre + compost + biochar', category:'preparation' },
           { id:'m04-w4-5', text:'Bac maison : désherber', category:'preparation' },
-          { id:'m04-w4-6', text:'Engrais : fumier de poule 4-6-8 sur les 2 bacs (~100 g/m²)', category:'engrais' }
+          { id:'m04-w4-6', text:'Engrais : fumier de poule 4-6-8 sur les 2 bacs (~100 g/m²)', category:'engrais' },
+          { id:'m04-w4-7', text:'🟢 Groupe A : journée complète à l\'ombre/mi-ombre dehors, dehors si T° > 5°C — passer au soleil partiel en fin de semaine', category:'entretien' },
+          { id:'m04-w4-8', text:'🟡 Groupe B (tomates + Poivron King) : 2-4h mi-ombre les jours T° > 12°C, sauter les jours froids, toujours rentrer le soir', category:'entretien' },
+          { id:'m04-w4-9', text:'🔴 Groupe C (Poivron Gourmet, basilic, melon) : restent à l\'intérieur sous lampes', category:'entretien' }
         ]}
       ]
     },
@@ -3307,25 +3311,37 @@
           { id:'m05-w1-6', text:'Compost en surface si pas encore fait', category:'engrais' },
           { id:'m05-w1-7', text:'Semis direct : Pois Oregon Sugar Pod (plate-bande sur même treillis que pois de senteur, tremper 12h avant, 2-3 cm profond, espacer 5 cm)', category:'semis' },
           { id:'m05-w1-8', text:'Semis direct : Nielle Purple Queen (plate-bande, 0,5 cm, espacer 20 cm — tolère le froid)', category:'semis' },
-          { id:'m05-w1-9', text:'Semis direct : Ciboulette de jardin (bordure bac maison près des carottes, 0,5 cm — vivace qui revient chaque année)', category:'semis' }
+          { id:'m05-w1-9', text:'Semis direct : Ciboulette de jardin (bordure bac maison près des carottes, 0,5 cm — vivace qui revient chaque année)', category:'semis' },
+          { id:'m05-w1-10', text:'🟢 Groupe A — brocoli : peut rester dehors jour ET nuit si T° nocturne > 3°C, prêt pour transplantation m05-w2', category:'entretien' },
+          { id:'m05-w1-11', text:'🟡 Groupe B (tomates + Poivron King) : 4-6h plein soleil, rentrer le soir', category:'entretien' },
+          { id:'m05-w1-12', text:'🔴 Poivron Gourmet, basilic, melon : encore à l\'intérieur', category:'entretien' }
         ]},
         { id:'m05-w2', dateRange:'11–17 mai', startDate:'2026-05-11', endDate:'2026-05-17', duration:'1h30', tasks:[
           { id:'m05-w2-0', text:'Semis direct : betteraves (×5 plants, section B bac arrière, 2 cm)', category:'semis' },
           { id:'m05-w2-1', text:'Transplanter brocoli (×2 plants) au bac maison', category:'transplantation' },
-          { id:'m05-w2-2', text:'Engrais démarrage 9-18-6 au fond du trou du brocoli', category:'engrais' }
+          { id:'m05-w2-2', text:'Engrais démarrage 9-18-6 au fond du trou du brocoli', category:'engrais' },
+          { id:'m05-w2-3', text:'🟡 Tomates : journée complète plein soleil, nuit dehors si T° nocturne > 8°C', category:'entretien' },
+          { id:'m05-w2-4', text:'🟡 Poivron King of the North : 4-6h soleil, rentrer le soir', category:'entretien' },
+          { id:'m05-w2-5', text:'🔴 Poivron Gourmet : commencer acclimatation douce (1-2h ombre, T° > 13°C)', category:'entretien' },
+          { id:'m05-w2-6', text:'🔴 Basilic + melon d\'eau : démarrer très doucement (1-2h ombre uniquement, T° > 13°C)', category:'entretien' }
         ]},
         { id:'m05-w3', dateRange:'18–24 mai', startDate:'2026-05-18', endDate:'2026-05-24', duration:'1h', tasks:[
           { id:'m05-w3-0', text:'2e vague laitue (×5 plants) + mesclun', category:'semis' },
           { id:'m05-w3-1', text:'Installer les cages à tomates', category:'preparation' },
           { id:'m05-w3-2', text:'Semis direct : Capucine Jewel (bordure sud bac maison avec les soucis, 1-2 cm — répulsive pucerons, compagne tomates/brocoli)', category:'semis' },
-          { id:'m05-w3-3', text:'Semis direct : Cosmos Fizzy White (plate-bande ensoleillée, 0,5 cm, espacer 30 cm)', category:'semis' }
+          { id:'m05-w3-3', text:'Semis direct : Cosmos Fizzy White (plate-bande ensoleillée, 0,5 cm, espacer 30 cm)', category:'semis' },
+          { id:'m05-w3-4', text:'🟡 Tomates : acclimatation complète, prêtes à transplanter dès m06-w1', category:'entretien' },
+          { id:'m05-w3-5', text:'🔴 Poivrons (Gourmet + King) : journée complète, nuits dehors si T° > 10°C', category:'entretien' },
+          { id:'m05-w3-6', text:'🔴 Basilic : 4-6h soleil, rentrer le soir', category:'entretien' },
+          { id:'m05-w3-7', text:'🔴 Melon d\'eau : 2-4h mi-ombre, rester délicat — pots de tourbe non perturbés', category:'entretien' }
         ]},
         { id:'m05-w4', dateRange:'25–31 mai', startDate:'2026-05-25', endDate:'2026-05-31', duration:'2h', tasks:[
           { id:'m05-w4-0', text:'Semis direct : coriandre (section C bac arrière, zone 30×30 cm, 1 cm)', category:'semis' },
           { id:'m05-w4-1', text:'Semis direct : aneth (section C bac arrière, zone 30×30 cm, 0,5 cm)', category:'semis' },
           { id:'m05-w4-2', text:'Semis direct : camomille (plate-bande) + soucis (×20 plants, bordure des 2 bacs)', category:'semis' },
           { id:'m05-w4-3', text:'Transplanter basilic dehors (×4 plants bac maison intercalés entre tomates + ×3 plants bac à fleurs)', category:'transplantation' },
-          { id:'m05-w4-4', text:'Installer treillis melon + support pois de senteur', category:'preparation' }
+          { id:'m05-w4-4', text:'Installer treillis melon + support pois de senteur', category:'preparation' },
+          { id:'m05-w4-5', text:'🔴 Vérifier que basilic + melon ont 7-10 jours d\'acclimatation cumulés avant transplantation (m05-w4-3 et m06-w1-2)', category:'entretien' }
         ]}
       ]
     },

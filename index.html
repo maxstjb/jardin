@@ -5796,7 +5796,7 @@
     try {
       const { error } = await window.supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.href.split('#')[0] }
+        options: { emailRedirectTo: 'https://maxstjb.github.io/jardin/' }
       });
       if (error) throw error;
       msgEl.className = 'auth-modal-msg success';

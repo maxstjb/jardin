@@ -2270,6 +2270,53 @@
       margin-bottom: 1.5rem;
     }
 
+    .acclim-legend {
+      margin: 0 0 1.25rem;
+      padding: 0.85rem 1rem;
+      background: linear-gradient(135deg, rgba(168, 197, 114, 0.10) 0%, rgba(74, 144, 180, 0.08) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+    .acclim-legend-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.55rem;
+    }
+    .acclim-legend-row {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 0.5rem 0.75rem;
+      align-items: baseline;
+      padding: 0.35rem 0;
+      font-size: 0.85rem;
+      border-top: 1px dashed rgba(0,0,0,0.06);
+    }
+    .acclim-legend-row:first-of-type { border-top: none; padding-top: 0.1rem; }
+    .acclim-legend-tag {
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.3px;
+      grid-row: span 2;
+      align-self: center;
+      text-align: center;
+    }
+    .acclim-legend-label {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .acclim-legend-plants {
+      grid-column: 2;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+    @media (max-width: 540px) {
+      .acclim-legend-row { grid-template-columns: 42px 1fr; }
+    }
+
     .calendar-progress-overall {
       margin-top: 1rem;
     }
@@ -3508,27 +3555,27 @@
           { id:'m05-w1-7', text:'Semis direct : Pois Oregon Sugar Pod (plate-bande sur même treillis que pois de senteur, tremper 12h avant, 2-3 cm profond, espacer 5 cm)', category:'semis' },
           { id:'m05-w1-8', text:'Semis direct : Nielle Purple Queen (plate-bande, 0,5 cm, espacer 20 cm — tolère le froid)', category:'semis' },
           { id:'m05-w1-9', text:'Semis direct : Ciboulette de jardin (bordure bac maison près des carottes, 0,5 cm — vivace qui revient chaque année)', category:'semis' },
-          { id:'m05-w1-10', text:'🟢 Groupe A : 2-4h à mi-ombre les jours T° > 8°C. Rentrer le soir si nuit < 5°C', category:'entretien' },
-          { id:'m05-w1-11', text:'🟡 Groupe B (tomates + Poivron King) : 2-4h mi-ombre les jours T° > 12°C, rentrer le soir', category:'entretien' },
-          { id:'m05-w1-12', text:'🔴 Poivron Gourmet, basilic, melon, citrouilles : encore à l\'intérieur', category:'entretien' },
+          { id:'m05-w1-10', text:'🟢 Groupe A (brocoli + Plan B : laitues, soucis, camomille, pois de senteur) : 2-4h à mi-ombre les jours T° > 8°C. Rentrer le soir si nuit < 5°C', category:'entretien' },
+          { id:'m05-w1-11', text:'🟡 Groupe B (tomates Plourde + cerises + Poivron King) : 2-4h mi-ombre les jours T° > 12°C, rentrer le soir', category:'entretien' },
+          { id:'m05-w1-12', text:'🔴 Groupe C (Poivron Gourmet, basilic, melon, citrouilles) : encore à l\'intérieur', category:'entretien' },
           { id:'m05-w1-14', text:'🪴 Pot-up si rootbound : Basilic + Camomille + Soucis — 1×1×3" → 3" si racines visibles au fond ou plant > 3× la hauteur du pot.', category:'entretien' }
         ]},
         { id:'m05-w2', dateRange:'11–17 mai', startDate:'2026-05-11', endDate:'2026-05-17', duration:'1h30', tasks:[
           { id:'m05-w2-0', text:'⚠️ Si bac arrière monté : Semis direct betteraves (×5 plants, section B bac arrière, 2 cm). Sinon décaler.', category:'semis' },
-          { id:'m05-w2-3', text:'🟢 Groupe A : journée complète soleil partiel, peut rester dehors si nuit > 5°C — vérifier prêt à transplanter (m05-w2-1) ou DÉCALER de 1 sem. si nuits encore < 5°C', category:'entretien' },
-          { id:'m05-w2-4', text:'🟡 Tomates + Poivron King : 4-6h plein soleil, rentrer le soir', category:'entretien' },
-          { id:'m05-w2-5', text:'🔴 Poivron Gourmet : démarrage doux (1-2h ombre, T° > 13°C, rentrer le soir)', category:'entretien' },
-          { id:'m05-w2-6', text:'🔴 Basilic + melon + citrouilles : démarrage très doux (1-2h ombre, T° > 13°C, rentrer le soir)', category:'entretien' }
+          { id:'m05-w2-3', text:'🟢 Groupe A (brocoli + Plan B : laitues, soucis, camomille, pois de senteur) : journée complète soleil partiel, peut rester dehors si nuit > 5°C — vérifier prêt à transplanter (m05-w2-1 retiré, brocoli mort) ou DÉCALER de 1 sem. si nuits encore < 5°C', category:'entretien' },
+          { id:'m05-w2-4', text:'🟡 Groupe B (tomates Plourde + cerises + Poivron King) : 4-6h plein soleil, rentrer le soir', category:'entretien' },
+          { id:'m05-w2-5', text:'🔴 Groupe C — Poivron Gourmet : démarrage doux (1-2h ombre, T° > 13°C, rentrer le soir)', category:'entretien' },
+          { id:'m05-w2-6', text:'🔴 Groupe C — basilic + melon + citrouilles : démarrage très doux (1-2h ombre, T° > 13°C, rentrer le soir)', category:'entretien' }
         ]},
         { id:'m05-w3', dateRange:'18–24 mai', startDate:'2026-05-18', endDate:'2026-05-24', duration:'1h', tasks:[
           { id:'m05-w3-0', text:'2e vague laitue (×5 plants) + mesclun', category:'semis' },
           { id:'m05-w3-1', text:'Installer la cage tuteur Maxime : 4 poteaux 6 pi aux coins du bac maison + traverses haut + fil horticole tendu pour soutenir tomates', category:'preparation' },
           { id:'m05-w3-2', text:'Semis direct : Capucine Jewel (bordure sud bac maison avec les soucis, 1-2 cm — répulsive pucerons, compagne tomates/brocoli)', category:'semis' },
           { id:'m05-w3-3', text:'Semis direct : Cosmos Fizzy White (plate-bande ensoleillée, 0,5 cm, espacer 30 cm)', category:'semis' },
-          { id:'m05-w3-4', text:'🟡 Tomates + Poivron King : journée complète plein soleil, nuit dehors si T° > 8°C', category:'entretien' },
-          { id:'m05-w3-5', text:'🔴 Poivron Gourmet : 2-4h mi-ombre, rentrer le soir', category:'entretien' },
-          { id:'m05-w3-6', text:'🔴 Basilic + melon + citrouilles : 2-4h mi-ombre, rentrer le soir', category:'entretien' },
-          { id:'m05-w3-7', text:'🔴 RAPPEL : pots de tourbe / motte intacte pour melon + citrouilles, ne pas perturber les racines', category:'entretien' },
+          { id:'m05-w3-4', text:'🟡 Groupe B (tomates Plourde + cerises + Poivron King) : journée complète plein soleil, nuit dehors si T° > 8°C', category:'entretien' },
+          { id:'m05-w3-5', text:'🔴 Groupe C — Poivron Gourmet : 2-4h mi-ombre, rentrer le soir', category:'entretien' },
+          { id:'m05-w3-6', text:'🔴 Groupe C — basilic + melon + citrouilles : 2-4h mi-ombre, rentrer le soir', category:'entretien' },
+          { id:'m05-w3-7', text:'🔴 RAPPEL Groupe C : pots de tourbe / motte intacte pour melon + citrouilles, ne pas perturber les racines', category:'entretien' },
           { id:'m05-w3-8', text:'🪴 Pot-up si rootbound : Poivrons Gourmet + King (×4) — déjà en 3×2×4", vérifier racines au fond, pot-up en 5-6" si nécessaire. Transplant prévu m06-w1-1.', category:'entretien' }
         ]},
         { id:'m05-w4', dateRange:'25–31 mai', startDate:'2026-05-25', endDate:'2026-05-31', duration:'2h', tasks:[
@@ -3537,10 +3584,10 @@
           { id:'m05-w4-2', text:'Semis direct : camomille (plate-bande) + soucis (×20 plants, bordure des 2 bacs)', category:'semis' },
           { id:'m05-w4-3', text:'Transplanter basilic dehors (×4 plants bac maison intercalés entre tomates + ×3 plants bac à fleurs)', category:'transplantation' },
           { id:'m05-w4-4', text:'Installer treillis melon + support pois de senteur', category:'preparation' },
-          { id:'m05-w4-5', text:'🟡 Tomates + Poivron King : prêtes à transplanter (m06-w1-0)', category:'entretien' },
-          { id:'m05-w4-6', text:'🔴 Poivron Gourmet : 4-6h soleil, rentrer le soir si nuit < 10°C', category:'entretien' },
-          { id:'m05-w4-7', text:'🔴 Basilic : 4-6h soleil, rentrer le soir — vérifier 7-10 jours cumulés avant transplant m05-w4-3, sinon DÉCALER', category:'entretien' },
-          { id:'m05-w4-8', text:'🔴 Melon + citrouilles : 2-4h mi-ombre — vérifier 7-10 jours cumulés avant transplant m06-w1-2, sinon DÉCALER', category:'entretien' }
+          { id:'m05-w4-5', text:'🟡 Groupe B (tomates Plourde + cerises + Poivron King) : prêtes à transplanter (m06-w1-0)', category:'entretien' },
+          { id:'m05-w4-6', text:'🔴 Groupe C — Poivron Gourmet : 4-6h soleil, rentrer le soir si nuit < 10°C', category:'entretien' },
+          { id:'m05-w4-7', text:'🔴 Groupe C — basilic : 4-6h soleil, rentrer le soir — vérifier 7-10 jours cumulés avant transplant m05-w4-3, sinon DÉCALER', category:'entretien' },
+          { id:'m05-w4-8', text:'🔴 Groupe C — melon + citrouilles : 2-4h mi-ombre — vérifier 7-10 jours cumulés avant transplant m06-w1-2, sinon DÉCALER', category:'entretien' }
         ]}
       ]
     },
@@ -4450,6 +4497,25 @@
           <div class="calendar-progress-bar">
             <div class="calendar-progress-fill" id="global-progress-bar" style="width:0%"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="acclim-legend">
+        <div class="acclim-legend-title">🌡️ Acclimatation — groupes de tolérance</div>
+        <div class="acclim-legend-row">
+          <span class="acclim-legend-tag a">🟢 A</span>
+          <span class="acclim-legend-label">Froid OK · sortie facile</span>
+          <span class="acclim-legend-plants">Brocoli · laitues · soucis · camomille · pois de senteur</span>
+        </div>
+        <div class="acclim-legend-row">
+          <span class="acclim-legend-tag b">🟡 B</span>
+          <span class="acclim-legend-label">Sensible modéré · T° jour > 12°C</span>
+          <span class="acclim-legend-plants">Tomates Plourde + cerises mélange · Poivron King of the North</span>
+        </div>
+        <div class="acclim-legend-row">
+          <span class="acclim-legend-tag c">🔴 C</span>
+          <span class="acclim-legend-label">Très sensible · nuits stables > 10°C</span>
+          <span class="acclim-legend-plants">Poivron Gourmet · basilic · melon d'eau · citrouilles</span>
         </div>
       </div>
 

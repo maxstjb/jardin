@@ -2364,6 +2364,34 @@
       background: var(--cream);
       padding: 0.75rem 0;
       margin-bottom: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .calendar-month-header:hover .calendar-month-name { color: var(--green-deep); }
+
+    .calendar-month-toggle {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      transition: transform 0.25s ease;
+      transform: rotate(0deg);
+    }
+    .calendar-month.collapsed .calendar-month-toggle {
+      transform: rotate(-90deg);
+    }
+    .calendar-month-weeks {
+      transition: max-height 0.3s ease, opacity 0.2s ease;
+      overflow: hidden;
+    }
+    .calendar-month.collapsed .calendar-month-weeks {
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
     }
 
     .calendar-month-header::before {
@@ -4336,6 +4364,39 @@
   }
 
   /* ════════════════════
+     PLIAGE / DÉPLIAGE DES MOIS DU CALENDRIER
+  ════════════════════ */
+  function loadCollapsedMonths() {
+    try {
+      const saved = localStorage.getItem('jardin2026_collapsed_months');
+      if (saved !== null) return JSON.parse(saved) || [];
+    } catch {}
+    // Premier chargement : auto-plier les mois entièrement passés
+    const today = new Date();
+    const auto = [];
+    calendarData.forEach((month, mi) => {
+      const allPast = month.weeks.every(w => new Date(w.endDate + 'T23:59:59') < today);
+      if (allPast) auto.push(mi);
+    });
+    localStorage.setItem('jardin2026_collapsed_months', JSON.stringify(auto));
+    return auto;
+  }
+  function saveCollapsedMonths(arr) {
+    localStorage.setItem('jardin2026_collapsed_months', JSON.stringify(arr));
+    if (typeof scheduleSync === 'function') scheduleSync();
+  }
+  function toggleMonthCollapse(monthIndex) {
+    const arr = loadCollapsedMonths();
+    const idx = arr.indexOf(monthIndex);
+    if (idx >= 0) arr.splice(idx, 1);
+    else arr.push(monthIndex);
+    saveCollapsedMonths(arr);
+    // Toggle DOM directement (évite re-render complet)
+    const monthEl = document.querySelector(`.calendar-month[data-month-index="${monthIndex}"]`);
+    if (monthEl) monthEl.classList.toggle('collapsed');
+  }
+
+  /* ════════════════════
      AUTO-REPORT D'ACCLIMATATION
   ════════════════════ */
   function loadDeferrals() {
@@ -4624,17 +4685,21 @@
       }
     });
 
+    const collapsedMonths = loadCollapsedMonths();
     calendarData.forEach((month, mi) => {
+      const isCollapsed = collapsedMonths.includes(mi);
       html += `
-      <div class="calendar-month">
-        <div class="calendar-month-header">
+      <div class="calendar-month${isCollapsed ? ' collapsed' : ''}" data-month-index="${mi}">
+        <div class="calendar-month-header" data-toggle-month="${mi}">
           <div class="calendar-month-icon">${monthIcons[mi]}</div>
           <span class="calendar-month-name">${month.month}</span>
           <span class="calendar-month-progress" id="month-progress-${mi}">0/0</span>
           <div class="calendar-month-bar">
             <div class="calendar-month-bar-fill" id="month-bar-${mi}" style="width:0%"></div>
           </div>
-        </div>`;
+          <span class="calendar-month-toggle" aria-label="Plier/déplier">▼</span>
+        </div>
+        <div class="calendar-month-weeks">`;
 
       month.weeks.forEach(week => {
         const isCurrent = week.id === currentWeekId;
@@ -4731,7 +4796,7 @@
         </div>`;
       });
 
-      html += `</div>`;
+      html += `</div></div>`; // close .calendar-month-weeks then .calendar-month
     });
 
     container.innerHTML = html;
@@ -4755,6 +4820,15 @@
 
       updateProgress();
     }
+  });
+
+  // Click sur l'en-tête d'un mois → plier/déplier
+  document.getElementById('bed-calendrier').addEventListener('click', function(e) {
+    const header = e.target.closest('.calendar-month-header[data-toggle-month]');
+    if (!header) return;
+    const monthIndex = parseInt(header.dataset.toggleMonth, 10);
+    if (isNaN(monthIndex)) return;
+    toggleMonthCollapse(monthIndex);
   });
 
   /* ════════════════════
@@ -5798,7 +5872,8 @@
     'jardin2026_seeds_expanded',
     'jardin2026_amendments_expanded',
     'jardin2026_deferrals',
-    'jardin2026_defer_processed_weeks'
+    'jardin2026_defer_processed_weeks',
+    'jardin2026_collapsed_months'
   ];
 
   // Compile toutes les cles localStorage en un seul objet pour upload

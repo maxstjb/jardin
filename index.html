@@ -2270,6 +2270,48 @@
       margin-bottom: 1.5rem;
     }
 
+    .calendar-fab {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .calendar-fab.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .calendar-fab-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, background 0.2s;
+    }
+    .calendar-fab-btn:hover { transform: scale(1.06); }
+    .calendar-fab-btn.primary {
+      background: var(--blue);
+      color: var(--cream-light);
+      border-color: var(--blue);
+    }
+    .calendar-fab-btn.primary:hover { background: #3A8BAE; }
+
     .acclim-legend {
       margin: 0 0 1.25rem;
       padding: 0.85rem 1rem;
@@ -2709,6 +2751,12 @@
         </div>
         <div id="auth-modal-msg" class="auth-modal-msg"></div>
       </div>
+    </div>
+
+    <!-- Boutons flottants : retour en haut / aller à cette semaine -->
+    <div id="calendar-fab" class="calendar-fab" aria-hidden="true">
+      <button class="calendar-fab-btn primary" id="fab-current-week" title="Aller à cette semaine">📍</button>
+      <button class="calendar-fab-btn" id="fab-back-to-top" title="Retour en haut">↑</button>
     </div>
 
     <!-- Modal de report d'acclimatation (auto-trigger après semaine passée) -->
@@ -4830,6 +4878,37 @@
     if (isNaN(monthIndex)) return;
     toggleMonthCollapse(monthIndex);
   });
+
+  // FAB : retour en haut + aller à cette semaine
+  (function setupFab() {
+    const fab = document.getElementById('calendar-fab');
+    const btnCurrent = document.getElementById('fab-current-week');
+    const btnTop = document.getElementById('fab-back-to-top');
+    if (!fab || !btnCurrent || !btnTop) return;
+
+    btnCurrent.addEventListener('click', () => {
+      const el = document.querySelector('.calendar-week.current-week');
+      // Si le mois contenant la semaine courante est replié, on le déplie d'abord
+      if (el) {
+        const monthEl = el.closest('.calendar-month');
+        if (monthEl && monthEl.classList.contains('collapsed')) {
+          const idx = parseInt(monthEl.dataset.monthIndex, 10);
+          if (!isNaN(idx)) toggleMonthCollapse(idx);
+        }
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
+      }
+    });
+    btnTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    function updateFabVisibility() {
+      const onCalendar = document.getElementById('bed-calendrier').classList.contains('active');
+      const scrolled = window.scrollY > 300;
+      fab.classList.toggle('visible', onCalendar && scrolled);
+    }
+    window.addEventListener('scroll', updateFabVisibility, { passive: true });
+    document.querySelectorAll('.tab, .sub-tab').forEach(t => t.addEventListener('click', () => setTimeout(updateFabVisibility, 80)));
+    updateFabVisibility();
+  })();
 
   /* ════════════════════
      WEATHER (Open-Meteo API)

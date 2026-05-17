@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clôture anti-lapins · Jardin de Sainte-Thérèse</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Clôture lapins">
+  <meta name="theme-color" content="#2A5C45">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5EFE3;
+      --cream-light: #FAF6EF;
+      --cream-dark: #EDE5D4;
+      --green-deep: #2A5C45;
+      --green-mid: #3D8060;
+      --green-sage: #7BAE8E;
+      --green-light: #C3DDD0;
+      --gold: #C8943A;
+      --gold-light: #E8C07A;
+      --terra: #B84B2C;
+      --terra-light: #E07050;
+      --melon: #7FB87E;
+      --melon-stripe: #4A7C3E;
+      --text-primary: #1E1A14;
+      --text-secondary: #5A5245;
+      --text-muted: #9A8E80;
+      --border: #D8CFC0;
+      --border-light: #EBE4D6;
+      --white: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(42, 28, 10, 0.08);
+      --shadow-md: 0 4px 20px rgba(42, 28, 10, 0.12);
+      --shadow-lg: 0 8px 40px rgba(42, 28, 10, 0.16);
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .hero {
+      background: var(--green-deep);
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
+      color: var(--cream-light);
+    }
+    .hero-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--green-light);
+      text-decoration: none;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .hero-back:hover { opacity: 1; }
+    .hero-kicker {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.15;
+    }
+    .hero p {
+      font-style: italic;
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0.5rem auto 0;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .intro-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -30px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(127,184,126,0.15) 0%, transparent 70%);
+    }
+    .intro-why {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .why-item {
+      background: var(--cream);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--green-mid);
+    }
+    .why-item strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+      color: var(--green-deep);
+    }
+    .why-item span {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .section {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section p {
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section p.lead {
+      font-size: 1.02rem;
+      color: var(--text-primary);
+    }
+
+    .diagram-wrap {
+      background: var(--cream-light);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin: 1rem 0 1.25rem;
+      border: 1px solid var(--border-light);
+    }
+    .diagram-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .diagram-caption {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    .materials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .material {
+      background: var(--cream);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .material-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .material-body { flex: 1; }
+    .material-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    .material-detail {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .material-price {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--green-deep);
+      margin-top: 2px;
+    }
+
+    .steps {
+      list-style: none;
+      counter-reset: step;
+      margin-top: 1rem;
+    }
+    .step {
+      counter-increment: step;
+      position: relative;
+      padding: 0.85rem 1rem 0.85rem 3.25rem;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      margin-bottom: 0.5rem;
+    }
+    .step::before {
+      content: counter(step);
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--green-deep);
+      color: var(--cream-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    .step-title {
+      display: block;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+    .step-desc {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .tips {
+      list-style: none;
+      margin-top: 1rem;
+    }
+    .tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 0.7rem 0;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .tip:last-child { border-bottom: none; }
+    .tip-icon { font-size: 1.1rem; flex-shrink: 0; }
+    .tip-text {
+      flex: 1;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .tip-text strong { color: var(--text-primary); }
+
+    .callout {
+      background: linear-gradient(135deg, rgba(200,148,58,0.12), rgba(232,192,122,0.08));
+      border-left: 4px solid var(--gold);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .callout strong { color: var(--green-deep); }
+    .callout.info {
+      background: linear-gradient(135deg, rgba(74,144,180,0.10), rgba(127,184,126,0.06));
+      border-left-color: var(--green-mid);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+    .footer strong {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 2rem 1rem 1.5rem; }
+      .section { padding: 1.25rem 1.1rem; }
+      .step { padding-left: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <a href="index.html" class="hero-back">← Retour au plan de jardin</a>
+    <div class="hero-kicker">🐰 Guide pratique</div>
+    <h1>Clôture anti-lapins pour le bac arrière</h1>
+    <p>Une mini-clôture de 30 po vissée sur le mur 2×4 du bac, avec 2 portes d'accès pour entretien — protège des lapins, marmottes et petits rongeurs sans bloquer ton accès aux cultures.</p>
+  </header>
+
+  <main>
+
+    <!-- INTRO -->
+    <div class="intro-card">
+      <div class="section-label">Pourquoi une clôture verticale ?</div>
+      <h2 style="font-family:'Playfair Display',serif; font-size:1.35rem; font-weight:600; margin-bottom:0.5rem;">Le mur du bac (8 po) est trop bas pour les vrais coupables</h2>
+      <p>Les lapins sautent jusqu'à 24-36 po, les marmottes grimpent, les écureuils s'en moquent. Un mur de 8 po ne dissuade rien à lui seul. La solution : <strong>une clôture de 30 po vissée sur le haut du 2×4 du bac</strong> = environ 38 po de hauteur totale vs le sol, suffisant pour bloquer la grande majorité des indésirables sans avoir à enfouir quoi que ce soit.</p>
+      <div class="intro-why">
+        <div class="why-item">
+          <strong>Mur 8 po + géotextile</strong>
+          <span>Barrière enterrée → empêche le creusage par-dessous</span>
+        </div>
+        <div class="why-item">
+          <strong>Clôture 30 po vissée dessus</strong>
+          <span>Barrière verticale → empêche le saut et l'escalade</span>
+        </div>
+        <div class="why-item">
+          <strong>2 portes de 4 pi</strong>
+          <span>Accès facile pour semer, désherber, récolter</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAN VISUEL · VUE DE FACE -->
+    <section class="section">
+      <div class="section-label">Vue de face · Côté avant du bac (16 pi)</div>
+      <h2>Layout des sections et des portes</h2>
+      <p class="lead">Le côté avant du bac est divisé en <strong>5 sections</strong> : 2 portes ouvrantes de 4 pi chacune, séparées par des sections fixes pour la solidité.</p>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vue de face du bac arrière avec clôture et 2 portes">
+          <!-- Sol -->
+          <rect x="0" y="200" width="700" height="40" fill="#A07050" opacity="0.18"/>
+          <line x1="0" y1="200" x2="700" y2="200" stroke="#8B6344" stroke-width="0.8" stroke-dasharray="3 2"/>
+
+          <!-- Mur du bac (2×4 sur tranche, 8 po) -->
+          <rect x="30" y="170" width="640" height="30" fill="#A07050" opacity="0.6" stroke="#5C3F22" stroke-width="1"/>
+          <text x="350" y="190" text-anchor="middle" font-family="DM Sans" font-size="11" fill="#FFFFFF" font-weight="600">Bac arrière · mur 8 po (2×4 + 2×4)</text>
+
+          <!-- Clôture 30 po au-dessus -->
+          <!-- Section fixe gauche (2 pi) -->
+          <rect x="30" y="50" width="80" height="120" fill="none" stroke="#5C3F22" stroke-width="1.5"/>
+          <!-- Mailles -->
+          <g stroke="#7C5432" stroke-width="0.4" opacity="0.6">
+            <line x1="30" y1="65" x2="110" y2="65"/>
+            <line x1="30" y1="80" x2="110" y2="80"/>
+            <line x1="30" y1="95" x2="110" y2="95"/>
+            <line x1="30" y1="110" x2="110" y2="110"/>
+            <line x1="30" y1="125" x2="110" y2="125"/>
+            <line x1="30" y1="140" x2="110" y2="140"/>
+            <line x1="30" y1="155" x2="110" y2="155"/>
+            <line x1="45" y1="50" x2="45" y2="170"/>
+            <line x1="60" y1="50" x2="60" y2="170"/>
+            <line x1="75" y1="50" x2="75" y2="170"/>
+            <line x1="90" y1="50" x2="90" y2="170"/>
+          </g>
+          <text x="70" y="40" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#5A5245">fixe · 2 pi</text>
+
+          <!-- PORTE 1 (4 pi) -->
+          <rect x="110" y="50" width="160" height="120" fill="#C8943A" opacity="0.15" stroke="#C8943A" stroke-width="2"/>
+          <g stroke="#A87A1A" stroke-width="0.5" opacity="0.7">
+            <line x1="110" y1="65" x2="270" y2="65"/>
+            <line x1="110" y1="80" x2="270" y2="80"/>
+            <line x1="110" y1="95" x2="270" y2="95"/>
+            <line x1="110" y1="110" x2="270" y2="110"/>
+            <line x1="110" y1="125" x2="270" y2="125"/>
+            <line x1="110" y1="140" x2="270" y2="140"/>
+            <line x1="110" y1="155" x2="270" y2="155"/>
+            <line x1="125" y1="50" x2="125" y2="170"/>
+            <line x1="140" y1="50" x2="140" y2="170"/>
+            <line x1="155" y1="50" x2="155" y2="170"/>
+            <line x1="170" y1="50" x2="170" y2="170"/>
+            <line x1="185" y1="50" x2="185" y2="170"/>
+            <line x1="200" y1="50" x2="200" y2="170"/>
+            <line x1="215" y1="50" x2="215" y2="170"/>
+            <line x1="230" y1="50" x2="230" y2="170"/>
+            <line x1="245" y1="50" x2="245" y2="170"/>
+            <line x1="260" y1="50" x2="260" y2="170"/>
+          </g>
+          <!-- Charnières porte 1 (côté gauche) -->
+          <circle cx="115" cy="65" r="3" fill="#3D8060"/>
+          <circle cx="115" cy="155" r="3" fill="#3D8060"/>
+          <!-- Loquet porte 1 (côté droit) -->
+          <rect x="262" y="105" width="10" height="10" fill="#B84B2C"/>
+          <text x="190" y="40" text-anchor="middle" font-family="DM Sans" font-size="10" font-weight="700" fill="#A87A1A">PORTE 1 · 4 pi</text>
+
+          <!-- Section fixe centrale (4 pi) -->
+          <rect x="270" y="50" width="160" height="120" fill="none" stroke="#5C3F22" stroke-width="1.5"/>
+          <g stroke="#7C5432" stroke-width="0.4" opacity="0.6">
+            <line x1="270" y1="65" x2="430" y2="65"/>
+            <line x1="270" y1="80" x2="430" y2="80"/>
+            <line x1="270" y1="95" x2="430" y2="95"/>
+            <line x1="270" y1="110" x2="430" y2="110"/>
+            <line x1="270" y1="125" x2="430" y2="125"/>
+            <line x1="270" y1="140" x2="430" y2="140"/>
+            <line x1="270" y1="155" x2="430" y2="155"/>
+            <line x1="285" y1="50" x2="285" y2="170"/>
+            <line x1="300" y1="50" x2="300" y2="170"/>
+            <line x1="315" y1="50" x2="315" y2="170"/>
+            <line x1="330" y1="50" x2="330" y2="170"/>
+            <line x1="345" y1="50" x2="345" y2="170"/>
+            <line x1="360" y1="50" x2="360" y2="170"/>
+            <line x1="375" y1="50" x2="375" y2="170"/>
+            <line x1="390" y1="50" x2="390" y2="170"/>
+            <line x1="405" y1="50" x2="405" y2="170"/>
+            <line x1="420" y1="50" x2="420" y2="170"/>
+          </g>
+          <text x="350" y="40" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#5A5245">fixe · 4 pi (poteau central)</text>
+
+          <!-- PORTE 2 (4 pi) -->
+          <rect x="430" y="50" width="160" height="120" fill="#C8943A" opacity="0.15" stroke="#C8943A" stroke-width="2"/>
+          <g stroke="#A87A1A" stroke-width="0.5" opacity="0.7">
+            <line x1="430" y1="65" x2="590" y2="65"/>
+            <line x1="430" y1="80" x2="590" y2="80"/>
+            <line x1="430" y1="95" x2="590" y2="95"/>
+            <line x1="430" y1="110" x2="590" y2="110"/>
+            <line x1="430" y1="125" x2="590" y2="125"/>
+            <line x1="430" y1="140" x2="590" y2="140"/>
+            <line x1="430" y1="155" x2="590" y2="155"/>
+            <line x1="445" y1="50" x2="445" y2="170"/>
+            <line x1="460" y1="50" x2="460" y2="170"/>
+            <line x1="475" y1="50" x2="475" y2="170"/>
+            <line x1="490" y1="50" x2="490" y2="170"/>
+            <line x1="505" y1="50" x2="505" y2="170"/>
+            <line x1="520" y1="50" x2="520" y2="170"/>
+            <line x1="535" y1="50" x2="535" y2="170"/>
+            <line x1="550" y1="50" x2="550" y2="170"/>
+            <line x1="565" y1="50" x2="565" y2="170"/>
+            <line x1="580" y1="50" x2="580" y2="170"/>
+          </g>
+          <!-- Charnières porte 2 (côté droit) -->
+          <circle cx="585" cy="65" r="3" fill="#3D8060"/>
+          <circle cx="585" cy="155" r="3" fill="#3D8060"/>
+          <!-- Loquet porte 2 (côté gauche) -->
+          <rect x="428" y="105" width="10" height="10" fill="#B84B2C"/>
+          <text x="510" y="40" text-anchor="middle" font-family="DM Sans" font-size="10" font-weight="700" fill="#A87A1A">PORTE 2 · 4 pi</text>
+
+          <!-- Section fixe droite (2 pi) -->
+          <rect x="590" y="50" width="80" height="120" fill="none" stroke="#5C3F22" stroke-width="1.5"/>
+          <g stroke="#7C5432" stroke-width="0.4" opacity="0.6">
+            <line x1="590" y1="65" x2="670" y2="65"/>
+            <line x1="590" y1="80" x2="670" y2="80"/>
+            <line x1="590" y1="95" x2="670" y2="95"/>
+            <line x1="590" y1="110" x2="670" y2="110"/>
+            <line x1="590" y1="125" x2="670" y2="125"/>
+            <line x1="590" y1="140" x2="670" y2="140"/>
+            <line x1="590" y1="155" x2="670" y2="155"/>
+            <line x1="605" y1="50" x2="605" y2="170"/>
+            <line x1="620" y1="50" x2="620" y2="170"/>
+            <line x1="635" y1="50" x2="635" y2="170"/>
+            <line x1="650" y1="50" x2="650" y2="170"/>
+          </g>
+          <text x="630" y="40" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#5A5245">fixe · 2 pi</text>
+
+          <!-- Dimensions verticales -->
+          <line x1="15" y1="50" x2="15" y2="170" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2 2"/>
+          <polygon points="15,50 12,55 18,55" fill="#B84B2C"/>
+          <polygon points="15,170 12,165 18,165" fill="#B84B2C"/>
+          <text x="10" y="115" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#B84B2C" font-weight="700" transform="rotate(-90 10 115)">30 po</text>
+
+          <line x1="15" y1="170" x2="15" y2="200" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="10" y="188" text-anchor="middle" font-family="DM Sans" font-size="8" font-style="italic" fill="#B84B2C" font-weight="700" transform="rotate(-90 10 188)">8 po</text>
+
+          <!-- Dimension totale horizontale -->
+          <line x1="30" y1="220" x2="670" y2="220" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2 2"/>
+          <polygon points="30,220 35,217 35,223" fill="#B84B2C"/>
+          <polygon points="670,220 665,217 665,223" fill="#B84B2C"/>
+          <text x="350" y="235" text-anchor="middle" font-family="DM Sans" font-size="10" font-style="italic" fill="#B84B2C" font-weight="700">16 pi de longueur</text>
+
+          <!-- Légende -->
+          <circle cx="40" cy="15" r="3" fill="#3D8060"/>
+          <text x="48" y="18" font-family="DM Sans" font-size="9" fill="#5A5245">Charnières</text>
+          <rect x="115" y="11" width="8" height="8" fill="#B84B2C"/>
+          <text x="128" y="18" font-family="DM Sans" font-size="9" fill="#5A5245">Loquet / crochet</text>
+        </svg>
+      </div>
+      <p class="diagram-caption">Vue de face du bac (côté sud où on accède normalement). Layout symétrique : 2 pi fixe – 4 pi porte – 4 pi fixe – 4 pi porte – 2 pi fixe = 16 pi.</p>
+    </section>
+
+    <!-- COUPE LATÉRALE -->
+    <section class="section">
+      <div class="section-label">Coupe latérale · Hauteurs totales</div>
+      <h2>Comment la clôture s'attache au mur</h2>
+      <p>La clôture est <strong>vissée directement sur le haut du 2×4</strong> qui forme le mur du bac, avec des cavaliers galvanisés (staples) ou des vis à bois courtes. Pas besoin d'enfouir ni de plier — le mur 8 po + le géotextile dessous font déjà la barrière anti-creusage.</p>
+      <div class="diagram-wrap">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coupe latérale montrant mur du bac et clôture par-dessus">
+          <!-- Sol naturel -->
+          <rect x="0" y="270" width="400" height="50" fill="#7C5432" opacity="0.25"/>
+          <text x="20" y="290" font-family="DM Sans" font-size="9" fill="#5A5245" font-style="italic">sol naturel</text>
+
+          <!-- Géotextile (en dessous du bac, dans le sol) -->
+          <line x1="100" y1="270" x2="300" y2="270" stroke="#9A8E80" stroke-width="2" stroke-dasharray="4 2"/>
+          <text x="200" y="288" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#9A8E80">géotextile · anti-creusage par-dessous</text>
+
+          <!-- Mur du bac (2 planches 2×4 empilées = 8 po) -->
+          <rect x="100" y="218" width="200" height="52" fill="#A07050" stroke="#5C3F22" stroke-width="1.5"/>
+          <line x1="100" y1="244" x2="300" y2="244" stroke="#5C3F22" stroke-width="0.6" stroke-dasharray="3 2"/>
+          <text x="200" y="237" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#FFFFFF">2×4 du haut</text>
+          <text x="200" y="262" text-anchor="middle" font-family="DM Sans" font-size="9" fill="#FFFFFF">2×4 du bas</text>
+
+          <!-- Terre + compost dans le bac -->
+          <rect x="100" y="218" width="200" height="52" fill="none"/>
+          <g opacity="0.4">
+            <circle cx="120" cy="245" r="2" fill="#5C3F22"/>
+            <circle cx="145" cy="252" r="2" fill="#5C3F22"/>
+            <circle cx="180" cy="240" r="2" fill="#5C3F22"/>
+            <circle cx="220" cy="250" r="2" fill="#5C3F22"/>
+            <circle cx="260" cy="245" r="2" fill="#5C3F22"/>
+            <circle cx="285" cy="255" r="2" fill="#5C3F22"/>
+          </g>
+
+          <!-- Clôture (grillage 1×1") posée sur le haut du mur -->
+          <rect x="100" y="98" width="200" height="120" fill="none" stroke="#5C3F22" stroke-width="1.5"/>
+          <g stroke="#7C5432" stroke-width="0.5" opacity="0.7">
+            <line x1="100" y1="113" x2="300" y2="113"/>
+            <line x1="100" y1="128" x2="300" y2="128"/>
+            <line x1="100" y1="143" x2="300" y2="143"/>
+            <line x1="100" y1="158" x2="300" y2="158"/>
+            <line x1="100" y1="173" x2="300" y2="173"/>
+            <line x1="100" y1="188" x2="300" y2="188"/>
+            <line x1="100" y1="203" x2="300" y2="203"/>
+            <line x1="115" y1="98" x2="115" y2="218"/>
+            <line x1="130" y1="98" x2="130" y2="218"/>
+            <line x1="145" y1="98" x2="145" y2="218"/>
+            <line x1="160" y1="98" x2="160" y2="218"/>
+            <line x1="175" y1="98" x2="175" y2="218"/>
+            <line x1="190" y1="98" x2="190" y2="218"/>
+            <line x1="205" y1="98" x2="205" y2="218"/>
+            <line x1="220" y1="98" x2="220" y2="218"/>
+            <line x1="235" y1="98" x2="235" y2="218"/>
+            <line x1="250" y1="98" x2="250" y2="218"/>
+            <line x1="265" y1="98" x2="265" y2="218"/>
+            <line x1="280" y1="98" x2="280" y2="218"/>
+          </g>
+          <text x="200" y="88" text-anchor="middle" font-family="DM Sans" font-size="10" font-weight="700" fill="#5A5245">grillage 1×1" galvanisé, 30 po</text>
+
+          <!-- Cavaliers / vis à la jonction -->
+          <g fill="#B84B2C">
+            <rect x="105" y="215" width="6" height="5"/>
+            <rect x="150" y="215" width="6" height="5"/>
+            <rect x="200" y="215" width="6" height="5"/>
+            <rect x="250" y="215" width="6" height="5"/>
+            <rect x="289" y="215" width="6" height="5"/>
+          </g>
+          <text x="350" y="220" font-family="DM Sans" font-size="9" fill="#B84B2C" font-weight="700">cavaliers</text>
+          <line x1="345" y1="218" x2="295" y2="218" stroke="#B84B2C" stroke-width="0.6"/>
+
+          <!-- Dimensions -->
+          <line x1="85" y1="98" x2="85" y2="218" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2 2"/>
+          <polygon points="85,98 82,103 88,103" fill="#B84B2C"/>
+          <polygon points="85,218 82,213 88,213" fill="#B84B2C"/>
+          <text x="60" y="160" text-anchor="middle" font-family="DM Sans" font-size="10" font-style="italic" fill="#B84B2C" font-weight="700">30 po</text>
+
+          <line x1="85" y1="218" x2="85" y2="270" stroke="#B84B2C" stroke-width="1" stroke-dasharray="2 2"/>
+          <polygon points="85,218 82,223 88,223" fill="#B84B2C"/>
+          <polygon points="85,270 82,265 88,265" fill="#B84B2C"/>
+          <text x="60" y="248" text-anchor="middle" font-family="DM Sans" font-size="10" font-style="italic" fill="#B84B2C" font-weight="700">8 po</text>
+
+          <!-- Total -->
+          <line x1="320" y1="98" x2="320" y2="270" stroke="#3D8060" stroke-width="1" stroke-dasharray="3 2"/>
+          <polygon points="320,98 317,103 323,103" fill="#3D8060"/>
+          <polygon points="320,270 317,265 323,265" fill="#3D8060"/>
+          <text x="345" y="187" text-anchor="middle" font-family="DM Sans" font-size="11" font-weight="700" fill="#3D8060">~38 po</text>
+          <text x="345" y="200" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#3D8060">total vs sol</text>
+
+          <!-- Lapin pour échelle -->
+          <g transform="translate(40, 235)">
+            <ellipse cx="0" cy="20" rx="14" ry="9" fill="#9A8E80"/>
+            <circle cx="-10" cy="13" r="5" fill="#9A8E80"/>
+            <ellipse cx="-13" cy="6" rx="1.5" ry="4" fill="#9A8E80"/>
+            <ellipse cx="-9" cy="6" rx="1.5" ry="4" fill="#9A8E80"/>
+            <circle cx="-12" cy="13" r="0.5" fill="#1E1A14"/>
+          </g>
+          <text x="40" y="276" text-anchor="middle" font-family="DM Sans" font-size="9" font-style="italic" fill="#9A8E80">🐰 nope</text>
+        </svg>
+      </div>
+      <p class="diagram-caption">Coupe latérale. La clôture de 30 po + le mur 8 po = ~38 po total vs le sol, suffisant pour un lapin (saute max 24-36 po). Cavaliers galvanisés tous les ~30 cm sur le haut du 2×4.</p>
+    </section>
+
+    <!-- MATÉRIAUX -->
+    <section class="section">
+      <div class="section-label">Liste d'achats</div>
+      <h2>Ce qu'il te faut</h2>
+      <div class="materials">
+        <div class="material">
+          <div class="material-icon">🔲</div>
+          <div class="material-body">
+            <div class="material-name">Grillage galvanisé 1×1"</div>
+            <div class="material-detail">Rouleau 30" × 50 pi (couvre le périmètre de 40 pi + portes). Idéalement « hardware cloth » 1×1" ou ½×½" si tu veux aussi bloquer les rongeurs.</div>
+            <div class="material-price">~40-55 $ · Rona, Home Depot, TSC</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">🪛</div>
+          <div class="material-body">
+            <div class="material-name">Cavaliers galvanisés (staples) ou vis à bois courtes</div>
+            <div class="material-detail">Pour fixer le grillage au haut du 2×4. Cavaliers 1" (boîte de 100) ou vis à tête plate 1" avec rondelles.</div>
+            <div class="material-price">~5-10 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">🚪</div>
+          <div class="material-body">
+            <div class="material-name">Bois 1×3 ou 1×2 pour cadres de portes</div>
+            <div class="material-detail">2 cadres rectangulaires de 4 pi × 30 po = environ 4 longueurs de 8 pi de 1×3. Pin traité ou cèdre selon budget.</div>
+            <div class="material-price">~15-20 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">🔩</div>
+          <div class="material-body">
+            <div class="material-name">Charnières galvanisées</div>
+            <div class="material-detail">4 charnières en T ou plates (2 par porte), capacité 15-20 kg minimum. Vis incluses ou à part.</div>
+            <div class="material-price">~10-15 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">🔒</div>
+          <div class="material-body">
+            <div class="material-name">Loquets / crochets de fermeture</div>
+            <div class="material-detail">2 loquets à crochet galvanisés (1 par porte). Type « gate hook » ou loquet à bascule simple.</div>
+            <div class="material-price">~6-10 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">📐</div>
+          <div class="material-body">
+            <div class="material-name">Équerres / coins métal</div>
+            <div class="material-detail">4-6 équerres pour renforcer les coins du bac (où la clôture tourne à 90°). Optionnel mais aide à la solidité.</div>
+            <div class="material-price">~12-20 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">🪚</div>
+          <div class="material-body">
+            <div class="material-name">Pinces coupe-grillage (bolt cutters ou pince à grillage)</div>
+            <div class="material-detail">Pour couper le grillage à la bonne longueur. Si tu n'en as pas, emprunte-en — pas nécessaire d'acheter pour 1 projet.</div>
+            <div class="material-price">~0-25 $</div>
+          </div>
+        </div>
+        <div class="material">
+          <div class="material-icon">📏</div>
+          <div class="material-body">
+            <div class="material-name">Vis à bois 1,5" tête plate</div>
+            <div class="material-detail">Pour assembler les cadres de portes + fixer les charnières au 2×4 du bac.</div>
+            <div class="material-price">~5-10 $</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>💰 Budget total estimé : 85-125 $</strong> — pour une protection qui dure 10-15 ans. Si tu utilises déjà du grillage ½" en stock (hardware cloth), tu sauves ~50 $.
+      </div>
+    </section>
+
+    <!-- ÉTAPES -->
+    <section class="section">
+      <div class="section-label">Montage · 2-3 heures à 2 personnes</div>
+      <h2>Étape par étape</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-title">Mesurer et marquer les sections sur le 2×4</span>
+          <span class="step-desc">Sur le côté avant (16 pi), marque au crayon : 0 pi → 2 pi (fixe), 2 → 6 pi (porte 1), 6 → 10 pi (fixe centrale), 10 → 14 pi (porte 2), 14 → 16 pi (fixe). Les coins sont automatiquement fixes.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Couper le grillage aux bonnes longueurs</span>
+          <span class="step-desc">Pour le périmètre fixe : déroule, mesure, coupe avec les pinces coupe-grillage. Sections nécessaires : 2 longueurs de 16 pi (avant et arrière, avec 2 espaces de 4 pi à laisser pour les portes du côté avant) + 2 longueurs de 4 pi (côtés gauche et droit). Garde 2 morceaux de 4 pi × 30" pour les portes elles-mêmes.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Fixer le grillage des sections fixes au 2×4</span>
+          <span class="step-desc">Aux 3 sections fixes du côté avant (2 pi + 4 pi + 2 pi), aux 2 côtés (4 pi chacun), et tout le côté arrière (16 pi continu) : appuie le grillage contre le 2×4, le bas du grillage au ras du dessus du 2×4, et fixe avec des cavaliers ou des vis à rondelles tous les ~30 cm. Tends bien à chaque fixation.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Renforcer les coins du bac</span>
+          <span class="step-desc">Aux 4 coins du bac, plie ou superpose le grillage à 90° et fixe avec des équerres métal + vis. Ça empêche le grillage de s'écarter avec le temps.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Construire les 2 cadres de portes en 1×3</span>
+          <span class="step-desc">Coupe 8 longueurs : 4× 4 pi (haut et bas de chaque porte) et 4× 30" (côtés). Assemble en rectangle avec 2 vis à chaque coin. Le cadre fini doit faire ~4 pi × 30 po. Optionnel : ajoute une diagonale en croix pour rigidifier.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Vissé le grillage sur chaque cadre de porte</span>
+          <span class="step-desc">Pose le morceau de grillage 4 pi × 30" sur un cadre, ajuste pour que le grillage déborde de 1 cm sur les bords, fixe avec cavaliers tous les ~15 cm. Répète pour la 2e porte.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Installer les charnières sur le 2×4 du bac</span>
+          <span class="step-desc">Pour chaque porte, fixe 2 charnières sur le côté qui va s'ouvrir : porte 1 = charnières à gauche (à la marque 2 pi), porte 2 = charnières à droite (à la marque 14 pi). Visse d'abord les charnières au 2×4, puis pose le cadre de porte et visse l'autre côté de la charnière au cadre.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Poser les loquets / crochets de fermeture</span>
+          <span class="step-desc">Côté opposé aux charnières de chaque porte : visse le loquet sur la section fixe centrale et le crochet sur le cadre de la porte (ou inversement selon le modèle). Teste l'ouverture/fermeture, ajuste si nécessaire.</span>
+        </li>
+        <li class="step">
+          <span class="step-title">Tester et ajuster</span>
+          <span class="step-desc">Ouvre et ferme chaque porte plusieurs fois. Vérifie qu'il n'y a pas d'espace de plus de 1" entre les sections (un lapin déterminé peut passer dans 1,5"). Resserre les vis si une partie bouge.</span>
+        </li>
+      </ol>
+    </section>
+
+    <!-- TRUCS -->
+    <section class="section">
+      <div class="section-label">Vivre avec la clôture</div>
+      <h2>Entretien et petits trucs</h2>
+      <ul class="tips">
+        <li class="tip">
+          <span class="tip-icon">🔧</span>
+          <span class="tip-text"><strong>Vérification annuelle (avril ou octobre) :</strong> inspecte les vis, les cavaliers et les charnières. Le galvanisé tient 10+ ans mais le bois autour peut bouger avec le gel/dégel.</span>
+        </li>
+        <li class="tip">
+          <span class="tip-icon">🐌</span>
+          <span class="tip-text"><strong>Bonus limaces :</strong> colle une bande de cuivre adhésif (~5 $/m chez le quincailler) sur le haut du 2×4 — les limaces refusent de traverser le cuivre par réaction électrolytique. Combiné à la clôture, ça fait un bouclier complet.</span>
+        </li>
+        <li class="tip">
+          <span class="tip-icon">🌿</span>
+          <span class="tip-text"><strong>Compagnons répulsifs en bordure :</strong> soucis, capucines, ciboulette et menthe (en pot pour éviter qu'elle prenne tout) plantés autour du bac découragent encore plus les lapins. Tu en as déjà beaucoup ✅</span>
+        </li>
+        <li class="tip">
+          <span class="tip-icon">⚠️</span>
+          <span class="tip-text"><strong>Attention aux écureuils :</strong> ils sautent par-dessus n'importe quelle clôture de 30 po. Pour les protéger de tes tomates et melons, c'est un filet anti-oiseaux dessus qu'il faut (saisonnier, à poser quand les fruits commencent à mûrir).</span>
+        </li>
+        <li class="tip">
+          <span class="tip-icon">🦫</span>
+          <span class="tip-text"><strong>Si tu vois une marmotte malgré tout :</strong> elles peuvent creuser à l'extérieur du bac et tenter de soulever le géotextile. Si ça arrive, ajoute des roches lourdes ou des blocs de béton à la base extérieure du bac pour bloquer le creusage.</span>
+        </li>
+        <li class="tip">
+          <span class="tip-icon">❄️</span>
+          <span class="tip-text"><strong>Hivernage :</strong> aucun besoin de démonter à l'automne. Le grillage et le bois traité résistent au gel. Si tu prévois pailler les bacs ou les couvrir d'une bâche, fais-le par-dessus la clôture.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- SOURCES -->
+    <section class="section">
+      <div class="section-label">Références</div>
+      <h2>📚 Sources et inspirations</h2>
+      <ul style="list-style: none; padding: 0; margin: 1rem 0;">
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--border-light);">
+          <strong>🐰 Espace pour la vie · Jardin botanique de Montréal</strong><br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Fiches sur la cohabitation avec les lapins à queue blanche et les techniques d'exclusion. <a href="https://espacepourlavie.ca/" style="color: var(--green-mid);">espacepourlavie.ca</a></span>
+        </li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--border-light);">
+          <strong>🌿 Jardinier Paresseux (Larry Hodgson)</strong><br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Articles sur la protection du potager contre les nuisibles : grillage, hauteur recommandée, compagnonnage répulsif. <a href="https://jardinierparesseux.com/" style="color: var(--green-mid);">jardinierparesseux.com</a></span>
+        </li>
+        <li style="padding: 8px 0; border-bottom: 1px dashed var(--border-light);">
+          <strong>🏪 Rona, Home Depot, TSC Stores</strong><br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Grillage galvanisé 1×1" en rouleau 30" × 50 pi, cavaliers galvanisés, charnières en T. <a href="https://www.rona.ca/" style="color: var(--green-mid);">rona.ca</a></span>
+        </li>
+        <li style="padding: 8px 0;">
+          <strong>🛠️ Princess Auto</strong><br>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Outils (pinces coupe-grillage, marteau, agrafeuse à clous), serre-câbles, équerres métalliques. <a href="https://www.princessauto.com/" style="color: var(--green-mid);">princessauto.com</a></span>
+        </li>
+      </ul>
+      <div class="callout info">
+        <strong>📝 Important :</strong> la clôture 30 po + mur 8 po = ~38 po est <em>très</em> efficace contre les lapins (saut max documenté 24-36 po) et les marmottes (~12-18 po sans élan). Elle ne protège <strong>pas</strong> contre les écureuils, les ratons laveurs ou les chevreuils — pour ceux-là, un filet sur les fruits ou une électrification basse-tension peut être nécessaire en complément.
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>🐰 Bac arrière protégé</strong> · 16 × 4 pi · Hauteur mur 8 po + clôture 30 po · Zone 5b
+  </footer>
+
+</body>
+</html>
